@@ -4,7 +4,17 @@
 node_modules
 .pnp
 .pnp.js
+.pnp.*
 .pnpm-store
+
+# Package manager cache
+.npm
+.npmrc.local
+npm-shrinkwrap.json
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
 
 # Local env files
 .env
