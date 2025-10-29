@@ -1,0 +1,67 @@
+{
+    "status": {
+        "title": "Feature Status",
+        "description": "Control the enable status of Coze package management feature"
+    },
+    "explain": {
+        "title": "Package Description",
+        "description": "Set usage instructions and notes for Coze packages",
+        "placeholder": "Please enter Coze package description..."
+    },
+    "rules": {
+        "title": "Package Rules Management"
+    },
+    "table": {
+        "name": "Package Name",
+        "description": "Package Description",
+        "duration": "Duration (Days)",
+        "originalPrice": "Original Price ($)",
+        "currentPrice": "Current Price ($)",
+        "status": "Status",
+        "action": "Action",
+        "namePlaceholder": "Enter package name",
+        "descriptionPlaceholder": "Enter package description",
+        "durationPlaceholder": "Duration in days",
+        "originalPricePlaceholder": "Original price",
+        "currentPricePlaceholder": "Current price",
+        "durationUnit": "Days",
+        "priceUnit": "$"
+    },
+    "button": {
+        "new": "New Package",
+        "save": "Save",
+        "delete": "Delete",
+        "edit": "Edit",
+        "enable": "Enable",
+        "disable": "Disable"
+    },
+    "message": {
+        "saveSuccess": "Save successful",
+        "saveFailed": "Save failed",
+        "getConfigFailed": "Failed to get configuration",
+        "statusUpdateSuccess": "Status updated successfully",
+        "statusUpdateFailed": "Status update failed",
+        "deleteSuccess": "Delete successful",
+        "deleteFailed": "Delete failed",
+        "createSuccess": "Create successful",
+        "createFailed": "Create failed",
+        "updateSuccess": "Update successful",
+        "updateFailed": "Update failed"
+    },
+    "confirm": {
+        "deleteTitle": "Confirm Delete",
+        "deleteMessage": "Are you sure you want to delete this package? This action cannot be undone.",
+        "batchDeleteTitle": "Batch Delete",
+        "batchDeleteMessage": "Are you sure you want to delete selected packages? This action cannot be undone."
+    },
+    "validation": {
+        "nameRequired": "Package name is required",
+        "descriptionRequired": "Package description is required",
+        "durationRequired": "Duration is required",
+        "durationMin": "Duration cannot be less than 1 day",
+        "originalPriceRequired": "Original price is required",
+        "originalPriceMin": "Original price cannot be less than 0",
+        "currentPriceRequired": "Current price is required",
+        "currentPriceMin": "Current price cannot be less than 0"
+    }
+}

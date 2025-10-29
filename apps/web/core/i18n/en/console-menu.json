@@ -67,7 +67,8 @@
         "title": "Users",
         "userList": "User List",
         "userInfo": "User Info",
-        "userRecharge": "Top-up"
+        "userRecharge": "Top-up",
+        "cozePackage": "Coze Package"
     },
     "diyCenter": {
         "title": "DIY Center",

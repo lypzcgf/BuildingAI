@@ -5,6 +5,7 @@
             "@/*": ["./*"],
             "~/*": ["./*"],
             "@plugins/*": ["./plugins/*"],
+            "@fastbuildai/ui": ["../../packages/ui/src"],
             "@fastbuildai/ui/*": ["../../packages/ui/src/*"],
             "@fastbuildai/ui/components/*": ["../../packages/ui/src/components/*"],
             "@fastbuildai/http": ["../../packages/http/src"],

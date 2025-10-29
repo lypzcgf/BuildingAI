@@ -755,7 +755,9 @@ export class DatabaseInitService implements OnModuleInit {
             // 读取 package.json 获取当前版本号
             const currentVersion = await this.getCurrentVersion();
 
-            if (!currentVersion) {
+            this.logger.log(`🔍 Version check - Current version: ${currentVersion}`);
+
+            if (!currentVersion || currentVersion === "unknown") {
                 this.logger.warn("⚠️ Failed to get version from package.json");
                 return;
             }
@@ -764,7 +766,11 @@ export class DatabaseInitService implements OnModuleInit {
             const versionsDir = path.join(process.cwd(), "data", "versions");
             const versionFilePath = path.join(versionsDir, currentVersion);
 
+            this.logger.debug(`🔍 Checking version file: ${versionFilePath}`);
+
             const versionFileExists = await fse.pathExists(versionFilePath);
+
+            this.logger.debug(`🔍 Version file exists: ${versionFileExists}`);
 
             if (versionFileExists) {
                 this.logger.log(`✅ No upgrade needed: ${currentVersion}`);
@@ -874,9 +880,23 @@ export class DatabaseInitService implements OnModuleInit {
 
     private async getCurrentVersion(): Promise<string> {
         try {
-            const packageJsonPath = path.join(process.cwd(), "..", "..", "package.json");
-            const packageJson = await fse.readJson(packageJsonPath);
-            return packageJson.version;
+            // 尝试多个可能的路径来读取 apps/server/package.json
+            const possiblePaths = [
+                path.join(process.cwd(), "package.json"), // 在 apps/server 目录下运行
+                path.join(process.cwd(), "apps/server/package.json"), // 在项目根目录下运行
+                path.join(__dirname, "../../../package.json"), // 编译后的路径
+            ];
+
+            for (const packageJsonPath of possiblePaths) {
+                if (await fse.pathExists(packageJsonPath)) {
+                    this.logger.debug(`Reading version from: ${packageJsonPath}`);
+                    const packageJson = await fse.readJson(packageJsonPath);
+                    this.logger.debug(`Current version: ${packageJson.version}`);
+                    return packageJson.version;
+                }
+            }
+
+            throw new Error("Could not find package.json in any expected location");
         } catch (error) {
             this.logger.error(`Failed to get current version: ${error.message}`);
             return "unknown";

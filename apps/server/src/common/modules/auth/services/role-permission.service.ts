@@ -85,17 +85,29 @@ export class RolePermissionService {
             return [];
         }
 
-        // 收集所有权限（直接权限和通过角色获得的权限）
-        const permissionSet = new Set<string>();
+        let permissions: string[] = [];
 
-        // 添加通过角色获得的权限
-        if (user.role && user.role.permissions) {
-            user.role.permissions.forEach((permission) => {
-                permissionSet.add(permission.code);
+        // 如果是超级管理员，返回所有权限
+        if (user.isRoot === 1) {
+            // 获取所有权限
+            const allPermissions = await this.permissionRepository.find({
+                where: { isDeprecated: false }, // 只获取未废弃的权限
+                select: ["code"],
             });
-        }
+            permissions = allPermissions.map((permission) => permission.code);
+        } else {
+            // 收集所有权限（直接权限和通过角色获得的权限）
+            const permissionSet = new Set<string>();
 
-        const permissions = Array.from(permissionSet);
+            // 添加通过角色获得的权限
+            if (user.role && user.role.permissions) {
+                user.role.permissions.forEach((permission) => {
+                    permissionSet.add(permission.code);
+                });
+            }
+
+            permissions = Array.from(permissionSet);
+        }
 
         // 缓存结果，设置适当的过期时间
         await this.cacheService.set(cacheKey, permissions, 3600); // 缓存1小时

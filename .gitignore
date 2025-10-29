@@ -9,6 +9,7 @@ node_modules
 
 # Package manager cache
 .npm
+.npm-cache
 .npmrc.local
 npm-shrinkwrap.json
 .yarn/cache
@@ -58,3 +59,21 @@ yarn-error.log*
 *.pem
 # IDE
 .idea
+
+# Test and Debug Files
+check-*.js
+test-*.js
+simple-*.js
+diagnose-*.js
+fix-*.js
+search-*.js
+debug-*.html
+day*-completion-report.md
+
+# SQL Debug Files
+check-*.sql
+diagnose-*.sql
+fix-*.sql
+*.sql
+!apps/server/src/core/database/install/*.sql
+!apps/server/data/**/*.sql

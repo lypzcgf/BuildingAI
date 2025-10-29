@@ -3,7 +3,9 @@ import { DECORATOR_KEYS } from "@common/constants";
 import { PermissionOptions } from "@common/decorators/permissions.decorator";
 import { HttpExceptionFactory } from "@common/exceptions/http-exception.factory";
 import { Permission, PermissionType } from "@common/modules/auth/entities/permission.entity";
-import { Injectable, OnModuleInit, RequestMethod } from "@nestjs/common";
+import { Role } from "@common/modules/auth/entities/role.entity";
+import { User } from "@common/modules/auth/entities/user.entity";
+import { Injectable, Logger, OnModuleInit, RequestMethod } from "@nestjs/common";
 import { DiscoveryService, MetadataScanner, Reflector } from "@nestjs/core";
 import { InstanceWrapper } from "@nestjs/core/injector/instance-wrapper";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -91,6 +93,10 @@ export class PermissionService extends BaseService<Permission> implements OnModu
     constructor(
         @InjectRepository(Permission)
         private readonly permissionRepository: Repository<Permission>,
+        @InjectRepository(Role)
+        private readonly roleRepository: Repository<Role>,
+        @InjectRepository(User)
+        private readonly userRepository: Repository<User>,
         private readonly discoveryService: DiscoveryService,
         private readonly metadataScanner: MetadataScanner,
         private readonly reflector: Reflector,
@@ -515,10 +521,64 @@ export class PermissionService extends BaseService<Permission> implements OnModu
             }
         }
 
+        // 如果有新增权限，为超级管理员自动分配这些权限
+        if (added > 0) {
+            await this.assignNewPermissionsToSuperAdmin();
+        }
+
         this.logger.log(
             `权限同步完成: 新增 ${added} 个, 更新 ${updated} 个, 废弃 ${deprecated} 个, 总计 ${permissions.length} 个权限`,
         );
         return { added, updated, deprecated, total: permissions.length };
+    }
+
+    /**
+     * 为超级管理员自动分配新权限
+     * 
+     * 注意：虽然超级管理员通过 isRoot=1 可以动态获得所有权限，
+     * 但为了保持数据一致性和便于管理，我们仍然为admin角色分配新权限
+     */
+    private async assignNewPermissionsToSuperAdmin(): Promise<void> {
+        try {
+            // 查找admin角色
+            const adminRole = await this.roleRepository.findOne({
+                where: { name: "admin" },
+                relations: ["permissions"],
+            });
+
+            if (!adminRole) {
+                this.logger.warn("未找到admin角色，跳过权限自动分配");
+                return;
+            }
+
+            // 获取所有权限
+            const allPermissions = await this.permissionRepository.find({
+                where: { isDeprecated: false },
+            });
+
+            // 获取admin角色当前拥有的权限ID
+            const currentPermissionIds = new Set(
+                adminRole.permissions?.map(p => p.id) || []
+            );
+
+            // 找出需要新增的权限
+            const newPermissions = allPermissions.filter(
+                permission => !currentPermissionIds.has(permission.id)
+            );
+
+            if (newPermissions.length > 0) {
+                // 将新权限添加到admin角色
+                adminRole.permissions = [...(adminRole.permissions || []), ...newPermissions];
+                await this.roleRepository.save(adminRole);
+                
+                this.logger.log(
+                    `已为admin角色自动分配 ${newPermissions.length} 个新权限: ${newPermissions.map(p => p.code).join(", ")}`
+                );
+            }
+        } catch (error) {
+            this.logger.error(`为超级管理员分配新权限失败: ${error.message}`);
+            // 不抛出错误，避免影响权限同步的主流程
+        }
     }
 
     /**

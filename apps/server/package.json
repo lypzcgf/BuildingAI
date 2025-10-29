@@ -1,6 +1,6 @@
 {
     "name": "server",
-    "version": "1.0.0-beta.8",
+    "version": "1.0.0-beta.9",
     "description": "",
     "author": "",
     "private": true,
@@ -18,7 +18,7 @@
         "pm2:logs": "NODE_ENV=development node ./libs/scripts/pm2-cmd.mjs logs",
         "pm2:logs:lines": "NODE_ENV=development node ./libs/scripts/pm2-cmd.mjs logs --lines 200",
         "pm2:show": "NODE_ENV=development node ./libs/scripts/pm2-cmd.mjs show",
-        "start:dev": "NODE_ENV=development nest start --watch",
+        "start:dev": "cross-env NODE_ENV=development nest start --watch",
         "start:debug": "NODE_ENV=development nest start --debug --watch",
         "start:prod": "NODE_ENV=production node dist/main",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

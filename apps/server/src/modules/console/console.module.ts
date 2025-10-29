@@ -3,6 +3,7 @@ import { Module } from "@nestjs/common";
 import { AiConsoleModule } from "./ai/ai.module";
 import { AiAgentModule } from "./ai-agent/agent.module";
 import { AiDatasetsModule } from "./ai-datasets/datasets.module";
+import { CozePackageModule } from "./coze-package/coze-package.module";
 import { DecorateModule } from "./decorate/decorate.module";
 import { FinanceModule } from "./finance/finance.module";
 import { HealthModule } from "./health/health.module";
@@ -31,6 +32,7 @@ import { UserModule } from "./user/user.module";
         AiAgentModule,
         AiDatasetsModule,
         FinanceModule,
+        CozePackageModule,
     ],
     exports: [
         HealthModule,
@@ -46,6 +48,7 @@ import { UserModule } from "./user/user.module";
         AiAgentModule,
         AiDatasetsModule,
         FinanceModule,
+        CozePackageModule,
     ],
 })
 export class ConsoleModule {}

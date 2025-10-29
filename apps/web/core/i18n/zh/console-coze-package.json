@@ -1,0 +1,67 @@
+{
+    "status": {
+        "title": "功能状态",
+        "description": "控制Coze套餐管理功能的启用状态"
+    },
+    "explain": {
+        "title": "套餐说明",
+        "description": "设置Coze套餐的使用说明和注意事项",
+        "placeholder": "请输入Coze套餐说明..."
+    },
+    "rules": {
+        "title": "套餐规则管理"
+    },
+    "table": {
+        "name": "套餐名称",
+        "description": "套餐描述",
+        "duration": "有效期(天)",
+        "originalPrice": "原价(元)",
+        "currentPrice": "现价(元)",
+        "status": "状态",
+        "action": "操作",
+        "namePlaceholder": "请输入套餐名称",
+        "descriptionPlaceholder": "请输入套餐描述",
+        "durationPlaceholder": "有效期天数",
+        "originalPricePlaceholder": "原价",
+        "currentPricePlaceholder": "现价",
+        "durationUnit": "天",
+        "priceUnit": "元"
+    },
+    "button": {
+        "new": "新增套餐",
+        "save": "保存",
+        "delete": "删除",
+        "edit": "编辑",
+        "enable": "启用",
+        "disable": "禁用"
+    },
+    "message": {
+        "saveSuccess": "保存成功",
+        "saveFailed": "保存失败",
+        "getConfigFailed": "获取配置失败",
+        "statusUpdateSuccess": "状态更新成功",
+        "statusUpdateFailed": "状态更新失败",
+        "deleteSuccess": "删除成功",
+        "deleteFailed": "删除失败",
+        "createSuccess": "创建成功",
+        "createFailed": "创建失败",
+        "updateSuccess": "更新成功",
+        "updateFailed": "更新失败"
+    },
+    "confirm": {
+        "deleteTitle": "确认删除",
+        "deleteMessage": "确定要删除这个套餐吗？此操作不可撤销。",
+        "batchDeleteTitle": "批量删除",
+        "batchDeleteMessage": "确定要删除选中的套餐吗？此操作不可撤销。"
+    },
+    "validation": {
+        "nameRequired": "套餐名称不能为空",
+        "descriptionRequired": "套餐描述不能为空",
+        "durationRequired": "有效期不能为空",
+        "durationMin": "有效期不能小于1天",
+        "originalPriceRequired": "原价不能为空",
+        "originalPriceMin": "原价不能小于0",
+        "currentPriceRequired": "现价不能为空",
+        "currentPriceMin": "现价不能小于0"
+    }
+}

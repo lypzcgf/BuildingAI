@@ -929,6 +929,34 @@
                                 "pluginPackName": null
                             }
                         ]
+                    },
+                    {
+                        "name": "console-menu.userManagement.cozePackage",
+                        "code": "user-coze-package",
+                        "path": "coze-package",
+                        "icon": "",
+                        "component": "/console/user/coze-package/index",
+                        "permissionCode": "coze-package:getConfig",
+                        "sort": 200,
+                        "isHidden": 0,
+                        "type": 2,
+                        "sourceType": 1,
+                        "pluginPackName": null,
+                        "children": [
+                            {
+                                "name": "console-common.save",
+                                "code": "user-coze-package-save",
+                                "path": "",
+                                "icon": "",
+                                "component": "",
+                                "permissionCode": "coze-package:setConfig",
+                                "sort": 0,
+                                "isHidden": 1,
+                                "type": 2,
+                                "sourceType": 1,
+                                "pluginPackName": null
+                            }
+                        ]
                     }
                 ]
             },

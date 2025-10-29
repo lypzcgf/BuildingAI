@@ -67,7 +67,8 @@
         "title": "ユーザー管理",
         "userList": "ユーザー一覧",
         "userInfo": "ユーザー情報",
-        "userRecharge": "チャージ管理"
+        "userRecharge": "チャージ管理",
+        "cozePackage": "Cozeパッケージ"
     },
     "diyCenter": {
         "title": "DIYセンター",

@@ -41,6 +41,12 @@ importers:
       '@tiptap/vue-3':
         specifier: ^2.26.1
         version: 2.26.3(@tiptap/core@2.26.3(@tiptap/pm@2.26.3))(@tiptap/pm@2.26.3)(vue@3.5.22(typescript@5.8.2))
+      axios:
+        specifier: ^1.13.0
+        version: 1.13.0
+      pg:
+        specifier: ^8.16.3
+        version: 8.16.3
       pnpm:
         specifier: ^10.15.0
         version: 10.18.3
@@ -466,7 +472,7 @@ importers:
         version: 0.5.8(vue@3.5.22(typescript@5.9.3))
       '@nuxt/ui':
         specifier: ^3.3.2
-        version: 3.3.6(@babel/parser@7.28.4)(axios@1.12.2)(change-case@5.4.4)(db0@0.3.4)(embla-carousel@8.6.0)(ioredis@5.8.1)(magicast@0.3.5)(qrcode@1.5.4)(sortablejs@1.14.0)(typescript@5.9.3)(vite@7.1.10(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.1)(sass@1.78.0)(terser@5.44.0)(yaml@2.8.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.3)))(vue@3.5.22(typescript@5.9.3))(yup@1.7.1)(zod@3.25.76)
+        version: 3.3.6(@babel/parser@7.28.4)(axios@1.13.0)(change-case@5.4.4)(db0@0.3.4)(embla-carousel@8.6.0)(ioredis@5.8.1)(magicast@0.3.5)(qrcode@1.5.4)(sortablejs@1.14.0)(typescript@5.9.3)(vite@7.1.10(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.1)(sass@1.78.0)(terser@5.44.0)(yaml@2.8.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.3)))(vue@3.5.22(typescript@5.9.3))(yup@1.7.1)(zod@3.25.76)
       '@nuxtjs/i18n':
         specifier: ^9.5.6
         version: 9.5.6(@vue/compiler-dom@3.5.22)(eslint@9.37.0(jiti@2.6.1))(magicast@0.3.5)(rollup@4.52.4)(vue@3.5.22(typescript@5.9.3))
@@ -740,7 +746,7 @@ importers:
     devDependencies:
       '@nuxt/ui':
         specifier: ^3.3.2
-        version: 3.3.6(@babel/parser@7.28.4)(axios@1.12.2)(change-case@5.4.4)(db0@0.3.4)(embla-carousel@8.6.0)(ioredis@5.8.1)(magicast@0.3.5)(qrcode@1.5.4)(sortablejs@1.14.0)(typescript@5.8.3)(vite@6.4.0(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.1)(sass@1.78.0)(terser@5.44.0)(yaml@2.8.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.8.3)))(vue@3.5.22(typescript@5.8.3))(yup@1.7.1)(zod@3.25.76)
+        version: 3.3.6(@babel/parser@7.28.4)(axios@1.13.0)(change-case@5.4.4)(db0@0.3.4)(embla-carousel@8.6.0)(ioredis@5.8.1)(magicast@0.3.5)(qrcode@1.5.4)(sortablejs@1.14.0)(typescript@5.8.3)(vite@6.4.0(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.1)(sass@1.78.0)(terser@5.44.0)(yaml@2.8.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.8.3)))(vue@3.5.22(typescript@5.8.3))(yup@1.7.1)(zod@3.25.76)
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.40.0
         version: 8.46.1(@typescript-eslint/parser@8.46.1(eslint@9.37.0(jiti@2.6.1))(typescript@5.8.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.8.3)
@@ -801,7 +807,7 @@ importers:
         version: 6.0.34
       '@nuxt/ui':
         specifier: ^3.3.2
-        version: 3.3.6(@babel/parser@7.28.4)(axios@1.12.2)(change-case@5.4.4)(db0@0.3.4)(embla-carousel@8.6.0)(ioredis@5.8.1)(magicast@0.3.5)(qrcode@1.5.4)(sortablejs@1.14.0)(typescript@5.8.3)(vite@6.4.0(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.1)(sass@1.78.0)(terser@5.44.0)(yaml@2.8.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.8.3)))(vue@3.5.22(typescript@5.8.3))(yup@1.7.1)(zod@3.25.76)
+        version: 3.3.6(@babel/parser@7.28.4)(axios@1.13.0)(change-case@5.4.4)(db0@0.3.4)(embla-carousel@8.6.0)(ioredis@5.8.1)(magicast@0.3.5)(qrcode@1.5.4)(sortablejs@1.14.0)(typescript@5.8.3)(vite@6.4.0(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.1)(sass@1.78.0)(terser@5.44.0)(yaml@2.8.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.8.3)))(vue@3.5.22(typescript@5.8.3))(yup@1.7.1)(zod@3.25.76)
       '@tiptap/extension-color':
         specifier: ^2.26.1
         version: 2.26.3(@tiptap/core@2.26.3(@tiptap/pm@2.26.3))(@tiptap/extension-text-style@2.26.3(@tiptap/core@2.26.3(@tiptap/pm@2.26.3)))
@@ -5567,6 +5573,9 @@ packages:
 
   axios@1.12.2:
     resolution: {integrity: sha512-vMJzPewAlRyOgxV2dU0Cuz2O8zzzx9VYtbJOaBgXFeLc4IV/Eg50n4LowmehOOR61S8ZMpc2K5Sa7g6A4jfkUw==}
+
+  axios@1.13.0:
+    resolution: {integrity: sha512-zt40Pz4zcRXra9CVV31KeyofwiNvAbJ5B6YPz9pMJ+yOSLikvPT4Yi5LjfgjRa9CawVYBaD1JQzIVcIvBejKeA==}
 
   b4a@1.7.3:
     resolution: {integrity: sha512-5Q2mfq2WfGuFp3uS//0s6baOJLMoVduPYVeNmDYxu5OUA1/cBfvr2RIS7vi62LdNj/urk1hfmj867I3qt6uZ7Q==}
@@ -15148,7 +15157,7 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
-  '@nuxt/ui@3.3.6(@babel/parser@7.28.4)(axios@1.12.2)(change-case@5.4.4)(db0@0.3.4)(embla-carousel@8.6.0)(ioredis@5.8.1)(magicast@0.3.5)(qrcode@1.5.4)(sortablejs@1.14.0)(typescript@5.8.3)(vite@6.4.0(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.1)(sass@1.78.0)(terser@5.44.0)(yaml@2.8.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.8.3)))(vue@3.5.22(typescript@5.8.3))(yup@1.7.1)(zod@3.25.76)':
+  '@nuxt/ui@3.3.6(@babel/parser@7.28.4)(axios@1.13.0)(change-case@5.4.4)(db0@0.3.4)(embla-carousel@8.6.0)(ioredis@5.8.1)(magicast@0.3.5)(qrcode@1.5.4)(sortablejs@1.14.0)(typescript@5.8.3)(vite@6.4.0(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.1)(sass@1.78.0)(terser@5.44.0)(yaml@2.8.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.8.3)))(vue@3.5.22(typescript@5.8.3))(yup@1.7.1)(zod@3.25.76)':
     dependencies:
       '@iconify/vue': 5.0.0(vue@3.5.22(typescript@5.8.3))
       '@internationalized/date': 3.10.0
@@ -15164,7 +15173,7 @@ snapshots:
       '@tanstack/vue-table': 8.21.3(vue@3.5.22(typescript@5.8.3))
       '@unhead/vue': 2.0.19(vue@3.5.22(typescript@5.8.3))
       '@vueuse/core': 13.9.0(vue@3.5.22(typescript@5.8.3))
-      '@vueuse/integrations': 13.9.0(axios@1.12.2)(change-case@5.4.4)(fuse.js@7.1.0)(qrcode@1.5.4)(sortablejs@1.14.0)(vue@3.5.22(typescript@5.8.3))
+      '@vueuse/integrations': 13.9.0(axios@1.13.0)(change-case@5.4.4)(fuse.js@7.1.0)(qrcode@1.5.4)(sortablejs@1.14.0)(vue@3.5.22(typescript@5.8.3))
       colortranslator: 5.0.0
       consola: 3.4.2
       defu: 6.1.4
@@ -15237,7 +15246,7 @@ snapshots:
       - vite
       - vue
 
-  '@nuxt/ui@3.3.6(@babel/parser@7.28.4)(axios@1.12.2)(change-case@5.4.4)(db0@0.3.4)(embla-carousel@8.6.0)(ioredis@5.8.1)(magicast@0.3.5)(qrcode@1.5.4)(sortablejs@1.14.0)(typescript@5.9.3)(vite@7.1.10(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.1)(sass@1.78.0)(terser@5.44.0)(yaml@2.8.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.3)))(vue@3.5.22(typescript@5.9.3))(yup@1.7.1)(zod@3.25.76)':
+  '@nuxt/ui@3.3.6(@babel/parser@7.28.4)(axios@1.13.0)(change-case@5.4.4)(db0@0.3.4)(embla-carousel@8.6.0)(ioredis@5.8.1)(magicast@0.3.5)(qrcode@1.5.4)(sortablejs@1.14.0)(typescript@5.9.3)(vite@7.1.10(@types/node@22.18.11)(jiti@2.6.1)(lightningcss@1.30.1)(sass@1.78.0)(terser@5.44.0)(yaml@2.8.1))(vue-router@4.6.3(vue@3.5.22(typescript@5.9.3)))(vue@3.5.22(typescript@5.9.3))(yup@1.7.1)(zod@3.25.76)':
     dependencies:
       '@iconify/vue': 5.0.0(vue@3.5.22(typescript@5.9.3))
       '@internationalized/date': 3.10.0
@@ -15253,7 +15262,7 @@ snapshots:
       '@tanstack/vue-table': 8.21.3(vue@3.5.22(typescript@5.9.3))
       '@unhead/vue': 2.0.19(vue@3.5.22(typescript@5.9.3))
       '@vueuse/core': 13.9.0(vue@3.5.22(typescript@5.9.3))
-      '@vueuse/integrations': 13.9.0(axios@1.12.2)(change-case@5.4.4)(fuse.js@7.1.0)(qrcode@1.5.4)(sortablejs@1.14.0)(vue@3.5.22(typescript@5.9.3))
+      '@vueuse/integrations': 13.9.0(axios@1.13.0)(change-case@5.4.4)(fuse.js@7.1.0)(qrcode@1.5.4)(sortablejs@1.14.0)(vue@3.5.22(typescript@5.9.3))
       colortranslator: 5.0.0
       consola: 3.4.2
       defu: 6.1.4
@@ -17419,25 +17428,25 @@ snapshots:
       '@vueuse/shared': 13.9.0(vue@3.5.22(typescript@5.9.3))
       vue: 3.5.22(typescript@5.9.3)
 
-  '@vueuse/integrations@13.9.0(axios@1.12.2)(change-case@5.4.4)(fuse.js@7.1.0)(qrcode@1.5.4)(sortablejs@1.14.0)(vue@3.5.22(typescript@5.8.3))':
+  '@vueuse/integrations@13.9.0(axios@1.13.0)(change-case@5.4.4)(fuse.js@7.1.0)(qrcode@1.5.4)(sortablejs@1.14.0)(vue@3.5.22(typescript@5.8.3))':
     dependencies:
       '@vueuse/core': 13.9.0(vue@3.5.22(typescript@5.8.3))
       '@vueuse/shared': 13.9.0(vue@3.5.22(typescript@5.8.3))
       vue: 3.5.22(typescript@5.8.3)
     optionalDependencies:
-      axios: 1.12.2
+      axios: 1.13.0
       change-case: 5.4.4
       fuse.js: 7.1.0
       qrcode: 1.5.4
       sortablejs: 1.14.0
 
-  '@vueuse/integrations@13.9.0(axios@1.12.2)(change-case@5.4.4)(fuse.js@7.1.0)(qrcode@1.5.4)(sortablejs@1.14.0)(vue@3.5.22(typescript@5.9.3))':
+  '@vueuse/integrations@13.9.0(axios@1.13.0)(change-case@5.4.4)(fuse.js@7.1.0)(qrcode@1.5.4)(sortablejs@1.14.0)(vue@3.5.22(typescript@5.9.3))':
     dependencies:
       '@vueuse/core': 13.9.0(vue@3.5.22(typescript@5.9.3))
       '@vueuse/shared': 13.9.0(vue@3.5.22(typescript@5.9.3))
       vue: 3.5.22(typescript@5.9.3)
     optionalDependencies:
-      axios: 1.12.2
+      axios: 1.13.0
       change-case: 5.4.4
       fuse.js: 7.1.0
       qrcode: 1.5.4
@@ -17909,6 +17918,14 @@ snapshots:
       possible-typed-array-names: 1.1.0
 
   axios@1.12.2:
+    dependencies:
+      follow-redirects: 1.15.11
+      form-data: 4.0.4
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+
+  axios@1.13.0:
     dependencies:
       follow-redirects: 1.15.11
       form-data: 4.0.4

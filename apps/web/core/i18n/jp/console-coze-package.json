@@ -1,0 +1,67 @@
+{
+    "status": {
+        "title": "機能ステータス",
+        "description": "Cozeパッケージ管理機能の有効状態を制御"
+    },
+    "explain": {
+        "title": "パッケージ説明",
+        "description": "Cozeパッケージの使用説明と注意事項を設定",
+        "placeholder": "Cozeパッケージの説明を入力してください..."
+    },
+    "rules": {
+        "title": "パッケージルール管理"
+    },
+    "table": {
+        "name": "パッケージ名",
+        "description": "パッケージ説明",
+        "duration": "有効期間(日)",
+        "originalPrice": "元価格(円)",
+        "currentPrice": "現在価格(円)",
+        "status": "ステータス",
+        "action": "操作",
+        "namePlaceholder": "パッケージ名を入力",
+        "descriptionPlaceholder": "パッケージ説明を入力",
+        "durationPlaceholder": "有効期間（日数）",
+        "originalPricePlaceholder": "元価格",
+        "currentPricePlaceholder": "現在価格",
+        "durationUnit": "日",
+        "priceUnit": "円"
+    },
+    "button": {
+        "new": "新規パッケージ",
+        "save": "保存",
+        "delete": "削除",
+        "edit": "編集",
+        "enable": "有効",
+        "disable": "無効"
+    },
+    "message": {
+        "saveSuccess": "保存成功",
+        "saveFailed": "保存失敗",
+        "getConfigFailed": "設定の取得に失敗",
+        "statusUpdateSuccess": "ステータス更新成功",
+        "statusUpdateFailed": "ステータス更新失敗",
+        "deleteSuccess": "削除成功",
+        "deleteFailed": "削除失敗",
+        "createSuccess": "作成成功",
+        "createFailed": "作成失敗",
+        "updateSuccess": "更新成功",
+        "updateFailed": "更新失敗"
+    },
+    "confirm": {
+        "deleteTitle": "削除確認",
+        "deleteMessage": "このパッケージを削除してもよろしいですか？この操作は元に戻せません。",
+        "batchDeleteTitle": "一括削除",
+        "batchDeleteMessage": "選択したパッケージを削除してもよろしいですか？この操作は元に戻せません。"
+    },
+    "validation": {
+        "nameRequired": "パッケージ名は必須です",
+        "descriptionRequired": "パッケージ説明は必須です",
+        "durationRequired": "有効期間は必須です",
+        "durationMin": "有効期間は1日以上である必要があります",
+        "originalPriceRequired": "元価格は必須です",
+        "originalPriceMin": "元価格は0以上である必要があります",
+        "currentPriceRequired": "現在価格は必須です",
+        "currentPriceMin": "現在価格は0以上である必要があります"
+    }
+}
