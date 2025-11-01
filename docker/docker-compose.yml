@@ -73,9 +73,10 @@ services:
             - /buildingai/packages/ui/node_modules
             - /buildingai/packages/utils/node_modules
         ports:
-            - "${SERVER_PORT:-4090}:${SERVER_PORT:-4090}"
+            - "127.0.0.1:${SERVER_PORT:-4090}:${SERVER_PORT:-4090}"
         environment:
             TZ: Asia/Shanghai
+            HOST: 0.0.0.0
             SERVER_PORT: ${SERVER_PORT:-4090}
             QUICK_START_MODE: ${QUICK_START_MODE:-false}
             NPM_REGISTRY_URL: ${NPM_REGISTRY_URL:-}
@@ -166,9 +167,9 @@ services:
             - buildingai-network
         <<: *resource-config
         depends_on:
-            redis:
-                condition: service_healthy
             postgres:
+                condition: service_healthy
+            redis:
                 condition: service_healthy
         healthcheck:
             test: ["CMD-SHELL", "ps aux | grep 'dist/main' | grep -v grep || exit 1"]

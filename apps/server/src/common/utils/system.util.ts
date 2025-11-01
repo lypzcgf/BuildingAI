@@ -71,10 +71,11 @@ export const tryListen = async (
 ): Promise<void> => {
     let currentPort = initialPort;
     let retries = 0;
+    const host = process.env.HOST || "0.0.0.0";
 
     while (retries < maxRetries) {
         try {
-            await app.listen(currentPort);
+            await app.listen(currentPort, host);
             // 如果端口变更，记录到日志
             if (currentPort !== initialPort) {
                 TerminalLogger.success(
