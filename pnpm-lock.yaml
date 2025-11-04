@@ -41,12 +41,6 @@ importers:
       '@tiptap/vue-3':
         specifier: ^2.26.1
         version: 2.26.3(@tiptap/core@2.26.3(@tiptap/pm@2.26.3))(@tiptap/pm@2.26.3)(vue@3.5.22(typescript@5.8.2))
-      axios:
-        specifier: ^1.13.0
-        version: 1.13.0
-      pg:
-        specifier: ^8.16.3
-        version: 8.16.3
       pnpm:
         specifier: ^10.15.0
         version: 10.18.3
@@ -17932,6 +17926,7 @@ snapshots:
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
+    optional: true
 
   b4a@1.7.3: {}
 

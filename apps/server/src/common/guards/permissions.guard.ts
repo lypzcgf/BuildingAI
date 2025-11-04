@@ -60,7 +60,15 @@ export class PermissionsGuard implements CanActivate {
             return true;
         }
 
-        const requiredPermissions: string[] = permissionsMetaData.map((item) => item.code);
+        // 原先直接使用短码，导致与数据库中的完整权限码不匹配
+        let requiredPermissions: string[] = permissionsMetaData.map((item) => item.code);
+
+        // 新增：根据控制器的权限组元数据自动拼接前缀，确保与扫描/入库的权限码一致
+        if (permissionGroupMetaData?.code) {
+            requiredPermissions = requiredPermissions.map(
+                (code) => `${permissionGroupMetaData.code}:${code}`,
+            );
+        }
 
         const { request, user } = getContextPlayground(context);
 

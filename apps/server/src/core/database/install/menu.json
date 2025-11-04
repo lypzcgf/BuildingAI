@@ -985,6 +985,60 @@
                         "type": 2,
                         "sourceType": 1,
                         "pluginPackName": null
+                    },
+                    {
+                        "name": "console-menu.financial.cozePackageOrder",
+                        "code": "coze-package-order-management",
+                        "path": "coze-package-order",
+                        "icon": "",
+                        "component": "/console/order-management/coze-package-order",
+                        "permissionCode": "coze-package-order:list",
+                        "sort": 1,
+                        "isHidden": 0,
+                        "type": 2,
+                        "sourceType": 1,
+                        "pluginPackName": null,
+                        "children": [
+                            {
+                                "name": "console-common.view",
+                                "code": "coze-package-order-detail",
+                                "path": "",
+                                "icon": "",
+                                "component": "",
+                                "permissionCode": "coze-package-order:detail",
+                                "sort": 0,
+                                "isHidden": 0,
+                                "type": 3,
+                                "sourceType": 1,
+                                "pluginPackName": null
+                            },
+                            {
+                                "name": "console-order-management.refund",
+                                "code": "coze-package-order-refund",
+                                "path": "",
+                                "icon": "",
+                                "component": "",
+                                "permissionCode": "coze-package-order:refund",
+                                "sort": 1,
+                                "isHidden": 0,
+                                "type": 3,
+                                "sourceType": 1,
+                                "pluginPackName": null
+                            },
+                            {
+                                "name": "console-order-management.statistics",
+                                "code": "coze-package-order-statistics",
+                                "path": "",
+                                "icon": "",
+                                "component": "",
+                                "permissionCode": "coze-package-order:statistics",
+                                "sort": 2,
+                                "isHidden": 0,
+                                "type": 3,
+                                "sourceType": 1,
+                                "pluginPackName": null
+                            }
+                        ]
                     }
                 ]
             },

@@ -1,365 +1,510 @@
 ## 1. 产品概述
 
-BuildingAI Coze套餐订单页面是面向平台管理员的后台管理功能，基于Vue3 + Nuxt3 + TypeScript技术栈开发，使用@fastbuildai/ui组件库构建现代化管理界面。该页面用于管理和监控用户Coze套餐订单的全生命周期，通过coze_package_order数据表实现订单数据存储，关联user表、coze_package_config表和payconfig表提供完整的订单信息展示。
+Coze套餐订单页面是BuildingAI平台中用于管理Coze套餐订单的核心功能模块，为管理员提供订单查询、详情查看、退款处理等完整的订单管理能力。该页面支持多维度筛选、实时数据统计、订单状态轮询等功能，确保管理员能够高效处理订单相关业务。
 
-管理员可以通过该页面查看Coze套餐订单统计数据、筛选和搜索订单、查看订单详情，以及处理订单退款等核心业务操作。系统采用NestJS + TypeORM后端架构，提供完整的权限控制和数据验证机制，支持中文、英文、日文多语言环境。
+主要解决的问题：
+- 提供直观的订单数据展示和统计分析
+- 支持复杂的订单查询和筛选需求
+- 实现订单详情查看和退款申请处理
+- 确保订单状态实时更新和同步
 
-该功能旨在为平台提供完善的Coze套餐订单管理能力，支持实时监控套餐销售业务数据，通过统计分析帮助运营决策，提升订单处理效率和用户服务质量。
+目标用户：平台管理员、财务人员、客服人员
 
 ## 2. 核心功能
 
 ### 2.1 用户角色
-| 角色 | 权限代码 | 权限说明 | 核心权限 |
-|------|----------|----------|----------|
-| 系统管理员 | coze-package-order:list | 查看Coze套餐订单列表权限 | 获取订单列表、查看统计数据、筛选搜索订单 |
-| 系统管理员 | coze-package-order:detail | 查看Coze套餐订单详情权限 | 查看订单详细信息、订单状态、支付信息 |
-| 系统管理员 | coze-package-order:refund | 处理Coze套餐订单退款权限 | 发起退款申请、处理退款流程 |
+
+| 角色 | 权限范围 | 核心功能 |
+|------|----------|----------|
+| 超级管理员 | 全部权限 | 查看所有订单、处理退款、导出数据 |
+| 财务人员 | 订单查看、退款处理 | 查看订单详情、处理退款申请 |
+| 客服人员 | 订单查看 | 查看订单列表、查看订单详情 |
 
 ### 2.2 功能模块
-Coze套餐订单页面包含以下核心模块：
-1. **统计数据展示**：基于coze_package_order表的订单统计卡片，展示关键业务指标
-2. **订单列表管理**：基于UTable组件的订单数据展示和操作功能
-3. **高级筛选搜索**：支持多维度订单筛选和实时搜索功能
-4. **订单详情查看**：基于ProModal组件的订单详细信息展示
-5. **退款流程处理**：集成退款确认和API调用的完整退款流程
-6. **分页导航控制**：支持灵活的分页大小设置和页面跳转功能
+
+**数据统计概览**
+- 订单总数统计卡片
+- 订单总金额统计卡片  
+- 退款订单数统计卡片
+- 退款总金额统计卡片
+- 净收入统计卡片
+
+**订单列表管理**
+- 订单列表展示（订单号、用户信息、套餐信息、金额、状态等）
+- 表格列排序功能（支持交替排序）
+- 分页导航控制
+- 操作菜单（查看详情、申请退款）
+
+**高级搜索筛选**
+- 关键词搜索（订单号、用户ID、昵称、手机号）
+- 日期范围筛选
+- 支付方式筛选（微信支付、支付宝支付）
+- 支付状态筛选（已支付、未支付）
+- 退款状态筛选（已退款、未退款）
+- 套餐名称筛选
+- 订单金额范围筛选
+
+**订单详情查看**
+- 基本信息展示（订单号、金额、状态等）
+- 用户信息展示（用户名、邮箱、用户ID）
+- 套餐信息展示（套餐名称、时长、价格）
+- 支付信息展示（支付方式、交易流水号、时间等）
+- 订单号一键复制功能
+
+**退款申请处理**
+- 退款原因选择（用户主动申请、服务质量问题、技术故障等）
+- 自定义退款原因输入
+- 退款金额确认
+- 业务规则验证（支付状态、退款状态、时间限制等）
+- 退款条款确认
 
 ### 2.3 页面详情
 
 | 页面名称 | 模块名称 | 功能描述 |
 |----------|----------|----------|
-| Coze套餐订单页面 | 统计数据卡片 | 使用UCard组件展示5个核心指标：套餐订单数、累计销售金额、退款订单数、累计退款金额、净收入 |
-| Coze套餐订单页面 | 订单搜索功能 | 使用UInput组件支持订单号搜索和用户搜索(ID/昵称/手机号)，带搜索图标，实时触发查询 |
-| Coze套餐订单页面 | 筛选下拉选择 | 使用USelect组件提供支付方式(微信/支付宝)、支付状态(已支付/未支付)、退款状态(已退款/未退款)筛选 |
-| Coze套餐订单页面 | 订单数据表格 | 使用UTable组件展示订单列表，包含9个核心列：订单号、用户、套餐名称、套餐时长、套餐价格、实付金额、支付方式、支付状态、下单时间、操作 |
-| Coze套餐订单页面 | 表格操作列 | 使用UDropdownMenu组件提供查看详情和申请退款操作，支持权限控制和条件显示 |
-| Coze套餐订单页面 | 分页控制组件 | 使用ProPaginaction组件支持页面导航，USelect组件支持每页条数设置(10/20/50/100)，UInput组件支持直接跳转页面 |
-| 订单详情弹窗 | 详情信息展示 | 使用ProModal组件展示订单完整信息，包含订单号、订单来源、用户信息、订单类型、套餐信息、支付状态、支付方式、时间信息、退款状态等 |
-| 订单详情弹窗 | 套餐数据表格 | 使用UTable组件展示订单核心数据：套餐名称、套餐时长、原价、现价、实付金额(格式化货币显示) |
-| 订单详情弹窗 | 退款操作功能 | 条件显示退款按钮(已支付且未退款)，集成useModal确认弹窗和apiRefund退款API调用 |
+| 主页面 | 统计卡片 | 展示订单总数、总金额、退款订单数、退款总金额、净收入等关键指标 |
+| 主页面 | 搜索筛选 | 提供关键词搜索、日期筛选、支付方式筛选、状态筛选等多维度筛选功能 |
+| 主页面 | 订单列表 | 展示订单列表，支持排序、分页、操作菜单等功能 |
+| 主页面 | 快捷筛选 | 提供今日订单、本周订单、本月订单、已支付订单、已退款订单等快捷筛选 |
+| 详情弹窗 | 基本信息 | 展示订单编号、金额、支付状态、退款状态等基本信息 |
+| 详情弹窗 | 用户信息 | 展示用户名、邮箱、用户ID等信息 |
+| 详情弹窗 | 套餐信息 | 展示套餐名称、时长、价格等套餐详情 |
+| 详情弹窗 | 支付信息 | 展示支付方式、交易流水号、支付时间等支付相关信息 |
+| 退款弹窗 | 退款原因 | 提供标准化的退款原因选择和自定义原因输入 |
+| 退款弹窗 | 业务验证 | 验证订单是否符合退款条件（支付状态、退款状态、时间限制等） |
+| 退款弹窗 | 确认提交 | 确认退款信息并提交申请 |
 
 ## 3. 核心流程
 
-管理员操作流程：
-1. 管理员登录后台系统
-2. 进入Coze套餐订单管理页面
-3. 查看套餐订单统计数据概览
-4. 使用筛选条件查找目标订单
-5. 查看订单详情信息
-6. 根据需要处理退款申请
-7. 监控订单状态变化
+### 3.1 订单查询流程
 
 ```mermaid
 graph TD
-    A[管理员登录] --> B[进入Coze套餐订单管理页面]
-    B --> C[查看统计数据]
-    C --> D[设置筛选条件]
-    D --> E[搜索订单]
-    E --> F[查看订单列表]
-    F --> G[选择订单操作]
-    G --> H[查看详情]
-    G --> I[申请退款]
-    H --> J[确认订单信息]
-    I --> K[确认退款]
-    K --> L[处理退款]
-    L --> M[更新订单状态]
+    A[进入订单页面] --> B[加载统计数据]
+    B --> C[加载订单列表]
+    C --> D{是否需要筛选?}
+    D -->|是| E[设置筛选条件]
+    E --> F[应用筛选]
+    F --> G[刷新列表]
+    D -->|否| H[展示默认列表]
+    G --> I[完成]
+    H --> I
+```
+
+### 3.2 订单详情查看流程
+
+```mermaid
+graph TD
+    A[点击查看详情] --> B[加载订单详情]
+    B --> C{加载成功?}
+    C -->|是| D[展示详情弹窗]
+    C -->|否| E[展示错误信息]
+    D --> F[查看各项信息]
+    F --> G{是否需要复制订单号?}
+    G -->|是| H[点击复制按钮]
+    H --> I[复制成功提示]
+    G -->|否| J[继续查看]
+    E --> K[提供重试选项]
+```
+
+### 3.3 退款申请流程
+
+```mermaid
+graph TD
+    A[点击退款按钮] --> B[检查业务规则]
+    B --> C{是否符合退款条件?}
+    C -->|是| D[打开退款弹窗]
+    C -->|否| E[展示错误原因]
+    D --> F[选择退款原因]
+    F --> G[填写详细信息]
+    G --> H[确认退款信息]
+    H --> I[提交申请]
+    I --> J{提交成功?}
+    J -->|是| K[刷新订单列表]
+    J -->|否| L[展示错误信息]
+    E --> M[结束流程]
+    K --> M
+    L --> M
+```
+
+### 3.4 状态轮询流程
+
+```mermaid
+graph TD
+    A[页面加载] --> B[启动轮询检查]
+    B --> C{存在待支付订单?}
+    C -->|是| D[定时查询订单状态]
+    D --> E{状态有更新?}
+    E -->|是| F[更新本地数据]
+    E -->|否| G[继续等待]
+    F --> H[刷新UI展示]
+    C -->|否| I[停止轮询]
+    G --> D
+    H --> D
 ```
 
 ## 4. 用户界面设计
 
-### 4.1 设计风格
-- **主色调**：蓝色系（primary color）作为主色，灰色系作为辅助色
-- **按钮样式**：圆角按钮，主要操作使用实心按钮（color="primary"），次要操作使用轮廓按钮（variant="ghost"）
-- **字体**：系统默认字体，统计数据使用text-2xl font-bold，标题使用text-sm，描述使用text-xs
-- **布局风格**：基于@fastbuildai/ui组件库的现代化设计，使用grid和flex布局，gap间距统一
-- **图标风格**：使用Heroicons图标库（i-heroicons-magnifying-glass、i-heroicons-user）和Lucide图标库（i-lucide-eye、i-lucide-ellipsis-vertical），简洁线性风格
-- **组件库**：基于@fastbuildai/ui统一组件库，确保设计一致性
+### 4.1 设计规范
 
-### 4.2 页面设计概览
+**色彩方案**
+- 主色调：蓝色系（#3B82F6）用于主要操作和品牌标识
+- 成功色：绿色系（#10B981）用于支付成功、完成状态
+- 警告色：橙色系（#F59E0B）用于待支付、处理中状态
+- 错误色：红色系（#EF4444）用于退款、错误状态
+- 中性色：灰色系用于文字、边框、背景
 
-| 页面名称 | 模块名称 | UI元素 |
-|----------|----------|--------|
-| Coze套餐订单页面 | 统计数据卡片 | 5列网格布局(grid-cols-5)，UCard组件，数值使用text-2xl font-bold，单位使用text-xs text-muted-foreground |
-| Coze套餐订单页面 | 搜索筛选区域 | 水平布局(flex items-center space-x-2)，UInput搜索框带图标，USelect下拉选择器，支持实时查询 |
-| Coze套餐订单页面 | 订单数据表格 | UTable组件，固定表格布局(table-fixed)，操作列固定右侧(columnPinning)，支持排序和粘性表头 |
-| Coze套餐订单页面 | 用户信息列 | UAvatar组件显示用户头像，支持默认图标(i-heroicons-user)和用户名显示 |
-| Coze套餐订单页面 | 支付状态列 | UBadge组件，颜色映射(success/error/warning)，支持退款状态叠加显示 |
-| Coze套餐订单页面 | 分页控制区域 | 底部边框分隔(border-t)，左侧总数显示，右侧ProPaginaction组件和跳转输入框 |
-| 订单详情弹窗 | 信息展示网格 | 2列网格布局(md:grid-cols-2)，标题使用text-muted-foreground text-sm，内容使用text-secondary-foreground |
-| 订单详情弹窗 | 时间显示组件 | TimeDisplay组件，mode="datetime"，支持创建时间和支付时间格式化显示 |
+**字体规范**
+- 主要字体：系统默认字体栈
+- 标题：16px-20px，font-weight: 600
+- 正文：14px，font-weight: 400
+- 小字：12px，font-weight: 400
+
+**组件样式**
+- 按钮：圆角设计，hover效果，禁用状态明确
+- 卡片：轻微阴影，圆角边框，清晰的分隔线
+- 表格：斑马纹背景，hover高亮，排序图标清晰
+- 弹窗：模态设计，遮罩层，合理的尺寸适配
+
+**图标风格**
+- 使用Lucide图标库，保持风格统一
+- 状态图标：明确的颜色和形状区分
+- 操作图标：简洁明了，符合用户认知
+
+### 4.2 页面布局
+
+**主页面布局**
+- 顶部：页面标题和描述
+- 上部：统计卡片区域（5个卡片网格布局）
+- 中部：搜索筛选区域（可展开折叠）
+- 下部：订单列表表格（全宽布局）
+
+**详情弹窗布局**
+- 头部：弹窗标题和关闭按钮
+- 主体：分模块信息展示（基本信息、用户信息、套餐信息、支付信息）
+- 底部：操作按钮（退款、关闭）
+
+**退款弹窗布局**
+- 头部：退款申请标题
+- 主体：订单信息确认、退款原因选择、详细信息填写
+- 底部：确认提交按钮
 
 ### 4.3 响应式设计
-- 桌面优先设计，基于Tailwind CSS响应式类
-- 统计卡片支持响应式网格：grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5
-- 表格使用border-separate border-spacing-0样式，支持横向滚动
-- 详情弹窗支持移动端适配：grid-cols-1 md:grid-cols-2
-- 使用AccessControl组件进行权限控制显示
 
-## 5. 功能需求
+**桌面端（>1024px）**
+- 完整功能展示
+- 多列表格布局
+- 侧边详情弹窗
 
-### 5.1 统计数据展示
-- **需求描述**：在页面顶部展示Coze套餐订单的关键业务指标
-- **技术实现**：
-  - 数据来源：apiGetPackageOrderList接口返回的statistics字段
-  - 组件实现：UCard组件网格布局，支持响应式显示
-  - 数据类型：totalOrder(订单数)、totalAmount(销售金额)、totalRefundOrder(退款订单数)、totalRefundAmount(退款金额)、totalIncome(净收入)
-- **业务规则**：
-  - 实时更新：每次查询订单列表时同步更新统计数据
-  - 货币格式：金额类数据显示"元"单位，数量类数据显示"单"单位
-  - 净收入计算：累计销售金额减去累计退款金额
-- **验证规则**：数值类型验证，支持小数点后2位精度
+**平板端（768px-1024px）**
+- 统计卡片2列布局
+- 表格横向滚动
+- 适配弹窗尺寸
 
-### 5.2 订单搜索筛选
-- **需求描述**：提供多维度的订单搜索和筛选功能
-- **技术实现**：
-  - 搜索组件：UInput组件，支持订单号(orderNo)和用户关键字(keyword)搜索
-  - 筛选组件：USelect组件，支持支付方式(payType)、支付状态(payStatus)、退款状态(refundStatus)筛选
-  - 实时查询：@update:modelValue事件触发getPackageOrderList()方法
-- **业务规则**：
-  - 订单号搜索：支持完整或部分订单号匹配
-  - 用户搜索：支持用户ID、昵称、手机号模糊匹配
-  - 支付方式：微信支付(1)、支付宝支付(2)、全部(all)
-  - 支付状态：已支付(1)、未支付(0)、全部(all)
-  - 退款状态：已退款(1)、未退款(0)、全部(all)
-- **验证规则**：搜索关键字长度限制，特殊字符过滤
+**移动端（<768px）**
+- 统计卡片单列布局
+- 简化筛选选项
+- 全屏弹窗展示
+- 触摸友好的操作区域
 
-### 5.3 订单列表管理
-- **需求描述**：展示订单数据并提供操作功能
-- **技术实现**：
-  - 数据表格：UTable组件，支持固定布局和粘性表头
-  - 列定义：9个核心列，包含数据格式化和自定义渲染
-  - 操作列：UDropdownMenu组件，支持权限控制和条件显示
-- **业务规则**：
-  - 排序功能：支持按下单时间排序(createdAt列)
-  - 货币格式：实付金额使用Intl.NumberFormat格式化为人民币显示
-  - 用户信息：显示用户头像和用户名，支持默认头像
-  - 支付状态：使用UBadge组件，颜色区分不同状态
-  - 操作权限：查看详情需要coze-package-order:detail权限，退款需要coze-package-order:refund权限
-- **验证规则**：
-  - 退款条件：已支付(payStatus=1)且未退款(refundStatus=0)的订单才显示退款操作
-  - 数据完整性：必填字段验证，异常数据处理
+## 5. 数据模型
 
-### 5.4 订单详情查看
-- **需求描述**：在弹窗中展示订单的完整详细信息
-- **技术实现**：
-  - 弹窗组件：ProModal组件，支持自定义内容区域
-  - 数据获取：apiGetPackageOrderDetail接口，根据订单ID获取详情
-  - 信息展示：网格布局展示订单各项信息
-- **业务规则**：
-  - 信息完整性：展示订单号、订单来源、用户信息、订单类型、套餐信息、支付信息、时间信息、退款信息
-  - 时间格式：使用TimeDisplay组件格式化显示创建时间和支付时间
-  - 条件显示：退款相关信息仅在有退款时显示
-  - 数据表格：展示套餐名称、套餐时长、原价、现价、实付金额的汇总信息
-- **验证规则**：订单ID有效性验证，数据获取异常处理
+### 5.1 核心数据类型
 
-### 5.5 退款流程处理
-- **需求描述**：提供安全可靠的订单退款处理功能
-- **技术实现**：
-  - 确认弹窗：useModal组件，二次确认退款操作
-  - 退款API：apiPackageRefund接口，传入订单ID处理退款
-  - 状态更新：退款成功后刷新订单列表和关闭详情弹窗
-- **业务规则**：
-  - 退款条件：仅支持已支付且未退款的订单
-  - 确认机制：必须通过确认弹窗才能执行退款
-  - 成功反馈：退款成功后显示成功提示信息
-  - 数据同步：退款后立即刷新订单列表数据
-  - 套餐回收：退款后需要回收用户的套餐权限
-- **验证规则**：
-  - 权限验证：需要coze-package-order:refund权限
-  - 状态验证：payStatus=1且refundStatus=0
-  - 异常处理：API调用失败的错误处理
+```typescript
+// 订单列表项接口
+interface CozePackageOrderListItem {
+  id: string;                    // 订单ID
+  orderNo: string;              // 订单编号
+  user: CozePackageOrderUser;   // 用户信息
+  packageName: string;          // 套餐名称
+  packageDuration: number;      // 套餐时长（天）
+  packagePrice: number;         // 套餐价格
+  orderAmount: number;          // 订单金额
+  payType: number;              // 支付方式
+  payTypeDesc: string;          // 支付方式描述
+  payStatus: number;            // 支付状态
+  payStatusDesc: string;          // 支付状态描述
+  refundStatus: number;         // 退款状态
+  refundStatusDesc: string;       // 退款状态描述
+  payTime?: string;             // 支付时间
+  createdAt: string;            // 创建时间
+  updatedAt: string;            // 更新时间
+}
 
-### 5.6 分页导航控制
-- **需求描述**：提供灵活的分页浏览和导航功能
-- **技术实现**：
-  - 分页组件：ProPaginaction组件，支持页码导航
-  - 页面大小：USelect组件，支持10/20/50/100条每页设置
-  - 直接跳转：UInput组件，支持输入页码直接跳转
-- **业务规则**：
-  - 分页信息：显示总条数、当前页、总页数
-  - 页面大小：支持动态调整每页显示条数
-  - 跳转功能：支持输入页码直接跳转到指定页面
-  - 边界处理：首页、末页、无效页码的处理
-- **验证规则**：
-  - 页码范围：1到最大页数之间
-  - 页面大小：仅支持预设的选项值
-  - 数值验证：页码输入的数字类型验证
+// 订单详情接口
+interface CozePackageOrderDetail {
+  id: string;                    // 订单ID
+  orderNo: string;                // 订单编号
+  orderSource: string;            // 订单来源
+  orderType: string;              // 订单类型
+  userInfo: CozePackageOrderUserInfo;  // 用户信息
+  packageInfo: CozePackageInfo;   // 套餐信息
+  quantity: number;               // 购买数量
+  totalAmount: number;            // 订单总金额
+  discountAmount: number;           // 优惠金额
+  actualAmount: number;             // 实付金额
+  paymentMethod: PaymentMethod;     // 支付方式
+  orderStatus: OrderStatus;       // 订单状态
+  paymentStatus: PaymentStatus;     // 支付状态
+  refundStatus: RefundStatus;     // 退款状态
+  transactionId?: string;         // 交易流水号
+  createdAt: string;              // 创建时间
+  updatedAt: string;                // 更新时间
+  paymentTime?: string;             // 支付时间
+  expirationTime?: string;          // 过期时间
+  refundAmount?: number;            // 退款金额
+  refundNo?: string;                // 退款单号
+  refundTime?: string;              // 退款时间
+}
 
-## 6. API设计
-
-### 6.1 获取套餐订单列表
-```
-GET /api/console/coze-package-order
+// 统计数据接口
+interface CozePackageOrderStatistics {
+  totalOrder: number;           // 总订单数
+  totalAmount: number;          // 总金额
+  totalRefundOrder: number;     // 退款订单数
+  totalRefundAmount: number;      // 退款金额
+  totalIncome: number;          // 净收入
+}
 ```
 
-**权限要求**：@Permissions('list')
-**技术实现**：
-- 查询coze_package_order表获取订单数据，关联user表获取用户信息，关联coze_package_config表获取套餐信息
-- 支持分页查询、条件筛选、关键字搜索
-- 计算统计数据：订单数量、金额汇总、退款统计
+### 5.2 状态枚举定义
 
-**请求参数**：
-| 参数名 | 类型 | 必填 | 说明 |
-|--------|------|------|------|
-| page | number | 是 | 页码，从1开始 |
-| pageSize | number | 是 | 每页条数，支持10/20/50/100 |
-| keyword | string | 否 | 用户搜索关键字(ID/昵称/手机号) |
-| orderNo | string | 否 | 订单号搜索 |
-| payType | string | 否 | 支付方式：1-微信，2-支付宝 |
-| payStatus | string | 否 | 支付状态：1-已支付，0-未支付 |
-| refundStatus | string | 否 | 退款状态：1-已退款，0-未退款 |
+```typescript
+// 支付状态
+enum PaymentStatus {
+  UNPAID = 'unpaid',      // 未支付
+  PAID = 'paid',          // 已支付
+  REFUNDED = 'refunded',    // 已退款
+  PARTIAL_REFUND = 'partialRefund'  // 部分退款
+}
 
-**响应数据**：
+// 退款状态
+enum RefundStatus {
+  NONE = 'none',          // 无退款
+  PENDING = 'pending',      // 退款中
+  APPROVED = 'approved',    // 退款成功
+  REJECTED = 'rejected',    // 退款失败
+  PROCESSING = 'processing'  // 处理中
+}
+
+// 支付方式
+enum PaymentMethod {
+  WECHAT = 'wechat',      // 微信支付
+  ALIPAY = 'alipay',      // 支付宝支付
+  BANK = 'bank',          // 银行卡支付
+  BALANCE = 'balance',    // 余额支付
+  OTHER = 'other'         // 其他支付
+}
+```
+
+## 6. 技术实现
+
+### 6.1 前端架构
+
+**技术栈**
+- 框架：Vue 3 + TypeScript
+- UI库：Nuxt UI + Tailwind CSS
+- 状态管理：Vue Composition API
+- 国际化：Vue I18n
+- 工具库：VueUse（响应式、工具函数）
+
+**组件结构**
+```
+coze-package-order/
+├── index.vue                    # 主页面组件
+├── components/
+│   ├── coze-package-order-detail.vue    # 订单详情弹窗
+│   └── refund-application.vue          # 退款申请弹窗
+```
+
+**核心功能实现**
+
+1. **交替排序实现**
+```typescript
+// 排序状态管理
+const sortClickCount = ref<Record<string, number>>({});
+
+// 排序处理函数
+const handleSort = (column: any) => {
+  const key = column.id;
+  sortClickCount.value[key] = (sortClickCount.value[key] || 0) + 1;
+  const isAsc = sortClickCount.value[key] % 2 === 0;
+  column.toggleSorting(isAsc);
+};
+```
+
+2. **状态轮询机制**
+```typescript
+// 轮询检查函数
+const checkPollingOrders = async () => {
+  if (pollingOrders.value.size === 0) return;
+  
+  try {
+    const completedOrders = [];
+    for (const orderId of pollingOrders.value) {
+      const order = orders.value.find(o => o.id === orderId);
+      if (order && order.payStatus === 1) {
+        completedOrders.push(orderId);
+        pollingOrders.value.delete(orderId);
+      }
+    }
+    
+    if (completedOrders.length > 0) {
+      getOrderList(false); // 静默刷新
+    }
+  } catch (error) {
+    console.error("Check order status error:", error);
+  }
+};
+```
+
+3. **响应式布局处理**
+```typescript
+// 响应式断点检测
+const breakpoints = useBreakpoints({
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+});
+
+const isMobile = breakpoints.smaller('md');
+const isTablet = breakpoints.between('md', 'lg');
+```
+
+### 6.2 API接口定义
+
+**订单相关API**
+```typescript
+// 获取订单列表
+GET /coze-package-order?params
+
+// 获取订单详情
+GET /coze-package-order/:id
+
+// 申请订单退款
+POST /coze-package-order/refund
+{
+  orderId: string
+}
+```
+
+### 6.3 国际化实现
+
+**多语言支持**
+- 中文：`console-coze-package-order.json`
+- 英文：`en/console-coze-package-order.json`
+- 日文：`jp/console-coze-package-order.json`
+
+**关键文案**
 ```json
 {
-  "items": [
-    {
-      "id": "order_id",
-      "orderNo": "202312010001",
-      "user": {
-        "username": "用户名",
-        "avatar": "头像URL"
-      },
-      "packageName": "Coze基础套餐",
-      "packageDuration": 30,
-      "packagePrice": "99.00",
-      "originalPrice": "129.00",
-      "orderAmount": "99.00",
-      "payTypeDesc": "微信支付",
-      "payStatus": 1,
-      "refundStatus": 0,
-      "createdAt": "2023-12-01T10:00:00Z"
-    }
-  ],
-  "page": 1,
-  "pageSize": 10,
-  "total": 100,
+  "pageTitle": "Coze套餐订单",
   "statistics": {
-    "totalOrder": 100,
-    "totalAmount": 9900.00,
-    "totalRefundOrder": 5,
-    "totalRefundAmount": 495.00,
-    "totalIncome": 9405.00
+    "totalOrders": "订单总数",
+    "totalAmount": "订单总金额"
+  },
+  "list": {
+    "orderNo": "订单号",
+    "viewDetails": "查看详情",
+    "refund": "退款"
   }
 }
 ```
 
-### 6.2 获取套餐订单详情
-```
-GET /api/console/coze-package-order/:id
-```
+## 7. 性能优化
 
-**权限要求**：@Permissions('detail')
-**技术实现**：
-- 根据订单ID查询coze_package_order表详细信息
-- 关联user表获取用户信息，关联coze_package_config表获取套餐详情，关联payconfig表获取支付方式描述
-- 处理退款状态和退款单号信息
+### 7.1 列表性能优化
+- **虚拟滚动**：大数据量列表采用虚拟滚动技术
+- **分页加载**：默认50条/页，支持自定义分页大小
+- **防抖处理**：搜索输入使用防抖技术，减少API调用
+- **条件缓存**：筛选条件变化时智能判断是否重新加载
 
-**路径参数**：
-| 参数名 | 类型 | 必填 | 说明 |
-|--------|------|------|------|
-| id | string | 是 | 订单ID |
+### 7.2 状态管理优化
+- **局部刷新**：订单状态更新时只刷新变更的数据
+- **轮询控制**：智能启停轮询，避免不必要的网络请求
+- **错误重试**：网络错误时提供重试机制
 
-**响应数据**：
-```json
-{
-  "id": "order_id",
-  "orderNo": "202312010001",
-  "orderType": "Coze套餐订单",
-  "terminalDesc": "Web端",
-  "user": {
-    "username": "用户名"
-  },
-  "packageName": "Coze基础套餐",
-  "packageDuration": 30,
-  "packageDescription": "适合个人用户的基础套餐",
-  "originalPrice": "129.00",
-  "packagePrice": "99.00",
-  "orderAmount": "99.00",
-  "payTypeDesc": "微信支付",
-  "payStatus": 1,
-  "payTime": "2023-12-01T10:05:00Z",
-  "refundStatus": 0,
-  "refundStatusDesc": "未退款",
-  "refundNo": null,
-  "createdAt": "2023-12-01T10:00:00Z"
+### 7.3 用户体验优化
+- **加载状态**：明确的加载动画和进度提示
+- **错误处理**：友好的错误提示和解决方案
+- **操作反馈**：成功/失败的操作都有相应的反馈提示
+
+## 8. 错误处理
+
+### 8.1 网络错误处理
+```typescript
+try {
+  const data = await apiGetCozePackageOrderList(params);
+  // 处理成功响应
+} catch (error) {
+  if (error.response?.status === 401) {
+    // 未授权，跳转登录
+  } else if (error.response?.status === 403) {
+    // 权限不足，显示权限错误
+  } else if (error.response?.status >= 500) {
+    // 服务器错误，显示服务不可用
+  } else {
+    // 其他错误，显示通用错误信息
+  }
 }
 ```
 
-### 6.3 申请套餐订单退款
-```
-POST /api/console/coze-package-order/refund
-```
+### 8.2 业务错误处理
+- **权限验证**：操作前检查用户权限
+- **状态验证**：退款前验证订单状态是否符合条件
+- **数据验证**：表单提交前进行客户端验证
+- **金额验证**：确保金额计算正确，避免精度问题
 
-**权限要求**：@Permissions('refund')
-**技术实现**：
-- 验证订单状态：已支付且未退款
-- 调用退款服务处理退款逻辑
-- 更新订单退款状态，回收用户套餐权限，记录账户日志
+### 8.3 用户友好提示
+- **加载失败**：提供重试按钮和错误详情
+- **网络超时**：自动重试机制
+- **权限不足**：明确的权限提示和联系建议
+- **操作失败**：具体的失败原因和解决建议
 
-**请求参数**：
-```json
-{
-  "id": "order_id"
-}
-```
+## 9. 与之前PRD的差异说明
 
-**RefundDto验证规则**：
-| 字段名 | 类型 | 验证规则 | 说明 |
-|--------|------|----------|------|
-| id | string | @IsString @IsNotEmpty | 订单ID，不能为空 |
+### 9.1 功能增强
+1. **交替排序功能**：新增订单金额和创建时间的交替排序，提升用户体验
+2. **智能轮询机制**：实现订单状态自动检查和更新，确保数据实时性
+3. **响应式布局优化**：完善的移动端适配，支持各种设备访问
+4. **业务规则验证**：退款申请时进行完整的业务规则检查
 
-**响应数据**：
-```json
-{
-  "success": true,
-  "message": "退款成功"
-}
-```
+### 9.2 性能改进
+1. **防抖搜索**：搜索输入防抖处理，减少不必要的API调用
+2. **条件缓存**：智能判断筛选条件变化，避免重复加载
+3. **局部刷新**：订单状态更新时只刷新必要的数据
+4. **分页优化**：支持更大的分页大小，提升大数据量处理效率
 
-## 7. 验收标准
+### 9.3 用户体验提升
+1. **加载状态优化**：更明确的加载动画和状态提示
+2. **错误处理完善**：详细的错误信息和重试机制
+3. **操作反馈改进**：成功/失败操作都有相应的反馈提示
+4. **国际化支持**：完整的中英日三语支持
 
-### 7.1 功能验收
-- [ ] 统计数据卡片正常显示，数值准确反映套餐订单业务指标
-- [ ] 订单搜索功能正常，支持订单号和用户关键字模糊搜索
-- [ ] 筛选功能完整，支付方式、支付状态、退款状态生效
-- [ ] 订单列表正常展示，分页、排序、数据格式化功能正常
-- [ ] 订单详情弹窗正常显示，套餐信息完整准确
-- [ ] 退款功能正常，包含确认弹窗、API调用、状态更新、套餐权限回收
-- [ ] 权限控制：list、detail、refund权限验证有效
+### 9.4 技术架构优化
+1. **TypeScript类型安全**：完整的类型定义和接口规范
+2. **组件化设计**：清晰的组件结构和职责分离
+3. **状态管理优化**：更合理的状态管理和数据流设计
+4. **代码质量提升**：更好的错误处理和边界情况处理
 
-### 7.2 界面验收
-- [ ] 页面布局符合@fastbuildai/ui设计规范
-- [ ] UCard、UTable、UInput、USelect、ProModal组件样式一致
-- [ ] 响应式设计在不同设备上正常显示，使用Tailwind CSS
-- [ ] 交互反馈及时：搜索响应、操作确认、成功提示、加载状态
-- [ ] 多语言显示正确：中文、英文、日文通过vue-i18n切换
-- [ ] 图标显示正确：Heroicons、Lucide、Tabler图标库
+## 10. 后续优化建议
 
-### 7.3 权限验收
-- [ ] 只有具备coze-package-order:list权限的用户可以查看订单列表
-- [ ] 只有具备coze-package-order:detail权限的用户可以查看订单详情
-- [ ] 只有具备coze-package-order:refund权限的用户可以申请退款
-- [ ] AccessControl组件正确控制操作按钮的显示
-- [ ] 权限控制粒度正确，功能隔离有效
+### 10.1 功能扩展
+1. **批量操作**：支持批量退款、批量导出等功能
+2. **数据导出**：支持订单数据Excel导出
+3. **图表分析**：增加订单趋势图表和数据分析
+4. **消息通知**：订单状态变化时发送通知
 
-### 7.4 性能验收
-- [ ] 页面加载时间在可接受范围内(<2秒)
-- [ ] 订单列表查询响应及时(<1秒)，支持大数据量分页
-- [ ] 搜索和筛选响应及时，实时查询不影响用户体验
-- [ ] 订单详情加载快速(<500ms)
-- [ ] 退款操作响应及时(<2秒)
+### 10.2 性能优化
+1. **服务端渲染**：考虑使用SSR提升首屏加载速度
+2. **图片懒加载**：优化图片资源的加载策略
+3. **缓存策略**：实现更智能的数据缓存机制
+4. **CDN加速**：静态资源使用CDN分发
 
-### 7.5 兼容性验收
-- [ ] 主流浏览器兼容性良好(Chrome、Firefox、Safari、Edge)
-- [ ] 移动端适配正确，触摸操作友好
-- [ ] 不同分辨率下显示正常(1920x1080、1366x768、移动端)
-- [ ] Vue3 + Nuxt3 + TypeScript技术栈稳定运行
-
-### 7.6 数据验证验收
-- [ ] 前端验证：搜索关键字、页码输入、筛选条件验证生效
-- [ ] 后端验证：PackageOrderListParams和RefundDto验证规则生效
-- [ ] 数据格式化：货币格式、时间格式、用户信息、套餐信息显示正确
-- [ ] 边界值测试：空数据、大数据量、异常状态处理正确
-- [ ] 退款条件验证：只有已支付且未退款的订单可以退款
-- [ ] 套餐权限验证：退款后正确回收用户套餐使用权限
+### 10.3 用户体验
+1. **快捷键支持**：为常用操作添加快捷键
+2. **个性化设置**：允许用户自定义列表显示字段
+3. **搜索历史**：保存和展示用户的搜索历史
+4. **操作日志**：记录用户的操作行为便于追踪

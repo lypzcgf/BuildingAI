@@ -81,7 +81,8 @@
         "accountBalance": "残高明細",
         "financialCenter": "財務センター",
         "orderManagement": "注文管理",
-        "orderList": "チャージ注文"
+        "orderList": "チャージ注文",
+        "cozePackageOrder": "Cozeパッケージ注文"
     },
     "permission": {
         "title": "権限管理",

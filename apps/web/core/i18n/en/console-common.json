@@ -268,5 +268,8 @@
         "undo": "quash",
         "redo": "redo",
         "purple": "purple"
-    }
+    },
+    "unit": "unit",
+    "yuan": "yuan",
+    "days": "days"
 }

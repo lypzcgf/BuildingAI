@@ -81,7 +81,8 @@
         "accountBalance": "余额明细",
         "financialCenter": "财务中心",
         "orderManagement": "订单管理",
-        "orderList": "充值订单"
+        "orderList": "充值订单",
+        "cozePackageOrder": "Coze套餐订单"
     },
     "permission": {
         "title": "权限管理",

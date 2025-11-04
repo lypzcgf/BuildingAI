@@ -81,7 +81,8 @@
         "accountBalance": "Balance",
         "financialCenter": "Finance Center",
         "orderManagement": "Orders",
-        "orderList": "Orders"
+        "orderList": "Orders",
+        "cozePackageOrder": "Coze Package Orders"
     },
     "permission": {
         "title": "Permissions",
