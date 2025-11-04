@@ -48,6 +48,10 @@ dist
 /public/web/*
 !/public/index.html
 
+# Package build outputs
+packages/*/lib/
+packages/*/dist/
+
 
 # Debug
 npm-debug.log*
