@@ -33,38 +33,46 @@
 ## 🛠️ 技术栈
 
 ### 核心框架
+
 - [Nuxt 3](https://nuxt.com/) - Vue 3 全栈框架
 - [Vue 3](https://vuejs.org/) - 渐进式 JavaScript 框架
 - [TypeScript](https://www.typescriptlang.org/) - 类型安全的 JavaScript
 
 ### UI 框架
+
 - [Nuxt UI](https://ui.nuxt.com/) - 现代化 UI 组件库
 - [Tailwind CSS](https://tailwindcss.com/) - 原子化 CSS 框架
 - [Tailwind CSS Vite](https://github.com/tailwindlabs/tailwindcss-vite) - Tailwind CSS Vite 插件
 
 ### 状态管理
+
 - [Pinia](https://pinia.vuejs.org/) - Vue 3 状态管理库
 - [@pinia/nuxt](https://github.com/vuejs/pinia/tree/main/packages/nuxt) - Pinia Nuxt 集成
 
 ### 工具库
+
 - [VueUse](https://vueuse.org/) - Vue Composition API 工具集
 - [@vueuse/core](https://github.com/vueuse/vueuse) - VueUse 核心功能
 - [@vueuse/motion](https://motion.vueuse.org/) - Vue 动画库
 - [@vueuse/nuxt](https://github.com/vueuse/nuxt) - VueUse Nuxt 集成
 
 ### 图标系统
+
 - [@iconify-json/heroicons](https://icon-sets.iconify.design/heroicons/) - Heroicons 图标集
 - [@iconify-json/lucide](https://icon-sets.iconify.design/lucide/) - Lucide 图标集
 - [@iconify-json/tabler](https://icon-sets.iconify.design/tabler/) - Tabler 图标集
 
 ### 数据可视化
+
 - [ECharts](https://echarts.apache.org/) - 强大的图表库
 - [@lottiefiles/dotlottie-vue](https://github.com/LottieFiles/dotlottie-vue) - Lottie 动画支持
 
 ### 表单验证
+
 - [Yup](https://github.com/jquense/yup) - JavaScript 对象模式验证器
 
 ### 开发工具
+
 - [ESLint](https://eslint.org/) - 代码质量检查
 - [Prettier](https://prettier.io/) - 代码格式化
 - [Vue TSC](https://github.com/vuejs/vue-tsc) - Vue TypeScript 编译器
@@ -107,15 +115,18 @@ apps/web/
 ## 🚀 快速开始
 
 ### 环境要求
+
 - Node.js >= 22.14.0
 - pnpm >= 10.0.0
 
 ### 安装依赖
+
 ```bash
 pnpm install
 ```
 
 ### 开发环境
+
 ```bash
 # 开发模式
 pnpm dev
@@ -125,6 +136,7 @@ pnpm dev:pwa
 ```
 
 ### 构建部署
+
 ```bash
 # 构建生产版本
 pnpm build
@@ -140,6 +152,7 @@ pnpm start:generate
 ```
 
 ### 代码质量
+
 ```bash
 # 代码检查
 pnpm lint
@@ -155,6 +168,7 @@ pnpm format
 ```
 
 ### 国际化
+
 ```bash
 # 翻译国际化文件
 pnpm i18n:translate
@@ -163,11 +177,14 @@ pnpm i18n:translate
 ## 🔧 配置说明
 
 ### 环境变量
+
 项目使用 `.env` 文件进行环境配置：
+
 - `.env.development.local` - 开发环境配置
 - `.env.production.local` - 生产环境配置
 
 ### 构建配置
+
 - `NUXT_BUILD_SSR` - 是否启用 SSR
 - `NUXT_BUILD_ENV` - 构建环境
 - `VITE_PLUGIN_PWA` - 是否启用 PWA 插件

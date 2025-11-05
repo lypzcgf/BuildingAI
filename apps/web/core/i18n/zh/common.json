@@ -5,7 +5,8 @@
     "goHome": "返回前台",
     "menu": {
         "system": "设置",
-        "workspace": "工作台"
+        "workspace": "工作台",
+        "cozePackage": "Coze套餐"
     },
     "label": {
         "profile": "个人中心",

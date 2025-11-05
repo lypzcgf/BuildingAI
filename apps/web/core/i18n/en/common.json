@@ -5,7 +5,8 @@
     "goHome": "Return to the front desk",
     "menu": {
         "system": "Settings",
-        "workspace": "Workspace"
+        "workspace": "Workspace",
+        "cozePackage": "Coze Package"
     },
     "label": {
         "profile": "Profile",

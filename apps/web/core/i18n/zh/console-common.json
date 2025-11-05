@@ -177,6 +177,18 @@
     "preview": "预览",
 
     "unauthorizedMessage": "请登录",
+    "cozePackage": "Coze套餐",
+    "noPackage": "暂无套餐",
+    "purchasePackage": "购买套餐",
+    "managePackage": "管理套餐",
+    "cozePackageCenter": "Coze套餐中心",
+    "remainingDaysPrefix": "剩余天数",
+    "dayUnit": "天",
+    "packageStatus": {
+        "normal": "正常",
+        "warning": "即将到期",
+        "expired": "已到期"
+    },
     "request": {
         "400": "错误请求400",
         "401": "未授权401",

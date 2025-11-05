@@ -1,5 +1,9 @@
 <script lang="ts" setup>
 import type { PopoverContentProps } from "reka-ui";
+import { useUserStore } from "@/common/stores/user";
+import { useControlsStore } from "@/common/stores/controls";
+import { computed } from "vue";
+
 
 interface MenuItem {
     id: number;
@@ -26,6 +30,9 @@ const { t } = useI18n();
 const userStore = useUserStore();
 const controlStore = useControlsStore();
 const router = useRouter();
+
+// 使用Coze套餐组合式函数
+
 
 const isOpen = ref<boolean>(false);
 
@@ -57,6 +64,12 @@ const quickActions = ref<MenuItem[]>([
         target: "_blank",
         path: "/agreement?type=agreement&item=privacy",
     },
+    {
+        id: 5,
+        title: "common.menu.cozePackage",
+        icon: "i-lucide-package",
+        click: () => router.push("/profile/coze-package"),
+    },
 ]);
 
 /**
@@ -74,6 +87,25 @@ const handleMenuClick = (item: MenuItem) => {
     }
     isOpen.value = false;
 };
+
+watch(isOpen, (open) => {
+    // 弹层打开后可根据需要触发其他刷新逻辑
+});
+
+const cozePackageStatusColor = computed(() => {
+  const pkg = userStore.userInfo?.cozePackage;
+  if (!pkg) return 'border-gray-200 bg-gray-50';
+  switch (pkg.status) {
+    case 'active':
+      return 'border-green-200 bg-green-50';
+    case 'expired':
+      return 'border-red-200 bg-red-50';
+    case 'frozen':
+      return 'border-orange-200 bg-orange-50';
+    default:
+      return 'border-gray-200 bg-gray-50';
+  }
+});
 </script>
 
 <template>
@@ -161,6 +193,31 @@ const handleMenuClick = (item: MenuItem) => {
                         @click="navigateTo('/profile/personal-rights/recharge-center')"
                     >
                         {{ t("console-common.recharge") }}
+                    </UButton>
+                </div>
+
+                <!-- Coze套餐信息区域 -->
+                <div class="mt-3 flex items-center justify-between rounded-xl border p-3" :class="cozePackageStatusColor">
+                    <div class="flex items-center gap-2 text-sm">
+                        <UIcon name="i-lucide-package" class="size-4" />
+                        <span class="font-medium">{{ t("console-common.cozePackage") }}:</span>
+                        <div class="flex items-center gap-1">
+                            <template v-if="userStore.userInfo?.cozePackage">
+                                <span class="font-medium">{{ userStore.userInfo.cozePackage.packageName }}</span>
+                                <span class="text-xs">（{{ t('console-common.remainingDaysPrefix') }} {{ userStore.userInfo.cozePackage.remainingDays }}{{ t('console-common.dayUnit') }}）</span>
+                            </template>
+                            <template v-else>
+                                <span class="text-muted-foreground text-xs">{{ t("console-common.noPackage") }}</span>
+                                <span class="text-xs">（{{ t('console-common.remainingDaysPrefix') }} 0{{ t('console-common.dayUnit') }}）</span>
+                            </template>
+                        </div>
+                    </div>
+                    <UButton
+                        size="xs"
+                        variant="outline"
+                        @click="navigateTo('/profile/coze-package')"
+                    >
+                        {{ t("console-common.cozePackageCenter") }}
                     </UButton>
                 </div>
 

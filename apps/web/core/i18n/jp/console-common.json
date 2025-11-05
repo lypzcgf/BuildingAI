@@ -176,6 +176,18 @@
     },
     "preview": "プレビュー",
     "unauthorizedMessage": "ログインしてください",
+    "cozePackage": "Cozeパッケージ",
+    "noPackage": "パッケージなし",
+    "purchasePackage": "パッケージ購入",
+    "managePackage": "パッケージ管理",
+    "cozePackageCenter": "Cozeパッケージセンター",
+    "remainingDaysPrefix": "残り日数",
+    "dayUnit": "日",
+    "packageStatus": {
+        "normal": "正常",
+        "warning": "期限切れ間近",
+        "expired": "期限切れ"
+    },
     "request": {
         "400": "不正なリクエスト400",
         "401": "認証エラー401",

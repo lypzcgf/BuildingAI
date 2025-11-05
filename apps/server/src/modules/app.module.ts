@@ -9,6 +9,7 @@ import { RedisModule } from "@core/redis/redis.module";
 import { ChannelModule } from "@modules/console/channel/channel.module";
 import { ConsoleModule } from "@modules/console/console.module";
 import { WebModule } from "@modules/web/web.module";
+import { WebCozePackageModule } from "../web-coze-package/web-coze-package.module";
 import { DynamicModule, Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { APP_GUARD } from "@nestjs/core";
@@ -55,6 +56,7 @@ export class AppModule {
                 ConsoleModule,
                 ChannelModule,
                 BaseModule,
+                WebCozePackageModule,
                 // PluginsCoreModule.register(plugins),
             ],
             controllers: [],

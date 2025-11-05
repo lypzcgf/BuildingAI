@@ -20,6 +20,7 @@ import {
 } from "../dto/coze-package-order.dto";
 import { CozePackageRefundOrderDto, RefundReason } from "../dto/coze-package-refund-order.dto";
 import { CozePackageOrder } from "../entities/coze-package-order.entity";
+// import { UserCozePackageResponseDto, UserCozePackageStatus } from "../../../web-coze-package/dto/user-coze-package.dto";
 
 /**
  * Coze套餐订单服务
@@ -34,6 +35,58 @@ export class CozePackageOrderService extends BaseService<CozePackageOrder> {
         private readonly orderRepository: Repository<CozePackageOrder>,
     ) {
         super(orderRepository);
+    }
+
+    /**
+     * 获取用户有效套餐
+     * 查询当前用户最新的有效套餐订单
+     * @param userId 用户ID
+     * @returns 用户有效套餐信息，如果没有有效套餐则返回null
+     */
+    async getUserActivePackage(userId: string): Promise<any | null> {
+        try {
+            // 查询用户最新的有效套餐订单
+            const order = await this.orderRepository
+                .createQueryBuilder("order")
+                .leftJoinAndSelect("order.user", "user")
+                .leftJoinAndSelect("order.packageConfig", "packageConfig")
+                .where("order.userId = :userId", { userId })
+                .andWhere("order.orderStatus = :orderStatus", { orderStatus: OrderStatus.COMPLETED })
+                .andWhere("order.paymentStatus = :paymentStatus", { paymentStatus: PaymentStatus.PAID })
+                .andWhere("order.expiredAt > :now", { now: new Date() })
+                .orderBy("order.expiredAt", "DESC")
+                .getOne();
+
+            // 如果没有找到有效套餐，返回null
+            if (!order) {
+                this.logger.log(`[+] 用户 ${userId} 没有有效套餐`);
+                return null;
+            }
+
+            // 计算剩余天数
+            const now = new Date();
+            const expireDate = new Date(order.expiredAt);
+            const remainingDays = Math.ceil((expireDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+
+            // 构建响应数据
+            const packageInfo: any = {
+                packageName: order.packageName || "未知套餐",
+                remainingDays: Math.max(0, remainingDays),
+                status: "active",
+                expireDate: expireDate,
+                autoRenew: false, // 默认不支持自动续费，后续可根据业务需求扩展
+                packageId: order.packageConfigId || order.id,
+                orderId: order.id,
+                createdAt: order.createdAt,
+                updatedAt: order.updatedAt,
+            };
+
+            this.logger.log(`[+] 用户 ${userId} 有效套餐查询成功: ${order.packageName}, 剩余${remainingDays}天`);
+            return packageInfo;
+        } catch (error) {
+            this.logger.error(`[!] 查询用户有效套餐失败: ${error.message}`, error.stack);
+            throw HttpExceptionFactory.internal(`查询用户有效套餐失败: ${error.message}`);
+        }
     }
 
     /**

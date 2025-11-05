@@ -5,7 +5,8 @@
     "goHome": "フロントに戻る",
     "menu": {
         "system": "設定",
-        "workspace": "ワークスペース"
+        "workspace": "ワークスペース",
+        "cozePackage": "Cozeパッケージ"
     },
     "label": {
         "profile": "プロフィール",

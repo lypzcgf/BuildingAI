@@ -11,6 +11,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { AiDatasetsModule } from "../../console/ai-datasets/datasets.module";
 import { UserService } from "../../console/user/services/user.service";
 import { AuthModule } from "../auth/auth.module";
+import { WebCozePackageModule } from "../../../web-coze-package/web-coze-package.module";
 import { UserController } from "./user.controller";
 
 /**
@@ -24,6 +25,7 @@ import { UserController } from "./user.controller";
         AuthModule,
         AiDatasetsModule,
         DictModule,
+        WebCozePackageModule,
     ],
     controllers: [UserController],
     providers: [UserService, AccountLogService],

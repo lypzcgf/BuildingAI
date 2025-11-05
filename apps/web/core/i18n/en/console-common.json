@@ -176,6 +176,18 @@
     },
     "preview": "Preview",
     "unauthorizedMessage": "Please login",
+    "cozePackage": "Coze Package",
+    "noPackage": "No Package",
+    "purchasePackage": "Purchase Package",
+    "managePackage": "Manage Package",
+    "cozePackageCenter": "Coze Package Center",
+    "remainingDaysPrefix": "Remaining Days",
+    "dayUnit": "days",
+    "packageStatus": {
+        "normal": "Normal",
+        "warning": "Expiring Soon",
+        "expired": "Expired"
+    },
     "request": {
         "400": "Bad Request",
         "401": "Unauthorized",
