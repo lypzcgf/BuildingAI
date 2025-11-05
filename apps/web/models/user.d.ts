@@ -1,4 +1,5 @@
 import type { ExtendedBaseQueryParams } from "./global";
+import type { UserCozePackage } from "@/types/coze-package";
 
 /** 角色信息 */
 export interface RoleInfo {
@@ -56,6 +57,8 @@ export interface UserInfo {
     deletedAt?: string;
     /** 真实姓名 */
     realName?: string;
+    /** Coze套餐信息 */
+    cozePackage?: UserCozePackage | null;
 }
 
 // 用户中心
