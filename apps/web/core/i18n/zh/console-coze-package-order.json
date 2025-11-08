@@ -182,7 +182,14 @@
         "refundAmount": "退款金额",
         "refundReason": "退款原因",
         "refundAt": "退款时间",
-        "close": "关闭"
+        "close": "关闭",
+        "refund": {
+            "title": "退款申请",
+            "confirm": "确认退款",
+            "success": "退款成功",
+            "failed": "退款失败",
+            "action": "申请退款"
+        }
     },
     "refund": {
         "title": "申请退款",

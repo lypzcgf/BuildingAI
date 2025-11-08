@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ProModal, useMessage, useModal } from "@fastbuildai/ui";
+// cspell:ignore vueuse tanstack
+import { ProModal, useMessage } from "@fastbuildai/ui";
 import { useBreakpoints } from "@vueuse/core";
 import { useI18n } from "vue-i18n";
 
 import type { CozePackageOrderDetail } from "@/models/coze-package-order";
-import { apiCozePackageOrderRefund } from "@/services/console/coze-package-order";
 
 const props = defineProps<{
     order?: CozePackageOrderDetail | null;
@@ -31,34 +31,10 @@ const isMobile = breakpoints.smaller('md');
 const isTablet = breakpoints.between('md', 'lg');
 
 // 加载状态
-const refundLoading = ref(false);
 const detailLoading = ref(false);
 const detailError = ref('');
 
-// 退款操作
-const handleRefund = async () => {
-    if (!props.order?.id) return;
-    
-    try {
-        await useModal({
-            title: t("console-coze-package-order.detail.refund.title"),
-            description: t("console-coze-package-order.detail.refund.confirm"),
-            color: "warning",
-        });
-        
-        refundLoading.value = true;
-        await apiCozePackageOrderRefund({ orderId: props.order.id });
-        
-        toast.success(t("console-coze-package-order.detail.refund.success"));
-        emits("refresh");
-        emits("close");
-    } catch (error) {
-        console.error("Refund error:", error);
-        toast.error(t("console-coze-package-order.detail.refund.failed"));
-    } finally {
-        refundLoading.value = false;
-    }
-};
+// 已移除退款相关操作逻辑
 
 // 关闭弹窗
 const handleClose = () => {
@@ -86,18 +62,24 @@ const formatAmount = (amount: number) => {
     }).format(amount);
 };
 
-// 获取支付状态样式
-const getPayStatusStyle = (status: number) => {
-    return status === 1 
-        ? "text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20" 
-        : "text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20";
+// 获取支付状态样式（支持字符串/数字）
+const getPayStatusStyle = (status: string | number | undefined) => {
+    const s = typeof status === 'number' ? (status === 1 ? 'paid' : 'unpaid') : (status || 'unpaid');
+    return s === 'paid'
+        ? "text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20"
+        : s === 'refunded'
+            ? "text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20"
+            : "text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20";
 };
 
-// 获取退款状态样式
-const getRefundStatusStyle = (status: number) => {
-    return status === 1 
-        ? "text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20" 
-        : "text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900/20";
+// 获取退款状态样式（支持字符串/数字）
+const getRefundStatusStyle = (status: string | number | undefined) => {
+    const s = typeof status === 'number' ? (status === 1 ? 'refunded' : 'none') : (status || 'none');
+    return s === 'approved' || s === 'refunded'
+        ? "text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20"
+        : s === 'pending' || s === 'processing'
+            ? "text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20"
+            : "text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900/20";
 };
 
 // 重新加载订单详情
@@ -119,12 +101,9 @@ watch(() => props.order, () => {
         :size="isMobile ? 'full' : '2xl'"
         :title="t('console-coze-package-order.detail.title')"
         :ui="{
-            width: isMobile ? 'w-full h-full' : 'sm:max-w-2xl',
-            height: isMobile ? 'h-full' : 'max-h-[90vh]',
-            padding: isMobile ? 'p-0' : 'p-4 sm:p-6',
-            body: {
-                padding: isMobile ? 'p-4' : 'p-6'
-            }
+            wrapper: isMobile ? 'w-full h-full' : 'sm:max-w-2xl',
+            container: isMobile ? 'h-full' : 'max-h-[90vh]',
+            body: isMobile ? 'p-4' : 'p-6'
         }"
     >
         <!-- 加载状态 -->
@@ -221,10 +200,10 @@ watch(() => props.order, () => {
                             :class="getPayStatusStyle(order.paymentStatus)"
                         >
                             <i 
-                                :class="order.paymentStatus === 'PAID' ? 'i-lucide-check-circle' : 'i-lucide-clock'"
+                                :class="order.paymentStatus === 'paid' ? 'i-lucide-check-circle' : 'i-lucide-clock'"
                                 class="w-3 h-3 mr-1"
                             ></i>
-                            {{ t('console-coze-package-order.status.payment.' + (order.paymentStatus || 'unpaid').toLowerCase()) }}
+                            {{ t('console-coze-package-order.status.payment.' + (order.paymentStatus || 'unpaid')) }}
                         </span>
                     </div>
                     
@@ -238,10 +217,10 @@ watch(() => props.order, () => {
                             :class="getRefundStatusStyle(order.refundStatus)"
                         >
                             <i 
-                                :class="order.refundStatus === 'REFUNDED' ? 'i-lucide-undo-2' : 'i-lucide-minus-circle'"
+                                :class="order.refundStatus === 'approved' || order.paymentStatus === 'refunded' ? 'i-lucide-undo-2' : (order.refundStatus === 'pending' ? 'i-lucide-hourglass' : 'i-lucide-minus-circle')"
                                 class="w-3 h-3 mr-1"
                             ></i>
-                            {{ t('console-coze-package-order.status.refund.' + (order.refundStatus || 'none').toLowerCase()) }}
+                            {{ t('console-coze-package-order.status.refund.' + (order.refundStatus || 'none')) }}
                         </span>
                     </div>
                 </div>
@@ -364,11 +343,11 @@ watch(() => props.order, () => {
                         </div>
                         <div class="flex items-center gap-2">
                             <i 
-                                :class="order.paymentMethod === 'WECHAT' ? 'i-lucide-smartphone' : 'i-lucide-wallet'"
+                                :class="order.paymentMethod === 'wechat' ? 'i-lucide-smartphone' : 'i-lucide-wallet'"
                                 class="w-4 h-4 text-purple-600 dark:text-purple-400"
                             ></i>
                             <span class="text-gray-900 dark:text-gray-100">
-                                {{ t('console-coze-package-order.paymentMethod.' + (order.paymentMethod || 'other').toLowerCase()) }}
+                                {{ t('console-coze-package-order.paymentMethod.' + (order.paymentMethod || 'other')) }}
                             </span>
                         </div>
                     </div>
@@ -460,20 +439,6 @@ watch(() => props.order, () => {
 
         <template #footer>
             <div class="flex items-center justify-end gap-3">
-                <!-- 退款按钮 -->
-                <UButton
-                    v-if="order?.payStatus === 1 && order?.refundStatus === 0"
-                    color="red"
-                    variant="soft"
-                    :loading="refundLoading"
-                    @click="handleRefund"
-                >
-                    <template #leading>
-                        <i class="i-lucide-undo-2 w-4 h-4"></i>
-                    </template>
-                    {{ t('console-coze-package-order.detail.refund.action') }}
-                </UButton>
-                
                 <!-- 关闭按钮 -->
                 <UButton
                     color="neutral"

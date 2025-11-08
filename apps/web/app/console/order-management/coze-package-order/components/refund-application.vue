@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// cspell:ignore vueuse tanstack
 import { ProModal, useMessage, useModal } from "@fastbuildai/ui";
 import { useBreakpoints } from "@vueuse/core";
 import { useI18n } from "vue-i18n";
@@ -19,10 +20,15 @@ const emits = defineEmits<{
 const { t } = useI18n();
 const toast = useMessage();
 
-// 响应式断点
-const { sm, md, lg, xl } = useBreakpoints();
-const isMobile = computed(() => !sm.value);
-const isTablet = computed(() => md.value && !lg.value);
+// 响应式断点（与详情页保持一致写法）
+const breakpoints = useBreakpoints({
+    sm: 640,
+    md: 768,
+    lg: 1024,
+    xl: 1280,
+});
+const isMobile = breakpoints.smaller('md');
+const isTablet = breakpoints.between('md', 'lg');
 
 // 表单数据
 const formData = ref({
@@ -95,12 +101,12 @@ const validateBusinessRules = () => {
     if (!props.order) return false;
     
     // 检查订单状态
-    if (props.order.payStatus !== 1) {
+    if (props.order.paymentStatus !== 'paid' && props.order.payStatus !== 1) {
         businessRuleErrors.value.push('只有已支付的订单才能申请退款');
     }
     
     // 检查是否已经退款
-    if (props.order.refundStatus === 1) {
+    if (props.order.refundStatus === 'approved') {
         businessRuleErrors.value.push('该订单已经退款，无法重复申请');
     }
     
@@ -116,7 +122,7 @@ const validateBusinessRules = () => {
     }
     
     // 检查套餐使用情况（如果有使用记录，可能需要特殊处理）
-    if (props.order.packageDays && props.order.packageDays > 0) {
+    if (props.order.packageInfo?.duration && props.order.packageInfo.duration > 0) {
         // 这里可以添加更复杂的使用情况检查
         // 例如：检查套餐是否已经开始使用
     }
@@ -175,7 +181,12 @@ const getRefundReasonText = () => {
 // 计算退款金额
 const refundAmount = computed(() => {
     if (!props.order) return 0;
-    return props.order.orderAmount;
+    return Number(
+        (props.order as any).orderAmount ??
+        (props.order as any).actualAmount ??
+        (props.order as any).refundAmount ??
+        0
+    );
 });
 
 // 格式化金额
@@ -211,8 +222,7 @@ const submitRefund = async () => {
         
         // 调用退款API
         await apiCozePackageOrderRefund({ 
-            orderId: props.order.id,
-            refundReason: getRefundReasonText(),
+            orderId: props.order.id
         });
         
         toast.success('退款申请提交成功');
@@ -221,7 +231,10 @@ const submitRefund = async () => {
         
     } catch (error) {
         console.error("Refund application error:", error);
-        toast.error('退款申请提交失败，请重试');
+        // 如果是用户取消对话框，不显示错误提示
+        if (error !== 'cancel' && error !== 'Cancel') {
+            toast.error('退款申请提交失败，请重试');
+        }
     } finally {
         submitting.value = false;
         validating.value = false;
@@ -238,6 +251,10 @@ const handleClose = () => {
         agreeTerms: false,
     };
     formErrors.value = {};
+    // 重置按钮状态
+    submitting.value = false;
+    validating.value = false;
+    formLoading.value = false;
     emits("close");
 };
 
@@ -267,6 +284,22 @@ watch(() => props.order, () => {
     }
 }, { immediate: true });
 
+// 监听对话框显示状态，重置按钮状态
+watch(() => props.visible, (newVisible) => {
+    if (newVisible) {
+        // 对话框打开时重置所有状态
+        submitting.value = false;
+        validating.value = false;
+        formLoading.value = false;
+        formError.value = '';
+    } else {
+        // 对话框关闭时重置所有状态
+        submitting.value = false;
+        validating.value = false;
+        formLoading.value = false;
+    }
+});
+
 // 重新加载表单
 const reloadForm = () => {
     formError.value = '';
@@ -275,6 +308,12 @@ const reloadForm = () => {
         validateBusinessRules();
     }
 };
+
+// 显式选择退款原因，确保点击卡片即可选中
+const onSelectRefundReason = (val: string) => {
+    formData.value.refundReason = val;
+    delete formErrors.value.refundReason;
+};
 </script>
 
 <template>
@@ -282,9 +321,11 @@ const reloadForm = () => {
         :model-value="visible" 
         @update:model-value="handleClose"
         :size="isMobile ? 'full' : 'xl'"
-        :width="isMobile ? '100vw' : '900px'"
-        :height="isMobile ? '100vh' : 'auto'"
-        :padding="isMobile ? '16px' : '24px'"
+        :ui="{
+            wrapper: isMobile ? 'w-full h-full' : 'sm:max-w-xl',
+            container: isMobile ? 'h-full' : 'max-h-[90vh]',
+            body: isMobile ? 'p-4' : 'p-6'
+        }"
         :title="t('console-coze-package-order.refund.title')"
         :closable="!submitting"
     >
@@ -362,27 +403,27 @@ const reloadForm = () => {
                     </div>
                     <div>
                         <span class="text-gray-500 dark:text-gray-400">套餐名称：</span>
-                        <span class="font-medium text-gray-900 dark:text-gray-100">{{ order.packageName }}</span>
+                        <span class="font-medium text-gray-900 dark:text-gray-100">{{ order.packageInfo?.name ?? t('console-common.unknown') }}</span>
                     </div>
                     <div>
                         <span class="text-gray-500 dark:text-gray-400">订单金额：</span>
-                        <span class="font-semibold text-green-600 dark:text-green-400">{{ formatAmount(order.orderAmount) }}</span>
+                        <span class="font-semibold text-green-600 dark:text-green-400">{{ formatAmount((order as any).orderAmount ?? (order as any).actualAmount ?? 0) }}</span>
                     </div>
                     <div>
                         <span class="text-gray-500 dark:text-gray-400">用户：</span>
-                        <span class="font-medium text-gray-900 dark:text-gray-100">{{ order.user.username }}</span>
+                        <span class="font-medium text-gray-900 dark:text-gray-100">{{ (order as any).user?.username ?? order.userInfo?.username ?? t('console-common.unknown') }}</span>
                     </div>
                     <div>
                         <span class="text-gray-500 dark:text-gray-400">{{ t('console-coze-package-order.list.payStatus') }}：</span>
-                        <span class="font-medium" :class="order.payStatus === 1 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'">
-                            {{ order.payStatus === 1 ? t('console-coze-package-order.list.paid') : t('console-coze-package-order.list.unpaid') }}
-                        </span>
+                    <span class="font-medium" :class="(order.paymentStatus ?? (order.payStatus === 1 ? 'paid' : 'unpaid')) === 'paid' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'">
+                        {{ (order.paymentStatus ?? (order.payStatus === 1 ? 'paid' : 'unpaid')) === 'paid' ? t('console-coze-package-order.list.paid') : t('console-coze-package-order.list.unpaid') }}
+                    </span>
                     </div>
                     <div>
                         <span class="text-gray-500 dark:text-gray-400">{{ t('console-coze-package-order.list.refundStatus') }}：</span>
-                        <span class="font-medium" :class="order.refundStatus === 1 ? 'text-orange-600 dark:text-orange-400' : 'text-gray-600 dark:text-gray-400'">
-                            {{ order.refundStatus === 1 ? t('console-coze-package-order.list.refunded') : t('console-coze-package-order.list.notRefunded') }}
-                        </span>
+                    <span class="font-medium" :class="(order.refundStatus === 'approved' || order.paymentStatus === 'refunded') ? 'text-orange-600 dark:text-orange-400' : 'text-gray-600 dark:text-gray-400'">
+                        {{ (order.refundStatus === 'approved' || order.paymentStatus === 'refunded') ? t('console-coze-package-order.list.refunded') : t('console-coze-package-order.list.notRefunded') }}
+                    </span>
                     </div>
                 </div>
             </div>
@@ -406,13 +447,18 @@ const reloadForm = () => {
                             :id="`reason-${reason.value}`"
                             v-model="formData.refundReason"
                             :value="reason.value"
+                            name="refundReason"
                             type="radio"
                             class="sr-only peer"
                         />
                         <label
                             :for="`reason-${reason.value}`"
-                            class="flex items-start gap-3 p-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-600 peer-checked:border-blue-500 peer-checked:bg-blue-50 dark:peer-checked:bg-blue-900/20"
-                            :class="{ 'border-red-300 dark:border-red-600': formErrors.refundReason }"
+                            class="flex items-start gap-3 p-4 border-2 rounded-lg cursor-pointer transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-600"
+                            :class="[
+                                formErrors.refundReason ? 'border-red-300 dark:border-red-600' : 'border-gray-200 dark:border-gray-700',
+                                formData.refundReason === reason.value ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' : ''
+                            ]"
+                            @click="onSelectRefundReason(reason.value)"
                         >
                             <div class="flex-shrink-0 mt-0.5">
                                 <i 
@@ -429,8 +475,14 @@ const reloadForm = () => {
                                 </div>
                             </div>
                             <div class="flex-shrink-0">
-                                <div class="w-4 h-4 border-2 border-gray-300 dark:border-gray-600 rounded-full peer-checked:border-blue-500 peer-checked:bg-blue-500 transition-all duration-200">
-                                    <div class="w-2 h-2 bg-white rounded-full m-0.5 opacity-0 peer-checked:opacity-100 transition-opacity duration-200"></div>
+                                <div :class="[
+                                    'w-4 h-4 border-2 rounded-full transition-all duration-200',
+                                    formData.refundReason === reason.value ? 'border-blue-500 bg-blue-500' : 'border-gray-300 dark:border-gray-600'
+                                ]">
+                                    <div :class="[
+                                        'w-2 h-2 bg-white rounded-full m-0.5 transition-opacity duration-200',
+                                        formData.refundReason === reason.value ? 'opacity-100' : 'opacity-0'
+                                    ]"></div>
                                 </div>
                             </div>
                         </label>
@@ -451,7 +503,7 @@ const reloadForm = () => {
                 <UTextarea
                     v-model="formData.refundReasonOther"
                     placeholder="请详细说明退款原因..."
-                    rows="4"
+                    :rows="4"
                     :class="{ 'border-red-300 dark:border-red-600': formErrors.refundReasonOther }"
                 />
                 <div v-if="formErrors.refundReasonOther" class="text-sm text-red-600 dark:text-red-400 flex items-center gap-1">
@@ -553,7 +605,7 @@ const reloadForm = () => {
                 
                 <!-- 提交退款申请按钮 -->
                 <UButton
-                    color="red"
+                    color="error"
                     :loading="submitting || validating"
                     :disabled="businessRuleErrors.length > 0 || !formData.refundReason || !formData.confirmRefund || !formData.agreeTerms"
                     @click="submitRefund"

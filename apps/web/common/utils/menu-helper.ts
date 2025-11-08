@@ -380,10 +380,26 @@ function loadComponent(component: string, loader: Record<string, any>): Componen
         // 处理常规组件路径
         let key = Object.keys(loader).find((k) => k.includes(`${component}.vue`));
 
+        // 兼容以目录形式声明的页面：/path/to/page -> /path/to/page/index.vue
+        if (!key) {
+            const indexForm = component.endsWith(".vue")
+                ? component.replace(/\.vue$/, "/index.vue")
+                : `${component}/index.vue`;
+            key = Object.keys(loader).find((k) => k.includes(indexForm));
+        }
+
         // 插件组件路径 (格式: @plugins/plugin-name/app/console/path)
         if (!key && component.startsWith("@plugins/")) {
             const pluginPath = component.replace("@plugins/", "/plugins/");
             key = Object.keys(loader).find((k) => k.includes(pluginPath));
+
+            // 同样支持插件目录 index.vue
+            if (!key) {
+                const pluginIndexForm = pluginPath.endsWith(".vue")
+                    ? pluginPath.replace(/\.vue$/, "/index.vue")
+                    : `${pluginPath}/index.vue`;
+                key = Object.keys(loader).find((k) => k.includes(pluginIndexForm));
+            }
         }
 
         if (!key) {

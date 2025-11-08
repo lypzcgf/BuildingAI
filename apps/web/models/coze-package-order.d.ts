@@ -155,47 +155,39 @@ export interface CozePackageOrderListItem {
     /**
      * 套餐名称
      */
-    packageName: string;
+    packageName?: string;
     /**
      * 套餐时长（天）
      */
     packageDuration: number;
     /**
-     * 套餐价格
+     * 套餐原价
      */
-    packagePrice: number;
+    packageOriginalPrice: number;
     /**
-     * 订单金额
+     * 套餐现价/订单金额
      */
-    orderAmount: number;
+    packageCurrentPrice: number;
     /**
-     * 支付方式：1-微信支付；2-支付宝支付
+     * 支付方式：wechat|alipay|bank|balance|other
      */
-    payType: number;
+    paymentMethod?: PaymentMethod;
     /**
-     * 支付方式描述
+     * 支付状态：unpaid|paid|refunded|partialRefund
      */
-    payTypeDesc: string;
+    paymentStatus: PaymentStatus;
     /**
-     * 支付状态：1-已支付；0-未支付
+     * 退款状态：none|pending|approved|rejected|processing
      */
-    payStatus: number;
-    /**
-     * 支付状态描述
-     */
-    payStatusDesc: string;
-    /**
-     * 退款状态：1-已退款；0-未退款
-     */
-    refundStatus: number;
-    /**
-     * 退款状态描述
-     */
-    refundStatusDesc: string;
+    refundStatus: RefundStatus;
     /**
      * 支付时间
      */
     payTime?: string;
+    /**
+     * 支付时间（兼容后端字段）
+     */
+    paidAt?: string;
     /**
      * 创建时间
      */
@@ -204,6 +196,14 @@ export interface CozePackageOrderListItem {
      * 更新时间
      */
     updatedAt: string;
+    /**
+     * 退款时间（兼容后端字段）
+     */
+    refundTime?: string;
+    /**
+     * 退款时间（兼容后端字段）
+     */
+    refundAt?: string;
 }
 
 /**

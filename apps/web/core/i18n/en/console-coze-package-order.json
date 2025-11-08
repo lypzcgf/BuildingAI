@@ -182,7 +182,14 @@
         "refundAmount": "Refund Amount",
         "refundReason": "Refund Reason",
         "refundAt": "Refund At",
-        "close": "Close"
+        "close": "Close",
+        "refund": {
+            "title": "Refund Application",
+            "confirm": "Confirm Refund",
+            "success": "Refund Successful",
+            "failed": "Refund Failed",
+            "action": "Apply for Refund"
+        }
     },
     "refund": {
         "title": "Apply Refund",

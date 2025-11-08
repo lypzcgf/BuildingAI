@@ -30,5 +30,36 @@
     },
     "[dockercompose]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+    },
+    "cSpell.words": [
+        "payconfig",
+        "Payconfig",
+        "Payfactory",
+        "payfactory",
+        "wechat",
+        "Wechat",
+        "WECHAT",
+        "wxpay",
+        "WxPay",
+        "createwx",
+        "wechatpay",
+        "fastbuildai",
+        "Nuxt",
+        "lucide",
+        "tabler",
+        "NOTPAY",
+        "USERPAYING",
+        "PAYERROR",
+        "Pgvector",
+        "pgvector",
+        "Zhparser",
+        "zhparser",
+        "cfgname",
+        "tsvector",
+        "modelcontextprotocol",
+        "jieba",
+        "qrcode",
+        "radash",
+        "tiktoken"
+    ]
 }
