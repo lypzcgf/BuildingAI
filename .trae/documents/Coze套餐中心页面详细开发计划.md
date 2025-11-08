@@ -10,12 +10,12 @@
 与 PRD 一致，零新增功能；所有文件路径、国际化 key、接口名、字典 key、错误码 100 % 与技术架构对齐。
 
 ## 3. 技术实现要点（源码级）
-- 页面路径：`apps/web/app/console/profile/personal-rights/coze-package-center/coze-package-center.vue`
+- 页面路径：`apps/web/app/profile/personal-rights/coze-package-center.vue`
 - 布局复用：`apps/web/core/layouts/setting.vue` 硬编码菜单，key：
   - 分组标题 `common.label.personalRights`
   - 子菜单 `common.personalRights.cozePackageCenter`
 - 数据模型：`apps/web/models/coze-package-center.d.ts`
-- 接口封装：`apps/web/services/coze-package-center.ts`
+- 接口封装：`apps/web/services/web/coze-package-center.ts`
 - 国际化：
   - `common.json` 新增上述菜单 key
   - `menu.json` 页面标题 `menu.cozePackageCenter`
@@ -33,18 +33,19 @@
 | 任务 | 文件路径 | 前端 | 后端 | 联调 | 测试 | 前置依赖 | 验收标准 |
 | ---- | ---- | ---- | ---- | ---- | ---- | -------- | -------- |
 | **Day1 后端 Controller/Service/Module** | ` apps/server/src/modules/web/coze-package/services/coze-package.service.ts; apps/server/src/modules/web/coze-package/controllers/coze-package.controller.ts; apps/server/src/modules/web/coze-package/coze-package.module.ts;apps/server/src/modules/web/web.module.ts` | 0 | 1 | 0 | 0 | 技术架构接口清单 | Swagger 200；字段与前端模型一致；后端启动无缺失依赖；Swagger文档冻结 |
+| **Day1 下午 支付集成修改** | `apps/server/src/common/interfaces/pay.interface.ts; apps/server/src/modules/web/pay/pay.module.ts; apps/server/src/modules/web/pay/services/pay.service.ts` | 0 | 0.5 | 0 | 0 | CozePackageOrder实体已存在 | PayFrom.COZE枚举定义；支付模块注入CozePackageOrder；prepay/getPayResult支持from='coze' |
 | **Day2 上午 数据模型定义** | `apps/web/models/coze-package-center.d.ts` | 0.5 | 0 | 0 | 0 | 技术架构评审通过 | 模型编译通过；字段与接口契约一一对应 |
-| **Day2 下午 服务契约与调用骨架** | `apps/web/services/coze-package-center.ts` | 0 | 0 | 0 | 0.5 | 技术架构评审通过 | 服务函数骨架完成；契约在技术架构文档对齐 |
-| **Day3 前端页面骨架/路由/布局菜单** | `apps/web/app/console/profile/personal-rights/coze-package-center/coze-package-center.vue; apps/web/core/layouts/setting.vue` | 1 | 0 | 0 | 0 | WebModule 可插拔 | 路由可访问；菜单高亮；系统链接可见（`meta.inSystem=true`） |
-| **Day4 套餐列表/支付区/下单** | `apps/web/services/coze-package-center.ts; apps/web/app/console/profile/personal-rights/coze-package-center/coze-package-center.vue; apps/web/core/i18n/{zh,en,jp}/web-personal-rights.json` | 1 | 0 | 0 | 0 | 接口 `/web/coze-package/center` | 列表渲染；支付方式绑定；下单返回 `orderId/orderNo` |
-| **Day5 二维码弹窗 & 轮询** | `apps/web/services/coze-package-center.ts; apps/web/app/console/profile/personal-rights/coze-package-center/coze-package-center.vue; apps/web/core/i18n/{zh,en,jp}/web-personal-rights.json` | 1 | 0 | 0 | 0 | 接口 `/pay/prepay` 带 `from='coze'` | 二维码展示；3 s 轮询；120 s 超时文案 `cozePackageCenter.qrExpired` |
-| **Day6 国际化 & 全局异常处理** | `apps/web/core/i18n/{zh,en,jp}/common.json; apps/web/core/i18n/{zh,en,jp}/menu.json; apps/web/core/i18n/{zh,en,jp}/web-personal-rights.json; apps/web/app/console/profile/personal-rights/coze-package-center/coze-package-center.vue` | 1 | 0 | 0 | 0 | 文案终稿 & 异常码表 | 三语 key 完整；4xx/5xx toast；超时可刷新重试 |
-| **Day7 联调 + 支付走通** | `apps/server/src/modules/web/coze-package/services/coze-package.service.ts; apps/web/services/coze-package-center.ts; apps/web/app/console/profile/personal-rights/coze-package-center/coze-package-center.vue` | 0 | 0 | 1 | 0 | 测试商户号 | 预支付返回真实二维码；支付成功停止轮询；到账刷新；P95≤600ms；错误率<1% |
-| **Day8 多语言回归 + 异常回归** | `apps/web/core/i18n/{zh,en,jp}/common.json; apps/web/core/i18n/{zh,en,jp}/menu.json; apps/web/core/i18n/{zh,en,jp}/web-personal-rights.json; apps/web/app/console/profile/personal-rights/coze-package-center/coze-package-center.vue` | 0.5 | 0 | 0 | 0.5 | 无 | 三语切换无缺失；异常场景提示与码表一致 |
-| **Day9 性能优化 & 埋点** | `apps/web/app/console/profile/personal-rights/coze-package-center/coze-package-center.vue; apps/web/services/coze-package-center.ts` | 0.5 | 0 | 0 | 0.5 | 埋点方案 | 中心接口 60 s 缓存；LCP < 2.5 s；PostHog 事件 5 个 |
+| **Day2 下午 服务契约与调用骨架** | `apps/web/services/web/coze-package-center.ts` | 0 | 0 | 0 | 0.5 | 技术架构评审通过 | 服务函数骨架完成；契约在技术架构文档对齐 |
+| **Day3 前端页面骨架/路由/布局菜单** | `apps/web/app/profile/personal-rights/coze-package-center.vue; apps/web/core/layouts/setting.vue` | 1 | 0 | 0 | 0 | WebModule 可插拔 | 路由可访问；菜单高亮；系统链接可见（`meta.inSystem=true`） |
+| **Day4 套餐列表/支付区/下单** | `apps/web/services/web/coze-package-center.ts; apps/web/app/profile/personal-rights/coze-package-center.vue; apps/web/core/i18n/{zh,en,jp}/web-personal-rights.json` | 1 | 0 | 0 | 0 | 接口 `/web/coze-package/center` | 列表渲染；支付方式绑定；下单返回 `orderId/orderNo` |
+| **Day5 二维码弹窗 & 轮询** | `apps/web/services/web/coze-package-center.ts; apps/web/app/profile/personal-rights/coze-package-center.vue; apps/web/core/i18n/{zh,en,jp}/web-personal-rights.json` | 1 | 0 | 0 | 0 | 接口 `/pay/prepay` 带 `from='coze'` | 二维码展示；3 s 轮询；120 s 超时文案 `cozePackageCenter.qrExpired` |
+| **Day6 国际化 & 全局异常处理** | `apps/web/core/i18n/{zh,en,jp}/common.json; apps/web/core/i18n/{zh,en,jp}/menu.json; apps/web/core/i18n/{zh,en,jp}/web-personal-rights.json; apps/web/app/profile/personal-rights/coze-package-center.vue` | 1 | 0 | 0 | 0 | 文案终稿 & 异常码表 | 三语 key 完整；4xx/5xx toast；超时可刷新重试 |
+| **Day7 联调 + 支付走通** | `apps/server/src/modules/web/coze-package/services/coze-package.service.ts; apps/web/services/web/coze-package-center.ts; apps/web/app/profile/personal-rights/coze-package-center.vue` | 0 | 0 | 1 | 0 | 测试商户号 | 预支付返回真实二维码；支付成功停止轮询；到账刷新；P95≤600ms；错误率<1% |
+| **Day8 多语言回归 + 异常回归** | `apps/web/core/i18n/{zh,en,jp}/common.json; apps/web/core/i18n/{zh,en,jp}/menu.json; apps/web/core/i18n/{zh,en,jp}/web-personal-rights.json; apps/web/app/profile/personal-rights/coze-package-center.vue` | 0.5 | 0 | 0 | 0.5 | 无 | 三语切换无缺失；异常场景提示与码表一致 |
+| **Day9 性能优化 & 埋点** | `apps/web/app/profile/personal-rights/coze-package-center.vue; apps/web/services/web/coze-package-center.ts` | 0.5 | 0 | 0 | 0.5 | 埋点方案 | 中心接口 60 s 缓存；LCP < 2.5 s；PostHog 事件 5 个 |
 | **Day10 上线 checklist & 回滚演练** | `apps/server/src/modules/web/web.module.ts` | 0.5 | 0 | 0 | 0.5 | 配置端文案已配 | 零阻塞 bug；文档归档；tag 打 `v1.0-coze-package`；数据面验证 |
 
-**工时小计**：前端 10 人日、后端 4 人日、联调 2 人日、测试 2 人日，**合计 18 人日**（80 人时内完成）。
+**工时小计**：前端 10 人日、后端 4.5 人日、联调 2 人日、测试 2 人日，**合计 18.5 人日**（80 人时内完成）。
 
 ## 5. 前置依赖总览
 1. 设计稿：无 UI 改动，复用充值中心样式。  
@@ -52,7 +53,11 @@
 3. 接口契约：技术架构「11. 接口细化」表。  
 4. 字典配置：后台录入 `coze_package_status=true`、`coze_package_explain`（支持 HTML）。  
 5. 支付商户：测试环境微信/支付宝商户号已配置。  
-6. 权限：个人中心登录态中间件已开启。  
+6. 权限：个人中心登录态中间件已开启。
+7. 支付集成：以下支付相关文件需修改以支持Coze套餐支付功能：
+   - `apps/server/src/common/interfaces/pay.interface.ts`：新增 `PayFrom.COZE` 枚举
+   - `apps/server/src/modules/web/pay/pay.module.ts`：注入 `CozePackageOrder` 实体
+   - `apps/server/src/modules/web/pay/services/pay.service.ts`：实现Coze套餐订单预支付和状态查询  
 
 ## 6. 验收标准（可量化）
 | 维度 | 指标 | 达标值 |
@@ -75,6 +80,7 @@
 - [ ] 配置端 `coze_package_status=true` 已开启  
 - [ ] 套餐配置 ≥1 条且 `enabled=true`  
 - [ ] 文案 `coze_package_explain` 已录入并审核  
+- [ ] 支付集成文件修改完成：`PayFrom.COZE`枚举、`CozePackageOrder`实体注入、支付服务支持`from='coze'`  
 - [ ] 测试环境完整走单成功 ≥3 次  
 - [ ] 埋点事件在 PostHog 实时可查  
 - [ ] 三语切换无空白 key  

@@ -181,7 +181,7 @@
         "currency": {
             "USD": "米ドル",
             "CNY": "人民元",
-            "EUR": "ユーロ"
+            "JPY": "円"
         },
         "validation": {
             "nameRequired": "モデル名を入力してください",

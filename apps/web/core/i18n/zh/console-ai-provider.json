@@ -189,7 +189,7 @@
         "currency": {
             "USD": "美元",
             "CNY": "人民币",
-            "EUR": "欧元"
+            "JPY": "日元"
         },
 
         "validation": {

@@ -135,20 +135,23 @@ erDiagram
 - 布局：`apps/web/core/layouts/setting.vue`（新增子菜单项，顺序在充值中心之后）
 
 ### 7.2 前端（新增）
-- 页面：`apps/web/app/console/profile/personal-rights/coze-package-center/coze-package-center.vue`
+- 页面：`apps/web/app/profile/personal-rights/coze-package-center.vue`
 - 模型：`apps/web/models/coze-package-center.d.ts`
-- 接口：`apps/web/services/coze-package-center.ts`
+- 接口：`apps/web/services/web/coze-package-center.ts`
 - 国际化：`apps/web/core/i18n/{zh,en,jp}/common.json`（新增菜单 key）
 - 国际化：`apps/web/core/i18n/{zh,en,jp}/menu.json`（页面标题）
 - 国际化：`apps/web/core/i18n/{zh,en,jp}/web-personal-rights.json`（页面静态文案）
 
-### 7.3 后端（新增）
+### 3.2 后端（新增）
 - Module：`apps/server/src/modules/web/coze-package/coze-package.module.ts`
 - Controller：`apps/server/src/modules/web/coze-package/controllers/coze-package.controller.ts`
 - Service：`apps/server/src/modules/web/coze-package/services/coze-package.service.ts`
 
-### 7.4 后端（修改）
+### 3.3 后端（修改）
 - WebModule：`apps/server/src/modules/web/web.module.ts`（注册 WebCozePackageModule）
+- 支付模块：`apps/server/src/modules/web/pay/pay.module.ts`（注入CozePackageOrder实体）
+- 支付服务：`apps/server/src/modules/web/pay/services/pay.service.ts`（支持Coze套餐订单支付）
+- 支付接口：`apps/server/src/common/interfaces/pay.interface.ts`（定义PayFrom.COZE枚举）
 
 ### 7.5 复用（Console 侧已存在）
 - 实体：`apps/server/src/modules/console/coze-package/entities/*`

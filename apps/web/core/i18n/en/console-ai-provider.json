@@ -181,7 +181,7 @@
         "currency": {
             "USD": "USD",
             "CNY": "CNY",
-            "EUR": "EUR"
+            "JPY": "JPY"
         },
         "validation": {
             "nameRequired": "Name required",
