@@ -134,6 +134,13 @@ export default defineNuxtConfig({
         "/profile/**": { prerender: false, ssr: false, swr: true },
     },
 
+    runtimeConfig: {
+        public: {
+            posthogKey: process.env.NUXT_PUBLIC_POSTHOG_KEY || '',
+            posthogHost: process.env.NUXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com',
+        },
+    },
+
     sourcemap: false,
 
     devServer: {

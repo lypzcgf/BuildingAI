@@ -7,6 +7,7 @@ import { WxPayService } from "@common/modules/pay/services/wxpay.service";
 import { AccountLog } from "@modules/console/finance/entities/account-log.entity";
 import { Recharge } from "@modules/console/recharge/entities/recharge.entity";
 import { RechargeOrder } from "@modules/console/recharge/entities/recharge-order.entity";
+import { CozePackageOrder } from "@modules/console/coze-package/entities/coze-package-order.entity";
 import { Payconfig } from "@modules/console/system/entities/payconfig.entity";
 import { PayconfigService } from "@modules/console/system/services/payconfig.service";
 import { Module } from "@nestjs/common";
@@ -17,7 +18,15 @@ import { PayService } from "./services/pay.service";
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Dict, RechargeOrder, Recharge, User, Payconfig, AccountLog]),
+        TypeOrmModule.forFeature([
+            Dict,
+            RechargeOrder,
+            Recharge,
+            User,
+            Payconfig,
+            AccountLog,
+            CozePackageOrder,
+        ]),
         DictModule,
         CommonPayModule,
     ],

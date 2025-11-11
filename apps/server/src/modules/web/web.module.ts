@@ -3,6 +3,7 @@ import { Module } from "@nestjs/common";
 import { AiModule } from "./ai/ai.module";
 import { AuthModule } from "./auth/auth.module";
 import { ConfigModule } from "./config/config.module";
+import { CozePackageModule } from "./coze-package/coze-package.module";
 import { DecorateModule } from "./decorate/decorate.module";
 import { PayModule } from "./pay/pay.module";
 import { RechargeModule } from "./recharge/recharge.modeule";
@@ -19,6 +20,7 @@ import { UserModule } from "./user/user.module";
         ConfigModule,
         RechargeModule,
         PayModule,
+        CozePackageModule,
     ],
     exports: [
         AuthModule,
@@ -29,6 +31,7 @@ import { UserModule } from "./user/user.module";
         ConfigModule,
         RechargeModule,
         PayModule,
+        CozePackageModule,
     ],
 })
 export class WebModule {}

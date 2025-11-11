@@ -3,6 +3,7 @@ import { PaginationDto } from "@common/dto/pagination.dto";
 import { HttpExceptionFactory } from "@common/exceptions/http-exception.factory";
 import { UserPlayground } from "@common/interfaces/context.interface";
 import { Injectable, Logger } from "@nestjs/common";
+import { isUUID } from "class-validator";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository, SelectQueryBuilder } from "typeorm";
 
@@ -131,12 +132,19 @@ export class CozePackageOrderService extends BaseService<CozePackageOrder> {
      */
     async getOrderDetail(orderId: string): Promise<OrderDetailResponseDto> {
         try {
-            const order = await this.orderRepository
+            const queryBuilder = this.orderRepository
                 .createQueryBuilder("order")
                 .leftJoinAndSelect("order.user", "user")
-                .leftJoinAndSelect("order.packageConfig", "packageConfig")
-                .where("order.id = :orderId", { orderId })
-                .getOne();
+                .leftJoinAndSelect("order.packageConfig", "packageConfig");
+
+            // 支持使用订单ID（UUID）或订单号查询，避免非UUID导致数据库报错
+            if (isUUID(orderId)) {
+                queryBuilder.where("order.id = :orderId", { orderId });
+            } else {
+                queryBuilder.where("order.orderNo = :orderNo", { orderNo: orderId });
+            }
+
+            const order = await queryBuilder.getOne();
 
             if (!order) {
                 throw HttpExceptionFactory.notFound("订单不存在");
@@ -175,6 +183,8 @@ export class CozePackageOrderService extends BaseService<CozePackageOrder> {
                 paymentStatus: (order.paymentStatus as PaymentStatus) || PaymentStatus.UNPAID,
                 refundStatus: (order.refundStatus as RefundStatus) || RefundStatus.NONE,
                 transactionId: order.transactionId || "",
+                prepayId: order.prepayId || "",
+                payId: order.payId || "",
                 orderSource: order.orderSource || "web",
                 orderType: order.orderType || "coze-package",
                 paymentTime: order.paidAt || null,

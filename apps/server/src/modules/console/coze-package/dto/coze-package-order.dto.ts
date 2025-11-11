@@ -365,6 +365,16 @@ export class OrderDetailResponseDto {
     transactionId?: string;
 
     /**
+     * 预支付标识（如 WeChat 的 prepay_id 或原生支付的 code_url）
+     */
+    prepayId?: string;
+
+    /**
+     * 支付标识（如微信支付的 transaction_id）
+     */
+    payId?: string;
+
+    /**
      * 下单时间
      */
     createdAt: Date;

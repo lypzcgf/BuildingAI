@@ -36,6 +36,11 @@ const items = computed<MenuItem[]>(() => [
                 icon: "i-lucide-badge-dollar-sign",
                 to: "/profile/personal-rights/recharge-center",
             },
+            {
+                label: t("console-common.cozePackageCenter"),
+                icon: "i-lucide-package-open" as const,
+                to: "/profile/personal-rights/coze-package-center",
+            },
         ],
     },
     {

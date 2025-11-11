@@ -167,6 +167,20 @@ export class CozePackageOrder {
     transactionId: string;
 
     /**
+     * 预支付标识
+     * 对于不同渠道：可能是 WeChat 的 prepay_id，或原生支付的 code_url
+     */
+    @Column({ type: "varchar", length: 128, nullable: true, comment: "预支付标识（prepay_id 或 code_url）" })
+    prepayId: string;
+
+    /**
+     * 支付标识
+     * 例如微信支付的 transaction_id（支付成功后回传）
+     */
+    @Column({ type: "varchar", length: 128, nullable: true, comment: "支付标识（transaction_id）" })
+    payId: string;
+
+    /**
      * 订单来源
      */
     @Column({ type: "varchar", length: 64, default: "web", comment: "订单来源" })

@@ -168,6 +168,8 @@ export class Upgrade {
                 "paymentStatus",
                 "refundStatus",
                 "transactionId",
+                "prepayId",
+                "payId",
                 "orderSource",
                 "orderType",
                 "paidAt",

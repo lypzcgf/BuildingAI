@@ -1,65 +1,73 @@
 {
-    "rechargeCenter": {
-        "detail": {
-            "title": "計算力利用記録",
-            "remainingPower": "残高計算力",
-            "rechargePower": "チャージ計算力",
-            "giftPower": "ボーナス計算力",
-            "dailyGiftPower": {
-                "title": "デイリーボーナス",
-                "giftPower": "贈呈計算力",
-                "powerValidity": "有効期限"
-            },
-            "changeDetail": "変動タイプ",
-            "aiName": "AIアシスタント/アプリ名",
-            "changeAmount": "変動数量",
-            "changeTime": "日付",
-            "tab": {
-                "all": "すべて",
-                "consume": "消費",
-                "get": "獲得"
-            },
-            "consumeSourceDesc": "出所",
-            "remark": "備考"
-        },
-        "powerBalance": "計算力残高",
-        "selectRechargePackage": "チャージプラン選択",
-        "paymentMethod": "支払い方法",
-        "alipay": "Alipay",
-        "wechatPay": "WeChat Pay",
-        "add": "追加ボーナス",
-        "power": "計算力",
-        "rechargeInstructions": {
-            "title": "チャージに関する注意事項",
-            "content": [
-                "チャージ完了後の返金や人民元への換金はできません",
-                "チャージ後の計算力に有効期限はありませんが、現金化や譲渡はできません",
-                "支払い完了後、反映まで数分かかる場合があります。反映されない場合はお問い合わせください",
-                "許可されていないチャネルでのチャージや不正な返金操作は禁止されており、これによる損失はユーザー負担となります"
-            ]
-        },
-        "noRechargeOptions": "現在、入金オプションはありません。",
-        "total": "合計",
-        "use": "使用してください",
-        "pay": "QRコード決済",
-        "contact": "問題が解決できない場合は、サイト管理者にお問い合わせください。",
-        "agreement": "支払いをもって",
-        "serviceTerms": "利用規約",
-        "payment": "支払い規約",
-        "immediatelyPurchase": "今すぐ購入",
-        "wxPay": "WeChat Pay",
-        "alipayPay": "Alipay",
-        "qrCodeFailed": "QRコード生成失敗",
-        "rechargeSuccess": "チャージ成功",
-        "rechargeSuccessTip": "チャージが完了し、計算力が追加されました",
-        "paySuccess": "支払い成功",
-        "payFailed": "支払い失敗",
-        "cancelPay": "支払いキャンセル",
-        "notOpen": "準備中",
-        "notOpenTip": "この機能は現在準備中です。公開まで今しばらくお待ちください。",
-        "back": "前のページに戻る",
-        "qrCodeExpired": "QRコードが無効です。再読み込みしてください。",
-        "refreshQrCode": "QRコードを更新する",
-        "systemTip": "システム通知"
-    }
+  "cozePackage": {
+    "title": "Cozeパッケージセンター",
+    "subTitle": "お客様に合った算力パッケージを選んで、AIサービスをお楽しみください",
+    "emptyTitle": "パッケージがありません",
+    "emptyDesc": "続々と新しいパッケージが登場予定です",
+    "createOrderError": "注文に失敗しました。再試行してください",
+    "buySuccess": "購入が完了しました。権益がアカウントに反映されました",
+    "selectPackagePrompt": "Cozeパッケージを選択してください"
+  },
+  "paymentDialog": {
+    "title": "WeChat Pay",
+    "scanQr": "WeChatでQRコードをスキャンして支払いを完了してください",
+    "waitPay": "支払い待ち…",
+    "paid": "支払い完了！",
+    "expireIn": "QRコードは {sec} 秒後に期限切れになります",
+    "refreshQr": "QRコードを更新",
+    "loadQrError": "QRコードの取得に失敗しました",
+    "qrExpired": "QRコードの有効期限が切れました。更新して再試行してください"
+  },
+  "rechargeCenter": {
+    "cancelPay": "支払いをキャンセルしました",
+    "powerBalance": "算力残高",
+    "selectRechargePackage": "チャージパッケージを選択",
+    "add": "ボーナス",
+    "power": "算力",
+    "noRechargeOptions": "利用可能なチャージオプションはありません",
+    "paymentMethod": "支払い方法",
+    "detail": {
+      "title": "算力記録",
+      "remainingPower": "残り算力",
+      "rechargePower": "チャージ算力",
+      "giftPower": "チャージボーナス",
+      "dailyGiftPower": {
+        "title": "毎日ボーナス",
+        "giftPower": "ボーナス算力",
+        "powerValidity": "算力有効期限"
+      },
+      "changeDetail": "変動タイプ",
+      "aiName": "エージェント/アプリ名",
+      "changeAmount": "変動数量",
+      "changeTime": "日付",
+      "tab": {
+        "all": "すべて",
+        "consume": "消費",
+        "get": "取得"
+      },
+      "consumeSourceDesc": "ソース",
+      "remark": "備考"
+    },
+    "rechargeInstructions": {
+      "title": "チャージ案内",
+      "content": "画面の案内に従ってチャージを完了してください。問題が発生した場合は管理者にお問い合わせください。"
+    },
+    "agreement": "利用規約に同意します",
+    "payment": "支払い規約",
+    "immediatelyPurchase": "今すぐ購入",
+    "wxPay": "WeChat支払い",
+    "alipayPay": "Alipay支払い",
+    "qrCodeExpired": "QRコードの有効期限が切れました",
+    "refreshQrCode": "QRコードを更新",
+    "total": "合計",
+    "use": "を使用して",
+    "pay": "支払う",
+    "contact": "ご不明な点があれば管理者にお問い合わせください",
+    "systemTip": "システム通知",
+    "rechargeSuccess": "チャージ成功",
+    "rechargeSuccessTip": "チャージが完了し、算力が付与されました",
+    "notOpen": "チャージセンターは未開放",
+    "notOpenTip": "現在チャージセンターは利用できません。しばらくしてから再度お試しください。",
+    "back": "戻る"
+  }
 }

@@ -3,6 +3,8 @@
     "noMoreData": "没有更多数据了",
     "updateAt": "更新时间",
     "goHome": "返回前台",
+    "cancel": "取消",
+    "confirm": "确认",
     "menu": {
         "system": "设置",
         "workspace": "工作台",
@@ -155,6 +157,9 @@
             "alipay": "支付宝支付"
         }
     },
+    "console-common": {
+        "cozePackageCenter": "Coze 套餐中心"
+    },
     "dateGroup": {
         "today": "今天",
         "yesterday": "昨天",
@@ -246,6 +251,10 @@
         "deleteBatchSuccess": "批量删除成功",
         "deleteBatchFailed": "批量删除失败",
         "updateSuccess": "更新成功",
-        "createSuccess": "创建成功"
+        "createSuccess": "创建成功",
+        "networkError": "网络异常，请稍后重试",
+        "serverError": "服务器异常，请稍后重试",
+        "requestTimeout": "请求超时，请刷新重试",
+        "refreshRetry": "刷新重试"
     }
 }

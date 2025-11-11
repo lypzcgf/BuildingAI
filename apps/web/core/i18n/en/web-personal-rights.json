@@ -1,65 +1,73 @@
 {
-    "rechargeCenter": {
-        "detail": {
-            "title": "Power Records",
-            "remainingPower": "Remaining",
-            "rechargePower": "Purchased",
-            "giftPower": "Bonus",
-            "dailyGiftPower": {
-                "title": "Daily Bonus",
-                "giftPower": "Bonus Power",
-                "powerValidity": "Expiry Date"
-            },
-            "changeDetail": "Type",
-            "aiName": "AI/App",
-            "changeAmount": "Amount",
-            "changeTime": "Date",
-            "tab": {
-                "all": "All",
-                "consume": "Usage",
-                "get": "Earned"
-            },
-            "consumeSourceDesc": "source",
-            "remark": "remark"
-        },
-        "powerBalance": "Balance",
-        "selectRechargePackage": "Select Plan",
-        "paymentMethod": "Payment",
-        "alipay": "Alipay",
-        "wechatPay": "WeChat Pay",
-        "add": "Bonus",
-        "power": "Power",
-        "rechargeInstructions": {
-            "title": "Terms",
-            "content": [
-                "No refunds after successful recharge",
-                "Purchased power never expires but can't be withdrawn/transferred",
-                "Processing may take time - contact us if not received",
-                "Unauthorized recharge methods may result in account penalties"
-            ]
-        },
-        "noRechargeOptions": "There is no recharge option at the moment",
-        "total": "total",
-        "use": "Please use",
-        "pay": "Scan the QR code to pay",
-        "contact": "If you can't resolve the issue, contact your site administrator",
-        "agreement": "Payment indicates agreement to",
-        "serviceTerms": "Terms",
-        "payment": "Payment Policy",
-        "immediatelyPurchase": "Buy Now",
-        "wxPay": "WeChat Pay",
-        "alipayPay": "Alipay",
-        "qrCodeFailed": "QR Code Failed",
-        "rechargeSuccess": "Success",
-        "rechargeSuccessTip": "Power added to your account",
-        "paySuccess": "Payment Success",
-        "payFailed": "Payment Failed",
-        "cancelPay": "Cancel",
-        "notOpen": "Coming Soon",
-        "notOpenTip": "This feature is not yet available",
-        "back": "Go Back",
-        "qrCodeExpired": "The QR code is invalid, please refresh it",
-        "refreshQrCode": "Refresh the QR code",
-        "systemTip": "System prompt"
-    }
+  "cozePackage": {
+    "title": "Coze Package Center",
+    "subTitle": "Choose the right power package for you and enjoy AI services",
+    "emptyTitle": "No packages available",
+    "emptyDesc": "More packages are coming soon",
+    "createOrderError": "Order failed, please try again",
+    "buySuccess": "Purchase successful, benefits have been credited",
+    "selectPackagePrompt": "Please select a Coze package"
+  },
+  "paymentDialog": {
+    "title": "WeChat Pay",
+    "scanQr": "Please use WeChat to scan the QR code to complete payment",
+    "waitPay": "Waiting for payment…",
+    "paid": "Payment successful!",
+    "expireIn": "QR code will expire in {sec} seconds",
+    "refreshQr": "Refresh QR code",
+    "loadQrError": "Failed to get QR code",
+    "qrExpired": "QR code expired, please refresh and retry"
+  },
+  "rechargeCenter": {
+    "cancelPay": "Payment canceled",
+    "powerBalance": "Power Balance",
+    "selectRechargePackage": "Select Recharge Package",
+    "add": "Bonus",
+    "power": "Power",
+    "noRechargeOptions": "No recharge options available",
+    "paymentMethod": "Payment Method",
+    "detail": {
+      "title": "Power Records",
+      "remainingPower": "Remaining Power",
+      "rechargePower": "Recharged Power",
+      "giftPower": "Bonus Power",
+      "dailyGiftPower": {
+        "title": "Daily Bonus",
+        "giftPower": "Bonus Power",
+        "powerValidity": "Power Validity"
+      },
+      "changeDetail": "Change Type",
+      "aiName": "Agent/App Name",
+      "changeAmount": "Change Amount",
+      "changeTime": "Date",
+      "tab": {
+        "all": "All",
+        "consume": "Consume",
+        "get": "Get"
+      },
+      "consumeSourceDesc": "Source",
+      "remark": "Remark"
+    },
+    "rechargeInstructions": {
+      "title": "Recharge Instructions",
+      "content": "Please follow the on-screen instructions to complete the recharge. Contact admin if you encounter issues."
+    },
+    "agreement": "I have read and agree",
+    "payment": "Payment Terms",
+    "immediatelyPurchase": "Buy Now",
+    "wxPay": "WeChat Pay",
+    "alipayPay": "Alipay",
+    "qrCodeExpired": "QR code expired",
+    "refreshQrCode": "Refresh QR code",
+    "total": "Total",
+    "use": "Use",
+    "pay": "to pay",
+    "contact": "For assistance, please contact the administrator",
+    "systemTip": "System Tip",
+    "rechargeSuccess": "Recharge Successful",
+    "rechargeSuccessTip": "Recharge completed and power credited",
+    "notOpen": "Recharge Center Not Open",
+    "notOpenTip": "The recharge center is currently unavailable. Please try again later.",
+    "back": "Back"
+  }
 }

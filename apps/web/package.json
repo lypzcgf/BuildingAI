@@ -40,15 +40,16 @@
         "motion-v": "^1.7.0",
         "nuxt": "^4.1.0",
         "nuxt-svgo": "^4.2.6",
+        "posthog-js": "^1.290.0",
         "uuid": "^11.1.0",
         "vue-dompurify-html": "^5.3.0",
         "yup": "^1.7.0"
     },
     "devDependencies": {
         "@fastbuildai/config": "workspace:*",
+        "@fastbuildai/constants": "workspace:*",
         "@fastbuildai/http": "workspace:*",
         "@fastbuildai/utils": "workspace:*",
-        "@fastbuildai/constants": "workspace:*",
         "@nuxt/devtools": "^2.6.2",
         "@nuxt/eslint": "^1.9.0",
         "@nuxtjs/color-mode": "^3.5.2",

@@ -55,11 +55,11 @@ export function useModal(options: ModalOptions = {}) {
 
     // 合并选项
     const mergedOptions = { ...defaultOptions, ...options };
-    console.log(mergedOptions);
+    // 注意：不要在生产环境输出调试信息
     // 创建一个 overlay 实例
     const overlay = useOverlay();
     let resolveConfirm: (value: boolean) => void;
-    let resolveCancel: (value: boolean) => void;
+    let rejectCancel: (reason?: any) => void;
 
     const modal = overlay.create(ProModalUse, {
         props: {
@@ -68,16 +68,19 @@ export function useModal(options: ModalOptions = {}) {
                 resolveConfirm(true);
             },
             cancel: () => {
-                resolveCancel(true);
+                // 用户点击取消时，拒绝外部 Promise，以便调用方在 catch/finally 中复位状态
+                rejectCancel("cancel");
             },
         },
     });
 
     modal.open();
 
-    return new Promise<ModalResult>((resolve) => {
+    return new Promise<ModalResult>((resolve, reject) => {
+        // 点击确认时正常 resolve
         resolveConfirm = (value: boolean) => resolve({ confirm: value, cancel: false });
-        resolveCancel = () => Promise.reject("点击取消");
+        // 点击取消或关闭时 reject，并返回统一的取消标识
+        rejectCancel = (reason?: any) => reject(reason ?? "cancel");
     });
 }
 

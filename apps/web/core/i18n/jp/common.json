@@ -1,244 +1,260 @@
 {
-    "loading": "読み込み中...",
-    "noMoreData": "これ以上データがありません",
-    "updateAt": "更新時間",
-    "goHome": "フロントに戻る",
-    "menu": {
-        "system": "設定",
-        "workspace": "ワークスペース",
-        "cozePackage": "Cozeパッケージ"
+  "loading": "読み込み中...",
+  "noMoreData": "これ以上データがありません",
+  "updateAt": "更新時間",
+  "goHome": "フロントに戻る",
+  "cancel": "キャンセル",
+  "confirm": "確認",
+  "menu": {
+    "system": "設定",
+    "workspace": "ワークスペース",
+    "cozePackage": "Cozeパッケージ"
+  },
+  "label": {
+    "profile": "プロフィール",
+    "personalRights": "個人権益"
+  },
+  "personalRights": {
+    "rechargeCenter": "チャージセンター"
+  },
+  "chat": {
+    "newChat": "新しい会話を開始",
+    "noChats": "会話履歴がありません",
+    "noChatsSubtitle": "上のボタンをクリックして新しい会話を開始",
+    "confirmDelete": "会話を完全に削除",
+    "confirmDeleteMessage": "削除後、この会話は復元できません。削除しますか？",
+    "confirmDeleteAction": "削除する",
+    "editChatTitle": "会話タイトルを編集",
+    "chatTitleLabel": "会話タイトル",
+    "chatTitlePlaceholder": "会話タイトルを入力してください",
+    "chatTitleRequired": "会話タイトルは必須です",
+    "expandSidebar": "サイドバーを展開",
+    "collapseSidebar": "サイドバーを折りたたむ",
+    "selectModel": "モデルを選択してください",
+    "singleRunConsumption": "消費 {price} 算力/回",
+    "and": "and {name} 会話...",
+    "messages": {
+      "thinking": "AIが考え中...",
+      "typing": "入力中...",
+      "sendFailed": "メッセージ送信に失敗しました。再試行してください",
+      "me": "私",
+      "assistant": "AIアシスタント",
+      "unknown": "不明",
+      "copied": "コピーしました",
+      "copy": "コピー",
+      "retry": "再試行",
+      "stopGeneration": "生成を停止",
+      "enterQuestion": "質問を入力してください",
+      "sendMessage": "メッセージを送信",
+      "inputPlaceholder": "こんにちは、何か質問がありますか？"
     },
-    "label": {
-        "profile": "プロフィール",
-        "personalRights": "個人権益"
+    "reasoning": {
+      "thinking": "深く考え中",
+      "completed": "深い思考が完了しました",
+      "duration": "思考時間："
     },
-    "personalRights": {
-        "rechargeCenter": "チャージセンター"
+    "toolCall": {
+      "start": "開始",
+      "from": "から",
+      "finished": "完了",
+      "calling": "ツールを呼び出し中",
+      "call": "呼び出し",
+      "startCall": "ツール呼び出しを開始",
+      "finishedCall": "ツール呼び出し完了",
+      "duration": "所要時間"
+    },
+    "knowledgeCall": {
+      "start": "開始",
+      "from": "から",
+      "finished": "完了",
+      "calling": "検索中",
+      "call": "呼び出し",
+      "duration": "所要時間"
+    }
+  },
+  "profile": {
+    "title": "プロフィール",
+    "myAccount": "マイアカウント",
+    "accountSecurity": "アカウントセキュリティ",
+    "uploadAvatar": "アバターをアップロード",
+    "notSet": "未設定",
+    "nickname": "ニックネーム",
+    "email": "メールアドレス",
+    "userId": "ユーザーID",
+    "username": "アカウント",
+    "phone": "電話番号",
+    "registrationTime": "登録日時",
+    "loginPassword": "ログインパスワード",
+    "deactivateAccount": "アカウントを削除",
+    "deactivate": "削除",
+    "editNickname": "ニックネームを編集",
+    "nicknamePlaceholder": "ニックネームを入力してください",
+    "nicknameRequired": "ニックネームは必須です",
+    "nicknameTooLong": "ニックネームは20文字以内で入力してください",
+    "nicknameLength": "ニックネームは20文字以内",
+    "passwordSet": "設定済み",
+    "passwordNotSet": "未設定",
+    "deactivateWarning": "削除後、アカウントデータは復元できません",
+    "modifySuccess": "変更に成功しました",
+    "modifyFailed": "変更に失敗しました。再試行してください",
+    "userIdCopied": "ユーザーIDをクリップボードにコピーしました",
+    "userNoCopied": "ユーザー番号をクリップボードにコピーしました",
+    "featureNotAvailable": "機能は現在利用できません",
+    "purchaseRecord": "購入履歴",
+    "powerDetail": "計算力明細",
+    "userNo": "ユーザー番号",
+    "changePassword": "パスワード変更",
+    "oldPassword": "現在のパスワード",
+    "newPassword": "新しいパスワード",
+    "confirmPassword": "パスワード確認",
+    "oldPasswordRequired": "現在のパスワードを入力してください",
+    "newPasswordRequired": "新しいパスワードを入力してください",
+    "confirmPasswordRequired": "パスワードを確認してください",
+    "passwordMinLength": "パスワードは6文字以上で入力してください",
+    "passwordMismatch": "パスワードが一致しません",
+    "oldPasswordPlaceholder": "現在のパスワードを入力",
+    "newPasswordPlaceholder": "新しいパスワードを入力",
+    "confirmPasswordPlaceholder": "新しいパスワードを再入力",
+    "passwordRequirement": "パスワードは6文字以上",
+    "passwordChangeSuccess": "パスワードの変更に成功しました",
+    "passwordChangeFailed": "パスワードの変更に失敗しました。再試行してください",
+    "bindWechat": "WeChatをバインド",
+    "wechatBindSuccess": "WeChatのバインドに成功しました",
+    "wechatBindFailed": "WeChatのバインドに失敗しました。再試行してください",
+    "wechatBind": "バインド",
+    "wechatBindTitle": "WeChatをバインド",
+    "wechatBindQrCode": "WeChatバインドQRコード",
+    "refreshQrCode": "QRコードを更新"
+  },
+  "mcp-server": {
+    "detail": {
+      "url": "URL",
+      "timeout": "タイムアウト時間",
+      "sortOrder": "並び順",
+      "status": "有効状態",
+      "enabled": "有効",
+      "disabled": "無効",
+      "tools": "ツールリスト",
+      "noDescription": "説明なし"
+    },
+    "setMcp": "MCPツールを設定",
+    "tool": "ツール",
+    "reset": "リセット",
+    "success": "利用可能",
+    "error": "接続失敗"
+  },
+  "recharge": {
+    "list": {
+      "orderNo": "注文番号",
+      "rechargeQuantity": "チャージ数量",
+      "freeQuantity": "無料数量",
+      "quantityReceived": "到着数量",
+      "paidInAmount": "実支払額",
+      "paymentMethod": "支払方法",
+      "createdAt": "注文日時",
+      "refunded": "返金済み",
+      "wechat": "WeChat Pay",
+      "alipay": "Alipay"
+    }
+  },
+  "console-common": {
+    "cozePackageCenter": "Cozeパッケージセンター"
+  },
+  "dateGroup": {
+    "today": "今日",
+    "yesterday": "昨日",
+    "week": "7日以内",
+    "month": "30日以内",
+    "months": {
+      "january": "1月",
+      "february": "2月",
+      "march": "3月",
+      "april": "4月",
+      "may": "5月",
+      "june": "6月",
+      "july": "7月",
+      "august": "8月",
+      "september": "9月",
+      "october": "10月",
+      "november": "11月",
+      "december": "12月"
+    }
+  },
+  "settings": {
+    "general": "一般設定",
+    "mcpServer": "MCP設定",
+    "theme": "テーマ",
+    "language": "言語",
+    "languagePlaceholder": "表示言語を選択",
+    "timezone": "タイムゾーン",
+    "timezonePlaceholder": "タイムゾーンを選択",
+    "currentTime": "現在時刻",
+    "colorPalette": "カラーパレット",
+    "radius": "角丸",
+    "radiusOptions": {
+      "none": "角丸なし",
+      "xsmall": "極小",
+      "small": "小",
+      "medium": "中",
+      "large": "大"
     },
     "chat": {
-        "newChat": "新しい会話を開始",
-        "noChats": "会話履歴がありません",
-        "noChatsSubtitle": "上のボタンをクリックして新しい会話を開始",
-        "confirmDelete": "会話を完全に削除",
-        "confirmDeleteMessage": "削除後、この会話は復元できません。削除しますか？",
-        "confirmDeleteAction": "削除する",
-        "editChatTitle": "会話タイトルを編集",
-        "chatTitleLabel": "会話タイトル",
-        "chatTitlePlaceholder": "会話タイトルを入力してください",
-        "chatTitleRequired": "会話タイトルは必須です",
-        "expandSidebar": "サイドバーを展開",
-        "collapseSidebar": "サイドバーを折りたたむ",
-        "selectModel": "モデルを選択してください",
-        "singleRunConsumption": "消費 {price} 算力/回",
-        "and": "and {name} 会話...",
-        "messages": {
-            "thinking": "AIが考え中...",
-            "typing": "入力中...",
-            "sendFailed": "メッセージ送信に失敗しました。再試行してください",
-            "me": "私",
-            "assistant": "AIアシスタント",
-            "unknown": "不明",
-            "copied": "コピーしました",
-            "copy": "コピー",
-            "retry": "再試行",
-            "stopGeneration": "生成を停止",
-            "enterQuestion": "質問を入力してください",
-            "sendMessage": "メッセージを送信",
-            "inputPlaceholder": "こんにちは、何か質問がありますか？"
-        },
-        "reasoning": {
-            "thinking": "深く考え中",
-            "completed": "深い思考が完了しました",
-            "duration": "思考時間："
-        },
-        "toolCall": {
-            "start": "開始",
-            "from": "から",
-            "finished": "完了",
-            "calling": "ツールを呼び出し中",
-            "call": "呼び出し",
-            "startCall": "ツール呼び出しを開始",
-            "finishedCall": "ツール呼び出し完了",
-            "duration": "所要時間"
-        },
-        "knowledgeCall": {
-            "start": "開始",
-            "from": "から",
-            "finished": "完了",
-            "calling": "検索中",
-            "call": "呼び出し",
-            "duration": "所要時間"
-        }
-    },
-    "profile": {
-        "title": "プロフィール",
-        "myAccount": "マイアカウント",
-        "accountSecurity": "アカウントセキュリティ",
-        "uploadAvatar": "アバターをアップロード",
-        "notSet": "未設定",
-        "nickname": "ニックネーム",
-        "email": "メールアドレス",
-        "userId": "ユーザーID",
-        "username": "アカウント",
-        "phone": "電話番号",
-        "registrationTime": "登録日時",
-        "loginPassword": "ログインパスワード",
-        "deactivateAccount": "アカウントを削除",
-        "deactivate": "削除",
-        "editNickname": "ニックネームを編集",
-        "nicknamePlaceholder": "ニックネームを入力してください",
-        "nicknameRequired": "ニックネームは必須です",
-        "nicknameTooLong": "ニックネームは20文字以内で入力してください",
-        "nicknameLength": "ニックネームは20文字以内",
-        "passwordSet": "設定済み",
-        "passwordNotSet": "未設定",
-        "deactivateWarning": "削除後、アカウントデータは復元できません",
-        "modifySuccess": "変更に成功しました",
-        "modifyFailed": "変更に失敗しました。再試行してください",
-        "userIdCopied": "ユーザーIDをクリップボードにコピーしました",
-        "userNoCopied": "ユーザー番号をクリップボードにコピーしました",
-        "featureNotAvailable": "機能は現在利用できません",
-        "purchaseRecord": "購入履歴",
-        "powerDetail": "計算力明細",
-        "userNo": "ユーザー番号",
-        "changePassword": "パスワード変更",
-        "oldPassword": "現在のパスワード",
-        "newPassword": "新しいパスワード",
-        "confirmPassword": "パスワード確認",
-        "oldPasswordRequired": "現在のパスワードを入力してください",
-        "newPasswordRequired": "新しいパスワードを入力してください",
-        "confirmPasswordRequired": "パスワードを確認してください",
-        "passwordMinLength": "パスワードは6文字以上で入力してください",
-        "passwordMismatch": "パスワードが一致しません",
-        "oldPasswordPlaceholder": "現在のパスワードを入力",
-        "newPasswordPlaceholder": "新しいパスワードを入力",
-        "confirmPasswordPlaceholder": "新しいパスワードを再入力",
-        "passwordRequirement": "パスワードは6文字以上",
-        "passwordChangeSuccess": "パスワードの変更に成功しました",
-        "passwordChangeFailed": "パスワードの変更に失敗しました。再試行してください"
-    },
-    "mcp-server": {
-        "detail": {
-            "url": "URL",
-            "timeout": "タイムアウト時間",
-            "sortOrder": "並び順",
-            "status": "有効状態",
-            "enabled": "有効",
-            "disabled": "無効",
-            "tools": "ツールリスト",
-            "noDescription": "説明なし"
-        },
-        "setMcp": "MCPツールを設定",
-        "tool": "ツール",
-        "reset": "リセット",
-        "success": "利用可能",
-        "error": "接続失敗"
-    },
-    "recharge": {
-        "list": {
-            "orderNo": "注文番号",
-            "rechargeQuantity": "チャージ数量",
-            "freeQuantity": "無料数量",
-            "quantityReceived": "到着数量",
-            "paidInAmount": "実支払額",
-            "paymentMethod": "支払方法",
-            "createdAt": "注文日時",
-            "refunded": "返金済み",
-            "wechat": "WeChat Pay",
-            "alipay": "Alipay"
-        }
-    },
-    "dateGroup": {
-        "today": "今日",
-        "yesterday": "昨日",
-        "week": "7日以内",
-        "month": "30日以内",
-        "months": {
-            "january": "1月",
-            "february": "2月",
-            "march": "3月",
-            "april": "4月",
-            "may": "5月",
-            "june": "6月",
-            "july": "7月",
-            "august": "8月",
-            "september": "9月",
-            "october": "10月",
-            "november": "11月",
-            "december": "12月"
-        }
-    },
-    "settings": {
-        "general": "一般設定",
-        "mcpServer": "MCP設定",
-        "theme": "テーマ",
-        "language": "言語",
-        "languagePlaceholder": "表示言語を選択",
-        "timezone": "タイムゾーン",
-        "timezonePlaceholder": "タイムゾーンを選択",
-        "currentTime": "現在時刻",
-        "colorPalette": "カラーパレット",
-        "radius": "角丸",
-        "radiusOptions": {
-            "none": "角丸なし",
-            "xsmall": "極小",
-            "small": "小",
-            "medium": "中",
-            "large": "大"
-        },
-        "chat": {
-            "title": "チャット設定",
-            "windowStyle": "チャットウィンドウスタイル",
-            "conversationMode": "会話モード",
-            "documentMode": "ドキュメントモード",
-            "codeHighlight": "コードハイライトテーマ",
-            "codeHighlightPlaceholder": "コードハイライトテーマを選択",
-            "mermaidTheme": "Mermaidテーマ",
-            "mermaidThemePlaceholder": "Mermaidテーマを選択"
-        }
-    },
-    "error": {
-        "404": {
-            "title": "ページが見つかりません",
-            "description": "申し訳ありません、アクセスしたページは存在しないか削除されました",
-            "goBack": "前のページに戻る",
-            "goHome": "ホームに戻る"
-        }
-    },
-    "unit": {
-        "general": {
-            "item": "個",
-            "thing": "件",
-            "entry": "項目",
-            "row": "行",
-            "column": "列",
-            "piece": "塊",
-            "set": "セット",
-            "part": "部分",
-            "list": "条",
-            "number": "号"
-        },
-        "time": {
-            "second": "秒",
-            "minute": "分",
-            "hour": "時間",
-            "day": "天",
-            "week": "周",
-            "month": "月",
-            "quarter": "四半期",
-            "year": "年"
-        }
-    },
-    "ai": {
-        "provider": "供給者",
-        "model": "模型"
-    },
-    "message": {
-        "deleteSuccess": "削除が成功しました",
-        "deleteFailed": "削除に失敗しました",
-        "deleteBatchSuccess": "バッチ削除に成功しました",
-        "deleteBatchFailed": "バッチ削除に失敗しました",
-        "updateSuccess": "更新に成功しました",
-        "createSuccess": "作成成功"
+      "title": "チャット設定",
+      "windowStyle": "チャットウィンドウスタイル",
+      "conversationMode": "会話モード",
+      "documentMode": "ドキュメントモード",
+      "codeHighlight": "コードハイライトテーマ",
+      "codeHighlightPlaceholder": "コードハイライトテーマを選択",
+      "mermaidTheme": "Mermaidテーマ",
+      "mermaidThemePlaceholder": "Mermaidテーマを選択"
     }
+  },
+  "error": {
+    "404": {
+      "title": "ページが見つかりません",
+      "description": "申し訳ありません、アクセスしたページは存在しないか削除されました",
+      "goBack": "前のページに戻る",
+      "goHome": "ホームに戻る"
+    }
+  },
+  "unit": {
+    "general": {
+      "item": "個",
+      "thing": "件",
+      "entry": "項目",
+      "row": "行",
+      "column": "列",
+      "piece": "塊",
+      "set": "セット",
+      "part": "部分",
+      "list": "条",
+      "number": "号"
+    },
+    "time": {
+      "second": "秒",
+      "minute": "分",
+      "hour": "時間",
+      "day": "天",
+      "week": "周",
+      "month": "月",
+      "quarter": "四半期",
+      "year": "年"
+    }
+  },
+  "ai": {
+    "provider": "供給者",
+    "model": "模型"
+  },
+  "message": {
+    "deleteSuccess": "削除が成功しました",
+    "deleteFailed": "削除に失敗しました",
+    "deleteBatchSuccess": "バッチ削除に成功しました",
+    "deleteBatchFailed": "バッチ削除に失敗しました",
+    "updateSuccess": "更新に成功しました",
+    "createSuccess": "作成成功",
+    "networkError": "ネットワークエラー、しばらくしてから再試行してください",
+    "serverError": "サーバーエラー、しばらくしてから再試行してください",
+    "requestTimeout": "リクエストタイムアウト、更新して再試行してください",
+    "refreshRetry": "更新して再試行"
+  }
 }

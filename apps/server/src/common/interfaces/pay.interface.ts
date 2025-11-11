@@ -1,8 +1,8 @@
 import { PayConfigType } from "@modules/console/system/inerface/payconfig.constant";
-
+//apps\server\src\modules\console\system\inerface\payconfig.constant.ts路径正确就是inerface
 export const PayFrom = {
     RECHARGE: "recharge",
-    ORDER: "order",
+    COZE: "coze",
 } as const;
 export type PayFromValue = (typeof PayFrom)[keyof typeof PayFrom];
 

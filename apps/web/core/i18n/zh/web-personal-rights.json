@@ -1,60 +1,73 @@
 {
-    "rechargeCenter": {
-        "detail": {
-            "title": "算力记录",
-            "remainingPower": "剩余算力",
-            "rechargePower": "充值算力",
-            "giftPower": "充值赠送",
-            "dailyGiftPower": {
-                "title": "每日赠送",
-                "giftPower": "赠送算力",
-                "powerValidity": "算力有效期"
-            },
-            "changeDetail": "变动类型",
-            "aiName": "智能体/应用名",
-            "changeAmount": "变动数量",
-            "changeTime": "日期",
-            "tab": {
-                "all": "全部",
-                "consume": "消耗",
-                "get": "获取"
-            },
-            "consumeSourceDesc": "来源",
-            "remark": "备注"
-        },
-        "powerBalance": "算力余额",
-        "selectRechargePackage": "选择充值套餐",
-        "paymentMethod": "支付方式",
-        "alipay": "支付宝支付",
-        "wechatPay": "微信支付",
-        "add": "加赠",
-        "power": "算力",
-        "rechargeInstructions": {
-            "title": "充值说明",
-            "content": "暂无充值说明"
-        },
-        "noRechargeOptions": "暂无充值选项",
-        "total": "合计",
-        "use": "请使用",
-        "pay": "扫码支付",
-        "contact": "如遇问题无法解决时，请联系站点管理员",
-        "agreement": "支付即代表你同意",
-        "serviceTerms": "服务条款",
-        "payment": "支付协议",
-        "immediatelyPurchase": "立即购买",
-        "wxPay": "微信支付",
-        "alipayPay": "支付宝支付",
-        "qrCodeFailed": "二维码生成失败",
-        "rechargeSuccess": "充值成功",
-        "rechargeSuccessTip": "充值成功，算力已到账",
-        "paySuccess": "支付成功",
-        "payFailed": "支付失败",
-        "cancelPay": "取消支付",
-        "notOpen": "暂未开放",
-        "notOpenTip": "该功能网站管理员暂未开放，敬请期待。",
-        "back": "返回上一页",
-        "qrCodeExpired": "二维码失效，请刷新",
-        "refreshQrCode": "刷新二维码",
-        "systemTip": "系统提示"
-    }
+  "cozePackage": {
+    "title": "Coze 套餐中心",
+    "subTitle": "选择适合你的算力套餐，畅享 AI 服务",
+    "emptyTitle": "暂无套餐",
+    "emptyDesc": "敬请期待更多套餐上线",
+    "createOrderError": "下单失败，请重试",
+    "buySuccess": "购买成功，权益已到账",
+    "selectPackagePrompt": "请选择Coze套餐"
+  },
+  "paymentDialog": {
+    "title": "微信支付",
+    "scanQr": "请使用微信扫一扫二维码完成支付",
+    "waitPay": "等待支付…",
+    "paid": "支付成功！",
+    "expireIn": "二维码将在 {sec} 秒后过期",
+    "refreshQr": "刷新二维码",
+    "loadQrError": "获取二维码失败",
+    "qrExpired": "二维码已过期，请刷新重试"
+  },
+  "rechargeCenter": {
+    "cancelPay": "已取消支付",
+    "powerBalance": "算力余额",
+    "selectRechargePackage": "选择充值套餐",
+    "add": "加赠",
+    "power": "算力",
+    "noRechargeOptions": "暂无充值选项",
+    "paymentMethod": "支付方式",
+    "detail": {
+      "title": "算力记录",
+      "remainingPower": "剩余算力",
+      "rechargePower": "充值算力",
+      "giftPower": "充值赠送",
+      "dailyGiftPower": {
+        "title": "每日赠送",
+        "giftPower": "赠送算力",
+        "powerValidity": "算力有效期"
+      },
+      "changeDetail": "变动类型",
+      "aiName": "智能体/应用名",
+      "changeAmount": "变动数量",
+      "changeTime": "日期",
+      "tab": {
+        "all": "全部",
+        "consume": "消耗",
+        "get": "获取"
+      },
+      "consumeSourceDesc": "来源",
+      "remark": "备注"
+    },
+    "rechargeInstructions": {
+      "title": "充值说明",
+      "content": "请按照页面提示完成充值。如遇问题，请联系管理员。"
+    },
+    "agreement": "我已阅读并同意",
+    "payment": "支付服务条款",
+    "immediatelyPurchase": "立即购买",
+    "wxPay": "微信支付",
+    "alipayPay": "支付宝支付",
+    "qrCodeExpired": "二维码已过期",
+    "refreshQrCode": "刷新二维码",
+    "total": "合计",
+    "use": "使用",
+    "pay": "付款",
+    "contact": "如有问题，请联系管理员",
+    "systemTip": "系统提示",
+    "rechargeSuccess": "充值成功",
+    "rechargeSuccessTip": "充值成功，算力已到账",
+    "notOpen": "充值中心未开放",
+    "notOpenTip": "当前充值中心暂未开放，请稍后再试",
+    "back": "返回"
+  }
 }

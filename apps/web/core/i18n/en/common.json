@@ -1,244 +1,260 @@
 {
-    "loading": "Loading...",
-    "noMoreData": "No more data",
-    "updateAt": "Updated at",
-    "goHome": "Return to the front desk",
-    "menu": {
-        "system": "Settings",
-        "workspace": "Workspace",
-        "cozePackage": "Coze Package"
+  "loading": "Loading...",
+  "noMoreData": "No more data",
+  "updateAt": "Updated at",
+  "goHome": "Return to the front desk",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "menu": {
+    "system": "Settings",
+    "workspace": "Workspace",
+    "cozePackage": "Coze Package"
+  },
+  "label": {
+    "profile": "Profile",
+    "personalRights": "Benefits"
+  },
+  "personalRights": {
+    "rechargeCenter": "Top-up"
+  },
+  "chat": {
+    "newChat": "New chat",
+    "noChats": "No chats",
+    "noChatsSubtitle": "Start a new chat",
+    "confirmDelete": "Delete chat",
+    "confirmDeleteMessage": "This cannot be undone. Confirm?",
+    "confirmDeleteAction": "Delete",
+    "editChatTitle": "Rename chat",
+    "chatTitleLabel": "Chat name",
+    "chatTitlePlaceholder": "Enter chat name",
+    "chatTitleRequired": "Name required",
+    "expandSidebar": "Expand sidebar",
+    "collapseSidebar": "Collapse sidebar",
+    "selectModel": "Please select the model first",
+    "singleRunConsumption": "Consumes {price} power/Once",
+    "and": "and {name} chat...",
+    "messages": {
+      "thinking": "Thinking...",
+      "typing": "Typing...",
+      "sendFailed": "Send failed",
+      "me": "Me",
+      "assistant": "AI",
+      "unknown": "Unknown",
+      "copied": "Copied",
+      "copy": "Copy",
+      "retry": "Retry",
+      "stopGeneration": "Stop",
+      "enterQuestion": "Your question",
+      "sendMessage": "Send",
+      "inputPlaceholder": "Ask me anything..."
     },
-    "label": {
-        "profile": "Profile",
-        "personalRights": "Benefits"
+    "reasoning": {
+      "thinking": "Deep thinking",
+      "completed": "Deep thought",
+      "duration": "took "
     },
-    "personalRights": {
-        "rechargeCenter": "Top-up"
+    "toolCall": {
+      "start": "Start",
+      "from": "From",
+      "finished": "Done",
+      "calling": "Calling",
+      "call": "Call",
+      "startCall": "Start call",
+      "finishedCall": "Call completed",
+      "duration": "Time"
+    },
+    "knowledgeCall": {
+      "start": "Start",
+      "from": "From",
+      "finished": "Done",
+      "calling": "Searching",
+      "call": "Call",
+      "duration": "Time"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "myAccount": "Account",
+    "accountSecurity": "Security",
+    "uploadAvatar": "Upload avatar",
+    "notSet": "Not set",
+    "nickname": "Nickname",
+    "email": "Email",
+    "userId": "User ID",
+    "username": "Username",
+    "phone": "Phone",
+    "registrationTime": "Registered",
+    "loginPassword": "Password",
+    "deactivateAccount": "Deactivate",
+    "deactivate": "Deactivate",
+    "editNickname": "Edit nickname",
+    "nicknamePlaceholder": "Enter nickname",
+    "nicknameRequired": "Required",
+    "nicknameTooLong": "Max 20 chars",
+    "nicknameLength": "Max 20 chars",
+    "passwordSet": "Set",
+    "passwordNotSet": "Not set",
+    "deactivateWarning": "Data will be lost",
+    "modifySuccess": "Updated",
+    "modifyFailed": "Update failed",
+    "userIdCopied": "Copied",
+    "userNoCopied": "Copied",
+    "featureNotAvailable": "Coming soon",
+    "purchaseRecord": "Orders",
+    "powerDetail": "Usage",
+    "userNo": "User No.",
+    "changePassword": "Change Password",
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "oldPasswordRequired": "Old password is required",
+    "newPasswordRequired": "New password is required",
+    "confirmPasswordRequired": "Please confirm your password",
+    "passwordMinLength": "Password must be at least 6 characters",
+    "passwordMismatch": "Passwords do not match",
+    "oldPasswordPlaceholder": "Enter old password",
+    "newPasswordPlaceholder": "Enter new password",
+    "confirmPasswordPlaceholder": "Confirm new password",
+    "passwordRequirement": "Minimum 6 characters",
+    "passwordChangeSuccess": "Password changed successfully",
+    "passwordChangeFailed": "Password change failed, please try again",
+    "bindWechat": "Bind WeChat",
+    "wechatBindSuccess": "WeChat bound successfully",
+    "wechatBindFailed": "WeChat binding failed, please try again",
+    "wechatBind": "Bind",
+    "wechatBindTitle": "Bind WeChat",
+    "wechatBindQrCode": "WeChat binding QR code",
+    "refreshQrCode": "Refresh QR code"
+  },
+  "mcp-server": {
+    "detail": {
+      "url": "URL",
+      "timeout": "Timeout",
+      "sortOrder": "Order",
+      "status": "Status",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "tools": "Tools",
+      "noDescription": "No description"
+    },
+    "setMcp": "Set MCP",
+    "tool": "Tool",
+    "reset": "Reset",
+    "success": "Available",
+    "error": "Failed"
+  },
+  "recharge": {
+    "list": {
+      "orderNo": "Order No.",
+      "rechargeQuantity": "Amount",
+      "freeQuantity": "Bonus",
+      "quantityReceived": "Total",
+      "paidInAmount": "Paid",
+      "paymentMethod": "Method",
+      "createdAt": "Date",
+      "refunded": "Refunded",
+      "wechat": "WeChat Pay",
+      "alipay": "Alipay"
+    }
+  },
+  "console-common": {
+    "cozePackageCenter": "Coze Package Center"
+  },
+  "dateGroup": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "week": "7 days",
+    "month": "30 days",
+    "months": {
+      "january": "Jan",
+      "february": "Feb",
+      "march": "Mar",
+      "april": "Apr",
+      "may": "May",
+      "june": "Jun",
+      "july": "Jul",
+      "august": "Aug",
+      "september": "Sep",
+      "october": "Oct",
+      "november": "Nov",
+      "december": "Dec"
+    }
+  },
+  "settings": {
+    "general": "General",
+    "mcpServer": "MCP",
+    "theme": "Theme",
+    "language": "Language",
+    "languagePlaceholder": "Select language",
+    "timezone": "Timezone",
+    "timezonePlaceholder": "Select timezone",
+    "currentTime": "Current time",
+    "colorPalette": "Colors",
+    "radius": "Corners",
+    "radiusOptions": {
+      "none": "None",
+      "xsmall": "XS",
+      "small": "S",
+      "medium": "M",
+      "large": "L"
     },
     "chat": {
-        "newChat": "New chat",
-        "noChats": "No chats",
-        "noChatsSubtitle": "Start a new chat",
-        "confirmDelete": "Delete chat",
-        "confirmDeleteMessage": "This cannot be undone. Confirm?",
-        "confirmDeleteAction": "Delete",
-        "editChatTitle": "Rename chat",
-        "chatTitleLabel": "Chat name",
-        "chatTitlePlaceholder": "Enter chat name",
-        "chatTitleRequired": "Name required",
-        "expandSidebar": "Expand sidebar",
-        "collapseSidebar": "Collapse sidebar",
-        "selectModel": "Please select the model first",
-        "singleRunConsumption": "Consumes {price} power/Once",
-        "and": "and {name} chat...",
-        "messages": {
-            "thinking": "Thinking...",
-            "typing": "Typing...",
-            "sendFailed": "Send failed",
-            "me": "Me",
-            "assistant": "AI",
-            "unknown": "Unknown",
-            "copied": "Copied",
-            "copy": "Copy",
-            "retry": "Retry",
-            "stopGeneration": "Stop",
-            "enterQuestion": "Your question",
-            "sendMessage": "Send",
-            "inputPlaceholder": "Ask me anything..."
-        },
-        "reasoning": {
-            "thinking": "Deep thinking",
-            "completed": "Deep thought",
-            "duration": "took "
-        },
-        "toolCall": {
-            "start": "Start",
-            "from": "From",
-            "finished": "Done",
-            "calling": "Calling",
-            "call": "Call",
-            "startCall": "Start call",
-            "finishedCall": "Call completed",
-            "duration": "Time"
-        },
-        "knowledgeCall": {
-            "start": "Start",
-            "from": "From",
-            "finished": "Done",
-            "calling": "Searching",
-            "call": "Call",
-            "duration": "Time"
-        }
-    },
-    "profile": {
-        "title": "Profile",
-        "myAccount": "Account",
-        "accountSecurity": "Security",
-        "uploadAvatar": "Upload avatar",
-        "notSet": "Not set",
-        "nickname": "Nickname",
-        "email": "Email",
-        "userId": "User ID",
-        "username": "Username",
-        "phone": "Phone",
-        "registrationTime": "Registered",
-        "loginPassword": "Password",
-        "deactivateAccount": "Deactivate",
-        "deactivate": "Deactivate",
-        "editNickname": "Edit nickname",
-        "nicknamePlaceholder": "Enter nickname",
-        "nicknameRequired": "Required",
-        "nicknameTooLong": "Max 20 chars",
-        "nicknameLength": "Max 20 chars",
-        "passwordSet": "Set",
-        "passwordNotSet": "Not set",
-        "deactivateWarning": "Data will be lost",
-        "modifySuccess": "Updated",
-        "modifyFailed": "Update failed",
-        "userIdCopied": "Copied",
-        "userNoCopied": "Copied",
-        "featureNotAvailable": "Coming soon",
-        "purchaseRecord": "Orders",
-        "powerDetail": "Usage",
-        "userNo": "User No.",
-        "changePassword": "Change Password",
-        "oldPassword": "Old Password",
-        "newPassword": "New Password",
-        "confirmPassword": "Confirm Password",
-        "oldPasswordRequired": "Old password is required",
-        "newPasswordRequired": "New password is required",
-        "confirmPasswordRequired": "Please confirm your password",
-        "passwordMinLength": "Password must be at least 6 characters",
-        "passwordMismatch": "Passwords do not match",
-        "oldPasswordPlaceholder": "Enter old password",
-        "newPasswordPlaceholder": "Enter new password",
-        "confirmPasswordPlaceholder": "Confirm new password",
-        "passwordRequirement": "Minimum 6 characters",
-        "passwordChangeSuccess": "Password changed successfully",
-        "passwordChangeFailed": "Password change failed, please try again"
-    },
-    "mcp-server": {
-        "detail": {
-            "url": "URL",
-            "timeout": "Timeout",
-            "sortOrder": "Order",
-            "status": "Status",
-            "enabled": "Enabled",
-            "disabled": "Disabled",
-            "tools": "Tools",
-            "noDescription": "No description"
-        },
-        "setMcp": "Set MCP",
-        "tool": "Tool",
-        "reset": "Reset",
-        "success": "Available",
-        "error": "Failed"
-    },
-    "recharge": {
-        "list": {
-            "orderNo": "Order No.",
-            "rechargeQuantity": "Amount",
-            "freeQuantity": "Bonus",
-            "quantityReceived": "Total",
-            "paidInAmount": "Paid",
-            "paymentMethod": "Method",
-            "createdAt": "Date",
-            "refunded": "Refunded",
-            "wechat": "WeChat Pay",
-            "alipay": "Alipay"
-        }
-    },
-    "dateGroup": {
-        "today": "Today",
-        "yesterday": "Yesterday",
-        "week": "7 days",
-        "month": "30 days",
-        "months": {
-            "january": "Jan",
-            "february": "Feb",
-            "march": "Mar",
-            "april": "Apr",
-            "may": "May",
-            "june": "Jun",
-            "july": "Jul",
-            "august": "Aug",
-            "september": "Sep",
-            "october": "Oct",
-            "november": "Nov",
-            "december": "Dec"
-        }
-    },
-    "settings": {
-        "general": "General",
-        "mcpServer": "MCP",
-        "theme": "Theme",
-        "language": "Language",
-        "languagePlaceholder": "Select language",
-        "timezone": "Timezone",
-        "timezonePlaceholder": "Select timezone",
-        "currentTime": "Current time",
-        "colorPalette": "Colors",
-        "radius": "Corners",
-        "radiusOptions": {
-            "none": "None",
-            "xsmall": "XS",
-            "small": "S",
-            "medium": "M",
-            "large": "L"
-        },
-        "chat": {
-            "title": "Chat",
-            "windowStyle": "Window style",
-            "conversationMode": "Chat mode",
-            "documentMode": "Doc mode",
-            "codeHighlight": "Code theme",
-            "codeHighlightPlaceholder": "Select theme",
-            "mermaidTheme": "Mermaid",
-            "mermaidThemePlaceholder": "Select theme"
-        }
-    },
-    "error": {
-        "404": {
-            "title": "404",
-            "description": "Page not found",
-            "goBack": "Go back",
-            "goHome": "Home"
-        }
-    },
-    "unit": {
-        "general": {
-            "item": "piece",
-            "thing": "item",
-            "entry": "item",
-            "row": "Yes",
-            "column": "column",
-            "piece": "block",
-            "set": "cover",
-            "part": "part",
-            "list": "strip",
-            "number": "number"
-        },
-        "time": {
-            "second": "second",
-            "minute": "minute",
-            "hour": "hour",
-            "day": "sky",
-            "week": "week",
-            "month": "month",
-            "quarter": "quarter",
-            "year": "year"
-        }
-    },
-    "ai": {
-        "provider": "vendor",
-        "model": "model"
-    },
-    "message": {
-        "deleteSuccess": "Delete successful",
-        "deleteFailed": "Delete failed",
-        "deleteBatchSuccess": "Batch deletion is successful",
-        "deleteBatchFailed": "Bulk deletion failed",
-        "updateSuccess": "The update was successful",
-        "createSuccess": "Created successfully"
+      "title": "Chat",
+      "windowStyle": "Window style",
+      "conversationMode": "Chat mode",
+      "documentMode": "Doc mode",
+      "codeHighlight": "Code theme",
+      "codeHighlightPlaceholder": "Select theme",
+      "mermaidTheme": "Mermaid theme",
+      "mermaidThemePlaceholder": "Select theme"
     }
+  },
+  "error": {
+    "404": {
+      "title": "404",
+      "description": "Page not found",
+      "goBack": "Go back",
+      "goHome": "Home"
+    }
+  },
+  "unit": {
+    "general": {
+      "item": "piece",
+      "thing": "item",
+      "entry": "item",
+      "row": "row",
+      "column": "column",
+      "piece": "block",
+      "set": "set",
+      "part": "part",
+      "list": "strip",
+      "number": "number"
+    },
+    "time": {
+      "second": "second",
+      "minute": "minute",
+      "hour": "hour",
+      "day": "day",
+      "week": "week",
+      "month": "month",
+      "quarter": "quarter",
+      "year": "year"
+    }
+  },
+  "ai": {
+    "provider": "vendor",
+    "model": "model"
+  },
+  "message": {
+    "deleteSuccess": "Delete successful",
+    "deleteFailed": "Delete failed",
+    "deleteBatchSuccess": "Batch deletion is successful",
+    "deleteBatchFailed": "Bulk deletion failed",
+    "updateSuccess": "The update was successful",
+    "createSuccess": "Created successfully",
+    "networkError": "Network error, please try again later",
+    "serverError": "Server error, please try again later",
+    "requestTimeout": "Request timeout, please refresh and retry",
+    "refreshRetry": "Refresh and retry"
+  }
 }

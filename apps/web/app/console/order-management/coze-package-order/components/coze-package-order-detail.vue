@@ -361,6 +361,26 @@ watch(() => props.order, () => {
                             {{ order.transactionId }}
                         </div>
                     </div>
+
+                    <!-- 预支付标识 -->
+                    <div v-if="order.prepayId">
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">
+                            {{ t('console-coze-package-order.detail.prepayId') }}
+                        </div>
+                        <div class="font-mono text-sm text-gray-600 dark:text-gray-400">
+                            {{ order.prepayId }}
+                        </div>
+                    </div>
+
+                    <!-- 支付标识 -->
+                    <div v-if="order.payId">
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mb-1">
+                            {{ t('console-coze-package-order.detail.payId') }}
+                        </div>
+                        <div class="font-mono text-sm text-gray-600 dark:text-gray-400">
+                            {{ order.payId }}
+                        </div>
+                    </div>
                     
                     <!-- 退款金额 -->
                     <div v-if="order.refundAmount">

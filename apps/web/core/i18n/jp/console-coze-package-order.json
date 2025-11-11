@@ -69,6 +69,8 @@
         "paymentMethod": "支払い方法",
         "paymentStatus": "支払いステータス",
         "transactionId": "取引ID",
+        "prepayId": "事前支払いID",
+        "payId": "支払いID",
         "createdAt": "注文日時",
         "paidAt": "支払い日時",
         "payTime": "支払い時間",

@@ -3,6 +3,7 @@
 ## 1. 产品概述
 在 BuildingAI 个人中心新增「Coze 套餐中心」页面，用户可浏览套餐、下单、支付并查看结果。后端通过新建 **WebCozePackageModule** 复用 Console 侧 `CozePackageModule` 的完整能力（配置、订单、支付、字典开关），零业务逻辑重复开发。
 
+
 **目标与背景**
 - 目标：为用户提供 Coze 套餐购买入口，功能与“充值中心”一致（选择套餐→选择支付方式→下单→扫码支付→结果轮询→成功提示）。
 - 背景：在「个人权益」分组下新增“Coze 套餐中心”菜单，位置在“充值中心”之后，页面布局复用 `setting`，支付链路复用现有网关与后端模块，数据结构改为 Coze 套餐维度。
@@ -35,8 +36,13 @@
 ## 2. 复用策略（对标 WebRechargeModule）
 - **后端**：新建 `WebCozePackageModule`，仅含 Web 侧 Controller/Service/DTO；
   - 实体 Repository 直接注入 Console 侧 `CozePackageConfig` / `CozePackageOrder`，零重复建表；
-  - 字典开关复用 `coze_package_status` / `coze_package_explain`；
-  - 所有业务逻辑（套餐配置、订单创建、状态机）通过调用 Console 侧 `CozePackageConfigService` / `CozePackageOrderService` 完成。
+
+  - 字典开关复用 `coze_package_status` / `coze_package_explain`（Dict 字典表，全局功能开关与说明文案）
+
+  - 用户当前套餐情况：从UserInfo中的cozePackage变量中获取。如果cozePackage为空，则显示“暂无套餐”，剩余天数显示“0天”。
+
+  - 所有业务逻辑（`coze_package_explain`、套餐rule、订单创建、状态机）通过调用 Console 侧 `CozePackageConfigService` / `CozePackageOrderService` 完成。
+
 - **接口**：统一以 `/web/coze-package/*` 暴露，供前端个人中心调用。
 - **前端**：沿用 RechargeCenter.vue 组件结构，仅替换路由、key、文案。
 
@@ -117,18 +123,17 @@ erDiagram
 ## 5. 接口（新增 /web 前缀）
 | Method | Path | 说明 |
 |--------|------|------|
-| GET | /web/coze-package/center | 取套餐配置+用户快照 |
+| GET | /web/coze-package/center | 取套餐配置 |
 | POST | /web/coze-package/order | 创建订单 |
 | GET | /web/coze-package/order/:id | 订单详情 |
 | GET | /web/coze-package/orders | 我的订单分页 |
-| POST | /web/coze-package/refund | 申请退款 |
 
 > 后端实现：Web 侧 Controller 接收请求 → 调用 Console 侧 Service 完成业务 → 返回前端格式。
 
 ## 6. 国际化 key（复用）
 - common.label.personalRights
 - common.personalRights.cozePackageCenter
-- common.cozePackage.*（沿用充值中心 key 结构，仅替换 cozePackage）
+- web-personal-rights.json：`cozePackageCenter.*`（沿用充值中心命名层级，仅替换为 Coze 套餐中心）
 
 ## 7. 核心文件索引
 ### 7.1 前端（修改）
@@ -151,7 +156,7 @@ erDiagram
 - WebModule：`apps/server/src/modules/web/web.module.ts`（注册 WebCozePackageModule）
 - 支付模块：`apps/server/src/modules/web/pay/pay.module.ts`（注入CozePackageOrder实体）
 - 支付服务：`apps/server/src/modules/web/pay/services/pay.service.ts`（支持Coze套餐订单支付）
-- 支付接口：`apps/server/src/common/interfaces/pay.interface.ts`（定义PayFrom.COZE枚举）
+- 支付接口：`apps/server/src/common/interfaces/pay.interface.ts`（在 `PayFrom` 常量里追加 `COZE: 'coze'`）
 
 ### 7.5 复用（Console 侧已存在）
 - 实体：`apps/server/src/modules/console/coze-package/entities/*`
@@ -166,3 +171,10 @@ erDiagram
 - [ ] 可完成完整下单+支付+结果展示
 - [ ] 多语言切换正常
 - [ ] 异常场景（库存不足、支付失败）toast 提示正确
+
+## 9. 埋点事件（PostHog）
+- `coze_package_view`：页面曝光
+- `coze_package_select`：选择套餐
+- `coze_package_create_order`：创建订单成功
+- `coze_package_qr_show`：二维码弹窗展示
+- `coze_package_pay_success`：支付成功

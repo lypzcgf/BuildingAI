@@ -100,8 +100,6 @@ const cozePackageStatusColor = computed(() => {
       return 'border-green-200 bg-green-50';
     case 'expired':
       return 'border-red-200 bg-red-50';
-    case 'frozen':
-      return 'border-orange-200 bg-orange-50';
     default:
       return 'border-gray-200 bg-gray-50';
   }
@@ -215,7 +213,7 @@ const cozePackageStatusColor = computed(() => {
                     <UButton
                         size="xs"
                         variant="outline"
-                        @click="navigateTo('/profile/coze-package')"
+                        @click="navigateTo('/profile/personal-rights/coze-package-center')"
                     >
                         {{ t("console-common.cozePackageCenter") }}
                     </UButton>

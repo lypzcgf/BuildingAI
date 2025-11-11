@@ -375,6 +375,14 @@ export interface CozePackageOrderDetail {
      */
     transactionId?: string;
     /**
+     * 预支付标识
+     */
+    prepayId?: string;
+    /**
+     * 支付标识
+     */
+    payId?: string;
+    /**
      * 下单时间
      */
     createdAt: string;
