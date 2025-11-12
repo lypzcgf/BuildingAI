@@ -21,7 +21,7 @@ import {
 } from "../dto/coze-package-order.dto";
 import { CozePackageRefundOrderDto, RefundReason } from "../dto/coze-package-refund-order.dto";
 import { CozePackageOrder } from "../entities/coze-package-order.entity";
-// import { UserCozePackageResponseDto, UserCozePackageStatus } from "../../../web-coze-package/dto/user-coze-package.dto";
+// import { UserCozePackageResponseDto, UserCozePackageStatus } from "@modules/web/coze-package/dto/user-coze-package.dto";
 
 /**
  * Coze套餐订单服务

@@ -9,7 +9,6 @@ import { RedisModule } from "@core/redis/redis.module";
 import { ChannelModule } from "@modules/console/channel/channel.module";
 import { ConsoleModule } from "@modules/console/console.module";
 import { WebModule } from "@modules/web/web.module";
-import { WebCozePackageModule } from "../web-coze-package/web-coze-package.module";
 import { DynamicModule, Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { APP_GUARD } from "@nestjs/core";
@@ -34,31 +33,58 @@ export class AppModule {
         const shouldUseWebPath = existsSync(webPath) && existsSync(webIndexPath);
         const rootPath = shouldUseWebPath ? webPath : publicPath;
 
-        return {
-            module: AppModule,
-            imports: [
+        // 仅当显式配置 SERVER_ENABLE_STATIC=true 时启用静态 SPA 回退
+        const enableServeStatic = process.env.SERVER_ENABLE_STATIC === "true";
+
+        const imports: any[] = [];
+
+        if (enableServeStatic) {
+            const webPrefix = process.env.VITE_APP_WEB_API_PREFIX || "/api";
+            const consolePrefix = process.env.VITE_APP_CONSOLE_API_PREFIX || "/consoleapi";
+            const webPrefixNoSlash = webPrefix.replace(/^\/+/, "");
+            const consolePrefixNoSlash = consolePrefix.replace(/^\/+/, "");
+            imports.push(
                 ServeStaticModule.forRoot({
                     rootPath,
+                    // 排除 API 路由，避免被静态资源接管
                     exclude: [
                         // ...pluginsList.map((plugin) => `/${plugin.name}`),
-                        `${process.env.VITE_APP_WEB_API_PREFIX}`,
-                        `${process.env.VITE_APP_CONSOLE_API_PREFIX}`,
+                        webPrefix,
+                        `${webPrefix}/*`,
+                        `${webPrefixNoSlash}*`,
+                        `${webPrefixNoSlash}/(.*)`,
+                        consolePrefix,
+                        `${consolePrefix}/*`,
+                        `${consolePrefixNoSlash}*`,
+                        `${consolePrefixNoSlash}/(.*)`,
+                        // 兜底：如果环境变量未配置，默认排除常用前缀
+                        'api*',
+                        'api/(.*)',
+                        'consoleapi*',
+                        'consoleapi/(.*)',
                     ],
                 }),
-                ConfigModule.forRoot({
-                    isGlobal: true,
-                    envFilePath: `../../.env.${process.env.NODE_ENV || "development"}.local`,
-                }),
-                DatabaseModule,
-                RedisModule,
-                CacheModule,
-                WebModule,
-                ConsoleModule,
-                ChannelModule,
-                BaseModule,
-                WebCozePackageModule,
-                // PluginsCoreModule.register(plugins),
-            ],
+            );
+        }
+
+        imports.push(
+            ConfigModule.forRoot({
+                isGlobal: true,
+                envFilePath: `../../.env.${process.env.NODE_ENV || "development"}.local`,
+            }),
+            DatabaseModule,
+            RedisModule,
+            CacheModule,
+            WebModule,
+            ConsoleModule,
+            ChannelModule,
+            BaseModule,
+            // PluginsCoreModule.register(plugins),
+        );
+
+        return {
+            module: AppModule,
+            imports,
             controllers: [],
             providers: [
                 {

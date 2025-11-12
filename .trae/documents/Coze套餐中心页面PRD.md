@@ -153,7 +153,7 @@ erDiagram
 - Service：`apps/server/src/modules/web/coze-package/services/coze-package.service.ts`
 
 ### 3.3 后端（修改）
-- WebModule：`apps/server/src/modules/web/web.module.ts`（注册 WebCozePackageModule）
+- WebModule：`apps/server/src/modules/web/web.module.ts`（注册 CozePackageModule）
 - 支付模块：`apps/server/src/modules/web/pay/pay.module.ts`（注入CozePackageOrder实体）
 - 支付服务：`apps/server/src/modules/web/pay/services/pay.service.ts`（支持Coze套餐订单支付）
 - 支付接口：`apps/server/src/common/interfaces/pay.interface.ts`（在 `PayFrom` 常量里追加 `COZE: 'coze'`）

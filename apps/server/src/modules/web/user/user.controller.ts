@@ -16,13 +16,12 @@ import { DictService } from "@common/modules/dict/services/dict.service";
 import { LOGIN_TYPE } from "@fastbuildai/constants";
 import { Agent } from "@modules/console/ai-agent/entities/agent.entity";
 import { AccountLog } from "@modules/console/finance/entities/account-log.entity";
-import { Body, Get, Inject, Logger, Patch, Query } from "@nestjs/common";
+import { Body, Get, Inject, Patch, Query } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { In, IsNull, Like, Not, Repository } from "typeorm";
 
 import { DatasetMemberService } from "../../console/ai-datasets/services/datasets-member.service";
 import { UserService } from "../../console/user/services/user.service";
-import { WebCozePackageService } from "../../../web-coze-package/services/web-coze-package.service";
 import { AccountLogDto } from "./dto/account-log-dto";
 import { ALLOWED_USER_FIELDS, UpdateUserFieldDto } from "./dto/update-user-field.dto";
 
@@ -42,7 +41,6 @@ export class UserController extends BaseController {
      * @param rolePermissionService 角色权限服务
      * @param datasetMemberService 知识库成员服务
      * @param dictService 字典服务
-     * @param webCozePackageService Coze套餐服务
      */
     constructor(
         private readonly userService: UserService,
@@ -55,7 +53,6 @@ export class UserController extends BaseController {
         private readonly agentRepository: Repository<Agent>,
         @InjectRepository(AccountLog)
         private readonly accountLogRepository: Repository<AccountLog>,
-        private readonly webCozePackageService: WebCozePackageService,
     ) {
         super();
         this.accountLogService = new BaseService(accountLogRepository);
@@ -86,19 +83,9 @@ export class UserController extends BaseController {
         // 判断用户是否有权限：有权限就是1，没有权限就是0
         const hasPermissions = user.isRoot === 1 || permissionCodes.length > 0 ? 1 : 0;
 
-        // 获取用户Coze套餐信息
-        let cozePackage = null;
-        try {
-            cozePackage = await this.webCozePackageService.getUserCurrentPackage(user.id);
-        } catch (error) {
-            // 静默处理套餐查询失败的情况
-            Logger.warn(`获取用户Coze套餐信息失败: ${error.message}`, UserController.name);
-        }
-
         return {
             ...userInfo,
             permissions: hasPermissions,
-            cozePackage,
         };
     }
 

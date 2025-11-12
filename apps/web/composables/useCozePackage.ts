@@ -4,33 +4,34 @@
  */
 
 import type { Ref } from 'vue'
-import type {
-  UserCozePackage,
+import {
   CozePackageStatus,
-  COZE_PACKAGE_CONSTANTS
+  COZE_PACKAGE_CONSTANTS,
+  calculateCozePackageStatus,
+  formatRemainingDays
 } from '~/types/coze-package'
-import { calculateCozePackageStatus, formatRemainingDays } from '~/types/coze-package'
+import type { UserCozePackage } from '~/types/coze-package'
 
 /**
  * Coze套餐状态
  */
 export interface CozePackageState {
   /** 当前套餐信息 */
-  packageInfo: UserCozePackage | null
+  packageInfo: Readonly<Ref<UserCozePackage | null>>
   /** 加载状态 */
-  loading: boolean
+  loading: Readonly<Ref<boolean>>
   /** 错误信息 */
-  error: string | null
+  error: Readonly<Ref<string | null>>
   /** 套餐状态 */
-  status: CozePackageStatus
+  status: Readonly<Ref<CozePackageStatus>>
   /** 剩余天数 */
-  remainingDays: number
+  remainingDays: Readonly<Ref<number>>
   /** 是否即将到期 */
-  isExpiring: boolean
+  isExpiring: Readonly<Ref<boolean>>
   /** 是否已过期 */
-  isExpired: boolean
+  isExpired: Readonly<Ref<boolean>>
   /** 是否有有效套餐 */
-  hasValidPackage: boolean
+  hasValidPackage: Readonly<Ref<boolean>>
 }
 
 /**
@@ -57,7 +58,6 @@ export type UseCozePackageReturn = CozePackageState & CozePackageMethods
 /**
  * 获取用户Coze套餐信息
  */
-import type { UserCozePackage } from '~/types/coze-package'
 import { useWebGet } from '@/common/composables/useRequest'
 import { useUserStore } from '@/common/stores/user'
 
@@ -65,7 +65,7 @@ export async function getUserCozePackage(): Promise<UserCozePackage | null> {
   try {
     // 统一使用 Web 请求封装（自动附带认证，与“算力值”一致）
     const data = await useWebGet<UserCozePackage | null>(
-      '/web-coze-package/user/current-package',
+      '/coze-package/user/current-package',
       {},
       { requireAuth: true }
     )
@@ -91,7 +91,7 @@ export function useCozePackage(): UseCozePackageReturn {
   // 计算属性
   const status = computed<CozePackageStatus>(() => {
     if (!packageInfo.value) {
-      return 'none'
+      return CozePackageStatus.NONE
     }
     return calculateCozePackageStatus(packageInfo.value.remainingDays)
   })
@@ -101,15 +101,15 @@ export function useCozePackage(): UseCozePackageReturn {
   })
   
   const isExpiring = computed(() => {
-    return status.value === 'expiring'
+    return status.value === CozePackageStatus.EXPIRING
   })
   
   const isExpired = computed(() => {
-    return status.value === 'expired'
+    return status.value === CozePackageStatus.EXPIRED
   })
   
   const hasValidPackage = computed(() => {
-    return status.value === 'active' || status.value === 'expiring'
+    return status.value === CozePackageStatus.ACTIVE || status.value === CozePackageStatus.EXPIRING
   })
   
   /**
@@ -157,13 +157,13 @@ export function useCozePackage(): UseCozePackageReturn {
    */
   const getStatusColor = (): string => {
     switch (status.value) {
-      case 'active':
+      case CozePackageStatus.ACTIVE:
         return 'text-green-600 dark:text-green-400'
-      case 'expiring':
+      case CozePackageStatus.EXPIRING:
         return 'text-orange-600 dark:text-orange-400'
-      case 'expired':
+      case CozePackageStatus.EXPIRED:
         return 'text-red-600 dark:text-red-400'
-      case 'none':
+      case CozePackageStatus.NONE:
       default:
         return 'text-gray-500 dark:text-gray-400'
     }

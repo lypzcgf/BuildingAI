@@ -1,14 +1,17 @@
-import { Injectable } from '@nestjs/common';
-import { WxPayService } from '@common/modules/pay/services/wxpay.service';
+import { Injectable, Logger } from '@nestjs/common';
+import { HttpExceptionFactory } from '../../../../common/exceptions/http-exception.factory';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CozePackageOrder } from '@modules/console/coze-package/entities/coze-package-order.entity';
-import { CozePackageConfig } from '@modules/console/coze-package/entities/coze-package-config.entity';
-import { DictService } from '@common/modules/dict/services/dict.service';
-import { Payconfig } from '@modules/console/system/entities/payconfig.entity';
-import { BooleanNumber } from '@modules/console/system/inerface/payconfig.constant';
-// 从 src/web-coze-package 引入服务（修正相对路径）
-import { WebCozePackageService } from '../../../../web-coze-package/services/web-coze-package.service';
+import { WxPayService } from '../../../../common/modules/pay/services/wxpay.service';
+import { DictService } from '../../../../common/modules/dict/services/dict.service';
+import { CozePackageOrder } from '../../../console/coze-package/entities/coze-package-order.entity';
+import { CozePackageConfig } from '../../../console/coze-package/entities/coze-package-config.entity';
+import { Payconfig } from '../../../console/system/entities/payconfig.entity';
+import { BooleanNumber } from '../../../console/system/inerface/payconfig.constant';
+// 引入CozePackageOrderService
+import { CozePackageOrderService } from '../../../console/coze-package/services/coze-package-order.service';
+// 引入DTO
+import { UserCozePackageResponseDto, UserCozePackageStatus } from '../dto/user-coze-package.dto';
 
 // 复用 CozePackageRule 结构（与控制台配置一致的字段命名）
 interface CozePackageRule {
@@ -34,6 +37,8 @@ export interface CozePackageOrderVo {
 
 @Injectable()
 export class CozePackageService {
+  private readonly logger = new Logger(CozePackageService.name);
+  
   private centerCache: {
     list: CozePackageRule[];
     explain: string;
@@ -50,7 +55,7 @@ export class CozePackageService {
     @InjectRepository(Payconfig)
     private readonly payconfigRepo: Repository<Payconfig>,
     private readonly dictService: DictService,
-    private readonly webCozePackageService: WebCozePackageService,
+    private readonly cozePackageOrderService: CozePackageOrderService,
   ) {}
 
   async listPackages(userId?: string): Promise<CozePackageCenterResp> {
@@ -89,7 +94,7 @@ export class CozePackageService {
       this.centerCache = { list, explain, payWayList, expiresAt: now + 5 * 60 * 1000 };
     }
     // 用户当前套餐信息（可选）
-    const user = userId ? await this.webCozePackageService.getUserCurrentPackage(userId) : undefined;
+    const user = userId ? await this.getUserCurrentPackage(userId) : undefined;
     return {
       user,
       payWayList,
@@ -185,5 +190,66 @@ export class CozePackageService {
       return { payStatus: 1 };
     }
     return { payStatus: 0 };
+  }
+
+  /**
+   * 获取用户当前有效套餐
+   * @param userId 用户ID
+   * @returns 用户当前有效套餐信息，如果没有有效套餐则返回null
+   */
+  async getUserCurrentPackage(userId: string): Promise<UserCozePackageResponseDto | null> {
+    try {
+      this.logger.log(`[+] 开始查询用户 ${userId} 的当前有效套餐`);
+      
+      // 直接调用CozePackageOrderService的getUserActivePackage方法
+      const activePackage = await this.cozePackageOrderService.getUserActivePackage(userId);
+      
+      if (!activePackage) {
+        this.logger.log(`[+] 用户 ${userId} 没有有效套餐`);
+        return null;
+      }
+
+      this.logger.log(`[+] 用户 ${userId} 当前有效套餐查询成功: ${activePackage.packageName}`);
+      return activePackage;
+    } catch (error) {
+      this.logger.error(`[!] 查询用户当前有效套餐失败: ${error.message}`, error.stack);
+      throw HttpExceptionFactory.internal(`查询用户当前有效套餐失败: ${error.message}`);
+    }
+  }
+
+  /**
+   * 检查用户是否有有效套餐
+   * @param userId 用户ID
+   * @returns 是否有有效套餐
+   */
+  async hasActivePackage(userId: string): Promise<boolean> {
+    try {
+      this.logger.log(`[+] 开始检查用户 ${userId} 是否有有效套餐`);
+      const activePackage = await this.getUserCurrentPackage(userId);
+      const hasPackage = activePackage !== null;
+      this.logger.log(`[+] 用户 ${userId} 套餐状态检查结果: ${hasPackage ? '有有效套餐' : '无有效套餐'}`);
+      return hasPackage;
+    } catch (error) {
+      this.logger.error(`[!] 检查用户套餐状态失败: ${error.message}`, error.stack);
+      return false;
+    }
+  }
+
+  /**
+   * 获取用户套餐剩余天数
+   * @param userId 用户ID
+   * @returns 剩余天数，如果没有有效套餐则返回0
+   */
+  async getRemainingDays(userId: string): Promise<number> {
+    try {
+      this.logger.log(`[+] 开始获取用户 ${userId} 的套餐剩余天数`);
+      const activePackage = await this.getUserCurrentPackage(userId);
+      const remainingDays = activePackage ? activePackage.remainingDays : 0;
+      this.logger.log(`[+] 用户 ${userId} 套餐剩余天数: ${remainingDays}天`);
+      return remainingDays;
+    } catch (error) {
+      this.logger.error(`[!] 获取用户套餐剩余天数失败: ${error.message}`, error.stack);
+      return 0;
+    }
   }
 }
